@@ -1,0 +1,36 @@
+.modal-category-content {
+  font-family: "Roboto";
+  .modal-category-content-container {
+    .title {
+      font-weight: 700;
+      margin: 8px 0;
+      color: #222;
+      text-align: left;
+      font-size: 14px;
+      text-transform: capitalize;
+    }
+    .modal-category-list{
+        border: 1px solid #cacaca;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-top:8px;
+        .modal-category-item{
+            font-size: 14px;
+            padding: 5px 16px;
+            height: 45px;
+            border-bottom: 1px solid #cacaca;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .modal-category-left{
+                display: flex;
+                align-items: center;
+                .modal-category-left-title{
+                    margin-left:7px;
+                }
+            }
+        }
+    }
+  }
+}

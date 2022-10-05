@@ -1,0 +1,27 @@
+.categories-component{
+    font-family: 'Roboto';
+    background-color: #ffffff;
+    max-width: 960px;
+    margin: 0 auto;
+    .categories-container{
+        padding: 10px;
+        .all-categories-container{
+            padding: 5px;
+            display: flex;
+            justify-content: space-around;
+            .categories-item{
+                text-align: center;
+                .categories-item-image{
+                    img{
+                        border-radius: 50%;
+                    }
+                }
+                span{
+                    font-size: 14px;
+                    color: #2c2c2c;
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+}

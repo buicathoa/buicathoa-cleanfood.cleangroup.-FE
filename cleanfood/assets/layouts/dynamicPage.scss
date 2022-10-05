@@ -1,0 +1,113 @@
+.list-posts-filter-wrapper {
+  font-family: "Roboto";
+  max-height: calc(100vh - 400px);
+  overflow: auto;
+  .list-posts-filter {
+    background-color: #ffffff;
+    .list-posts-filter-container{
+      display: flex;
+      justify-content: center;
+      max-width: 936px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 10px 0;
+      .filter-content{
+        display: flex;
+        align-items: center;
+        border: 1px solid hsla(0,0%,61%,.7);
+        border-radius: 4px;
+        cursor: pointer;
+        justify-content: center;
+        padding:8px;
+        margin-right: 8px;
+        &:last-child{
+          margin-left: 0;
+        }
+        span{
+          &:nth-child(1){
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+  }
+  .list-posts-content-container{
+    max-width: 936px;
+    margin:0 auto;
+    .list-posts-content-title{
+      h1{
+        font-size: 16px;
+        font-weight: 700;
+        margin: 15px 0 15px 12px
+      }
+    }
+    .list-posts-cate{
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      margin-bottom: 8px;
+      overflow-x: auto;
+      padding: 12px 0;
+      .posts-cate-item{
+        padding: 10px 20px;
+        img{
+          height: 48px;
+          object-fit: contain;
+          width: 48px;
+        }
+        span{
+          display: block;
+        }
+      }
+    }
+    .list-posts-main-content{
+      background-color: #ffffff;
+      .list-posts-filter-flex{
+        display: flex;
+        border-bottom: 1px solid rgb(119, 116, 116);
+        .list-posts-filter-left{
+          display: flex;
+          width: 62%;
+          border-right: 1px solid rgb(119, 116, 116);
+          .list-posts-filter-left-item{
+            width: calc(100%/3);
+            padding:12px;
+            span{
+              color: #222;
+              font-weight: 700;
+              text-decoration: none;
+            }
+          }
+        }
+        .list-posts-filter-right{
+          width: 38%;
+          display: flex;
+          align-items: center;
+          .list-posts-filter-time{
+            padding:12px;
+            border-right: 1px solid rgb(119, 116, 116);
+            .popover-selected{
+              color: #222;
+              font-weight: 700;
+              text-decoration: none;
+              margin-right: 5px;
+            }
+          }
+          .list-posts-filter-grid{
+            text-align: center;
+            padding:0 20px;
+            font-size: 20px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+    .banner-ads{
+      padding-left: 10px;
+      img{
+        margin-bottom: 7px;
+      }
+    }
+  }
+}

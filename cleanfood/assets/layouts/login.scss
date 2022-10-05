@@ -1,0 +1,85 @@
+.login-wrapper {
+  font-family: "Roboto";
+  height: calc(100vh - 360px);
+  overflow: auto;
+  .login-container {
+    max-width: 936px;
+    margin-left: auto;
+    margin-right: auto;
+    .login-main-content {
+      width: 340px;
+      height: 510px;
+      box-shadow: 0 0 8px rgb(0 0 0 / 30%);
+      margin: 20px auto;
+      padding: 35px 15px;
+      .login-main-content-top {
+        .login-top-left {
+          span {
+            display: block;
+            &.login-title {
+              font-size: 18px;
+              color: #ffba00;
+              font-weight: 700;
+              line-height: 24px;
+            }
+            &.welcome-text {
+              color: #9b9b9b;
+              font-weight: 400;
+              font-size: 14px;
+              line-height: 24px;
+            }
+          }
+        }
+      }
+      .login-main-content-form {
+        margin-top: 25px;
+        .ant-form {
+          button {
+            width: 100%;
+            background-color: #ffba00;
+            color: #ffffff;
+          }
+        }
+        .forgot-password-text {
+          color: #598dc5;
+          display: block;
+          text-align: center;
+          font-size: 12px;
+          padding-top: 8px;
+        }
+        .login-social {
+          margin-top: 20px;
+          .login-social-text {
+            color: #9b9b9b;
+            font-size: 12px;
+            line-height: 24px;
+            font-weight: 400;
+            display: block;
+            text-align: center;
+            margin-bottom: 10px;
+          }
+          .login-social-icon {
+            display: flex;
+            justify-content: center;
+            img {
+              &:nth-child(1) {
+                margin-right: 10px;
+              }
+            }
+          }
+          .register-text {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #222;
+            margin-top: 10px;
+            span {
+              color: #598dc5;
+            }
+          }
+        }
+      }
+    }
+  }
+}

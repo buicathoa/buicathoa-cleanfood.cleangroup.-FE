@@ -1,0 +1,15 @@
+.carousel-component{
+    max-height: 288px;
+    position: sticky;
+    z-index: 2;
+    max-width: 960px;
+    margin: 0 auto;
+    .carousel-item{
+        width: 100%;
+        img{
+            object-fit: cover;
+            height: 288px;
+            width: 100%;
+        }
+    }
+}

@@ -1,0 +1,272 @@
+.detail-news-wrapper {
+  font-family: "Roboto";
+  min-height: calc(100vh - 400px);
+  .detail-news-container {
+    margin: 0 auto;
+    max-width: 936px;
+    margin-bottom: 30px;
+    background-color: #ffffff;
+    padding: 0 12px;
+    padding-top: 60px;
+    .ant-row {
+      .ant-col {
+        &:nth-child(1) {
+          padding-right: 10px;
+          // height: 80vh;
+          // overflow: auto;
+          .detail-carousel-news {
+            img {
+              height: 400px;
+              object-fit: cover;
+            }
+          }
+          .detail-news-information {
+            .title {
+              font-size: 16px;
+              font-weight: 700;
+              margin-bottom: 10px;
+              margin-top: 20px;
+              color: #2c2c2c;
+            }
+            .price {
+              color: #c90927;
+              font-size: 16px;
+              font-weight: 700;
+              display: block;
+            }
+            .desc {
+              display: inline-block;
+              padding-top: 10px;
+              margin-bottom: 10px;
+              color: #2c2c2c;
+              font-size: 15px;
+            }
+          }
+          .detail-news-attributes {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            .attributes-item {
+              width: 50%;
+              margin-bottom: 15px;
+            }
+          }
+          .detail-news-location {
+            .detail-news-quick-message-title {
+              border-bottom: 1px solid #ebebeb;
+              color: #8f8297;
+              font-size: 14px;
+              font-weight: 700;
+              margin-bottom: 0;
+              padding-bottom: 5px;
+            }
+            .detail-news-location-desc {
+              margin: 10px 0;
+              span {
+                color: #2c2c2c;
+                font-size: 0.875rem;
+                font-weight: 400;
+                line-height: 1.5;
+                margin: 0;
+                text-align: left;
+                &:nth-child(1) {
+                  margin-right: 10px;
+                }
+              }
+            }
+          }
+          .detail-news-quick-message {
+            padding-bottom: 20px;
+            .detail-news-quick-message-title {
+              border-bottom: 1px solid #ebebeb;
+              color: #8f8297;
+              font-size: 14px;
+              font-weight: 700;
+              margin-bottom: 0;
+              padding-bottom: 5px;
+            }
+            .detail-news-quick-message-flex {
+              ul {
+                margin: 0 10px;
+                overflow-y: hidden;
+                padding: 0;
+                white-space: nowrap;
+                li {
+                  background-color: #fff;
+                  border: 1px solid #fe9900;
+                  border-radius: 20px;
+                  color: #222;
+                  cursor: pointer;
+                  display: inline-block;
+                  font-size: 13px;
+                  margin: 10px;
+                  padding: 5px 10px;
+                }
+              }
+            }
+          }
+        }
+        &.profile-detail {
+          border-top: 1px solid #e5e5e5;
+          padding-top: 10px;
+          padding-left:10px;
+          .detail-news-seller-infor {
+            .detail-news-seller-infor-host-top {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              .detail-news-seller-infor-host-top-left {
+                display: flex;
+                img {
+                  width: 46px;
+                  height: 40px;
+                  object-fit: cover;
+                  border-radius: 50%;
+                  margin-right: 10px;
+                }
+                .host-name {
+                  span {
+                    font-size: 13px;
+                    font-weight: 700;
+                    color: #2c2c2c;
+                  }
+                }
+              }
+              .detail-news-seller-infor-host-top-right {
+                padding: 5px;
+                border: 1px solid #ffba00;
+                color: #ffba00;
+                font-size: 13px;
+                font-weight: 500;
+                border-radius: 10px;
+              }
+            }
+            .detail-news-seller-infor-host-bottom {
+              margin-top: 20px;
+              display: flex;
+              justify-content: space-between;
+              .host-bottom {
+                span {
+                  align-items: center;
+                  color: #9b9b9b;
+                  text-align: center;
+                  font-size: 14px;
+                  display: block;
+                }
+                &.seller-type {
+                  padding-right: 30%;
+                  border-right: 1px solid #9b9b9b;
+                  .icon {
+                    padding-top: 10px;
+                    font-weight: 600;
+                    color: #2c2c2c;
+                    font-size: 20px;
+                  }
+                }
+                &.seller-review {
+                  .icon {
+                    padding-top: 10px;
+                    font-weight: 600;
+                    color: #ffba00;
+                    font-size: 20px;
+                  }
+                }
+              }
+            }
+            .detail-news-seller-infor-contact {
+              margin-top: 20px;
+              .contact-info {
+                display: flex;
+                justify-content: space-between;
+                padding: 8px 10px;
+                background-color: #fff !important;
+                border: 1px solid #cacaca !important;
+                color: #3c763d !important;
+                align-items: center;
+                justify-content: space-between;
+                border-radius: 5px;
+                cursor: pointer;
+                &:hover{
+                  background-color: #cacaca !important;
+                }
+                &.phone-number-contact {
+                  margin: 12px 0;
+                  .phone-number-contact-left {
+                    display: flex;
+                    align-items: center;
+                    .icon {
+                      font-size: 24px;
+                      margin-right: 10px;
+                    }
+                    .title {
+                      font-weight: 600;
+                      font-size: 12px;
+                    }
+                  }
+                }
+                &.chat-contact {
+                  .icon {
+                    font-size: 24px;
+                  }
+                  .title {
+                    font-weight: 600;
+                    font-size: 12px;
+                  }
+                }
+                .full-phone{
+                  margin: 0 auto;
+                }
+              }
+              .ads-space{
+                img{
+                  padding:10px 0;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .button-post-news {
+      padding: 20px 0;
+      display: flex;
+      .preview {
+        width: 50%;
+        display: block;
+        text-align: center;
+        border: 1px solid #fe9900;
+        padding: 7px 0;
+        background-color: #ffffff;
+        color: #fe9900;
+        margin-right: 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        &:hover {
+          background-color: #fe9900;
+          color: #ffffff;
+        }
+      }
+      .post-news {
+        width: 50%;
+        display: block;
+        text-align: center;
+        border: 1px solid #fe9900;
+        padding: 7px 0;
+        color: #ffffff;
+        background-color: #fe9900;
+        border-radius: 5px;
+        cursor: pointer;
+        &:hover {
+          background-color: #ffffff;
+          color: #fe9900;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .detail-news-seller-infor {
+    padding-bottom: 20px;
+  }
+}
