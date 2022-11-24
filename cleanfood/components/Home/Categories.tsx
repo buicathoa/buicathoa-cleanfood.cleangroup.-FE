@@ -1,12 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { Fragment, useEffect, useState } from "react";
-import {
-  BankOutlined,
-  WechatOutlined,
-  BellOutlined,
-  UserOutlined,
-  SearchOutlined,
-} from "@ant-design/icons";
 import { Input, Carousel } from "antd";
 
 // import './style.scss'
@@ -31,48 +24,46 @@ const { Search } = Input;
 //     };
 // }
 
-const onChange = () => {};
+const onChange = () => { };
 
-const Categories:React.FC = () => {
-  return (
-    <div className="categories-component">
-      <div className="categories-container">
-        <div className="all-categories-container">
-            <div className="categories-item">
-                <div className="categories-item-image">
-                    <img src='images/electronic.jpg' />
+const Categories: React.FC = () => {
+    return (
+        <div className="categories-component">
+            <div className="categories-container">
+                    <div className="categories-item">
+                        <div className="categories-item-image">
+                            <img src='images/cate1.jpg' />
+                        </div>
+                        <span>Combo sáng-trưa</span>
+                    </div>
+                    <div className="categories-item">
+                        <div className="categories-item-image">
+                            <img src='images/cate2.jpg' />
+                        </div>
+                        <span>Combo sáng-tối</span>
+                    </div>
+                    <div className="categories-item">
+                        <div className="categories-item-image">
+                            <img src='images/cate1.jpg' />
+                        </div>
+                        <span>Combo trưa tối</span>
+                    </div>
+                    <div className="categories-item">
+                        <div className="categories-item-image">
+                            <img src='images/cate2.jpg' />
+                        </div>
+                        <span>Combo full</span>
+                    </div>
+                    <div className="categories-item">
+                        <div className="categories-item-image">
+                            <img src='images/cate1.jpg' />
+                        </div>
+                        <span>Combo chay</span>
+                    </div>
                 </div>
-                <span>Đồ điện tử</span>
             </div>
-            <div className="categories-item">
-                <div className="categories-item-image">
-                    <img src='images/electronic.jpg' />
-                </div>
-                <span>Đồ điện tử</span>
-            </div>
-            <div className="categories-item">
-                <div className="categories-item-image">
-                    <img src='images/electronic.jpg' />
-                </div>
-                <span>Đồ điện tử</span>
-            </div>
-            <div className="categories-item">
-                <div className="categories-item-image">
-                    <img src='images/electronic.jpg' />
-                </div>
-                <span>Đồ điện tử</span>
-            </div>
-            <div className="categories-item">
-                <div className="categories-item-image">
-                    <img src='images/electronic.jpg' />
-                </div>
-                <span>Đồ điện tử</span>
-            </div>
-        </div>
-      </div>
-    </div>
-  );
-  // return <div></div>
+    );
+    // return <div></div>
 }
 
 export default Categories;

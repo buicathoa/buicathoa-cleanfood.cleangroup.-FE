@@ -1,0 +1,70 @@
+.order-way-component{
+    background-color: #ffffff;
+    margin-top: calc(16 / $fdf) * $rem;
+    border-radius: 10px;
+    .order-way-container{
+        padding: calc(18 / $fdf) * $rem calc(16 / $fdf) * $rem;
+        h3{
+            text-align: center;
+            line-height: calc(40 / $fdf) * $rem;
+            font-size: calc(30 / $fdf) * $rem;
+            font-weight: 600;
+            position: relative;
+            margin-top: calc(16 / $fdf) * $rem;
+            &::before{
+                content: '';
+                position: absolute;
+                bottom: -10px;
+                width: calc(100 / $fdf) * $rem;
+                height: calc(5 / $fdf) * $rem;
+                background-color: #d5e6b5;
+                transform: translate(-50%, -50%);
+                left:50%;
+            }
+        }
+        .ant-row{
+            padding-top: calc(16 / $fdf) * $rem;
+            .order-way{
+                &:nth-child(1), &:nth-child(3){
+                    padding-right: calc(8 / $fdf) * $rem;
+                }
+                &:nth-child(1), &:nth-child(2){
+                    padding-bottom: calc(8 / $fdf) * $rem;
+                }
+                .order-way-item-container{
+                    padding: calc(18 / $fdf) * $rem;
+                    background-color: #fff9f2;
+                    box-shadow: 0px 3px 20px rgb(184 184 184);
+                    border-radius: 5px;
+                    .order-way-image{
+                        img{
+                            width: calc(63 / $fdf) * $rem;
+                            height: calc(63 / $fdf) * $rem;
+                        }
+                    }
+                    .order-way-content{
+                        .title{
+                            color: #2C2C2C;
+                            font-size: calc(22 / $fdf) * $rem;
+                            line-height: calc(30 / $fdf) * $rem;
+                            font-weight: 600;
+                            display: inline-block;
+                            width: 100%;
+                            white-space: nowrap;
+                            overflow: hidden !important;
+                            text-overflow: ellipsis;
+                        }
+                        .content{
+                            display: inline-block;
+                            width: 100%;
+                            white-space: nowrap;
+                            overflow: hidden !important;
+                            text-overflow: ellipsis;
+                            font-size: calc(20 / $fdf) * $rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

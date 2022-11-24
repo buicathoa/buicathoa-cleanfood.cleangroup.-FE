@@ -1,10 +1,8 @@
 import React, { Fragment, useEffect, useState } from "react";
 import {
-  BankOutlined,
-  WechatOutlined,
-  BellOutlined,
-  UserOutlined,
-  SearchOutlined
+  MessageFilled,
+  ShoppingFilled,
+  BellFilled
 } from "@ant-design/icons";
 import { Input, Button } from "antd";
 // import './style.scss'
@@ -33,55 +31,17 @@ const Header:React.FC = () => {
   return (
     <header className="header-component">
       <div className="header-container">
-        <div className="header-top">
-          <div className="header-top-logo">
-            <span>Do Cu</span>
+        <div className="header-content">
+          <div className="personal-contact">
+            <MessageFilled/>
           </div>
-          <div className="header-top-attributes">
-            <div className="header-top-attributes-item">
-              <div>
-                <BankOutlined />
-                <span className="header-menu">Trang chủ</span>
-              </div>
-            </div>
-            <div className="header-top-attributes-item">
-              <div>
-                <WechatOutlined />
-                <span className="header-menu">Chat</span>
-              </div>
-            </div>
-            <div className="header-top-attributes-item">
-              <div>
-                <BellOutlined />
-                <span className="header-menu">Thông báo</span>
-              </div>
-            </div>
-            <div className="header-top-attributes-item">
-              <div>
-                <UserOutlined />
-                <span className="header-menu">Tài khoản</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="header-bottom">
-          <div className="header-bottom-search">
-            <Input
-              className="input-search-global"
-              allowClear
-              placeholder="Tìm kiếm trên chợ cũ"
-            //   onChange={(event) => {
-            //     setsearchValue(event?.target?.value);
-            //     setsearchTerm(event?.target?.value);
-            //   }}
-              prefix={<SearchOutlined />}
-            //   onKeyDown={onKeyDown}
-            />
-          </div>
-          <div className="header-bottom-post">
-            <Button type="primary">
-              Đăng tin
-            </Button>
+          <span className="header-logo">
+            Fresh Meals
+          </span>
+          <div className="header-personal">
+            <BellFilled />
+            {/* <span className="header-account">Đăng nhập</span> */}
+            <ShoppingFilled />
           </div>
         </div>
       </div>

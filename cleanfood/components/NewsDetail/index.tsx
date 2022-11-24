@@ -23,35 +23,35 @@ const NewsDetail = (props: NewsDetailInterface) => {
     val: string;
   }
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (type === "preview") {
-        const data = localStorage.getItem("post_preview");
-        if(data){
-          setDataPreview(JSON.parse(data));
-          let listDistributesToDisplay: Array<attributeInterface> = [];
-          const listAttributes = JSON.parse(data)?.attribute;
-          const listFilter = localStorage.getItem("listFilter");
-          if(listFilter){
-            JSON.parse(listFilter).filter((item, index) => {
-              const itemFound = listAttributes?.find((item1) => {
-                return item1.name === item.keyEN;
-              });
-              if (itemFound) {
-                listDistributesToDisplay.push({
-                  key: item?.keyVI,
-                  val: item?.droplist_value_option?.split(",")[itemFound?.value],
-                });
-              }
-            });
-          }
-          setListAttr(listDistributesToDisplay);
-        }
-        const userInfo = localStorage.getItem("user_info");
-        setUserInfor(JSON.parse(userInfo));
-      } else {
-        return;
-      }
-    }
+    // if (typeof window !== "undefined") {
+    //   if (type === "preview") {
+    //     const data = localStorage.getItem("post_preview");
+    //     if(data){
+    //       setDataPreview(JSON.parse(data));
+    //       let listDistributesToDisplay: Array<attributeInterface> = [];
+    //       const listAttributes = JSON.parse(data)?.attribute;
+    //       const listFilter = localStorage.getItem("listFilter");
+    //       if(listFilter){
+    //         JSON.parse(listFilter).filter((item, index) => {
+    //           const itemFound = listAttributes?.find((item1) => {
+    //             return item1.name === item.keyEN;
+    //           });
+    //           if (itemFound) {
+    //             listDistributesToDisplay.push({
+    //               key: item?.keyVI,
+    //               val: item?.droplist_value_option?.split(",")[itemFound?.value],
+    //             });
+    //           }
+    //         });
+    //       }
+    //       setListAttr(listDistributesToDisplay);
+    //     }
+    //     const userInfo = localStorage.getItem("user_info");
+    //     setUserInfor(JSON.parse(userInfo));
+    //   } else {
+    //     return;
+    //   }
+    // }
   }, []);
 
   const handleEditNews = () => {

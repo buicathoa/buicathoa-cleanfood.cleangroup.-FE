@@ -1,0 +1,72 @@
+.faq-wrapper {
+  background-color: #ffffff;
+  border-radius: 10px;
+  margin-top: calc(16 / $fdf) * $rem;
+  padding-top: calc(120 / $fdf) * $rem;
+  z-index: 1;
+  position: relative;
+  .faq-content {
+    .faq-title {
+      text-align: center;
+      font-size: calc(30 / $fdf) * $rem;
+      color: #2c2c2c;
+      margin-bottom: calc(24 / $fdf) * $rem;
+      position: relative;
+      &::before{
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        width: calc(100 / $fdf) * $rem;
+        height: calc(5 / $fdf) * $rem;
+        background-color: #d5e6b5;
+        transform: translate(-50%, -50%);
+        left:50%;
+    }
+    }
+  }
+  &::after {
+    content: "";
+    width: 100%;
+    height: calc(50 / $fdf) * $rem;
+    border-left: calc(25 / $fdf) * $rem solid transparent;
+    border-right: calc(25 / $fdf) * $rem solid transparent;
+    border-top: calc(100 / $fdf) * $rem solid #f5f5f5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+  }
+  .bow-decor{
+    font-size: calc(100 / $fdf) * $rem;;
+    position: absolute;
+    top: -3rem;
+    z-index: 111;
+    left: 50%;
+    transform: translate(-50%);
+  }
+  .ant-collapse{
+    .ant-collapse-item{
+      .ant-collapse-header{
+        padding: calc(12 / $fdf) * $rem calc(16 / $fdf) * $rem;
+        align-items: center;
+        height: calc(45 / $fdf) * $rem;
+        .ant-collapse-expand-icon{
+          padding: calc(12 / $fdf) * $rem calc(16 / $fdf) * $rem;
+          span{
+            font-size: calc(12 / $fdf) * $rem;
+          }
+        }
+        .ant-collapse-header-text{
+          font-size: calc(14 / $fdf) * $rem;
+        }
+      }
+      .ant-collapse-content-active{
+        .ant-collapse-content-box{
+          padding: calc(16 / $fdf) * $rem;
+          font-size: calc(14 / $fdf) * $rem;
+        }
+      }
+    }
+  }
+}

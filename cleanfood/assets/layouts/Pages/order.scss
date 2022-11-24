@@ -1,0 +1,103 @@
+.order-wrapper {
+  position: relative;
+  font-family: "Roboto";
+  .order-banner {
+    height: calc(250 / $fdf) * $rem;
+    position: relative;
+    z-index: 1;
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+    }
+    .order-banner-content {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      .title {
+        font-weight: 300;
+        font-size: calc(30 / $fdf) * $rem;
+        color: #d5e6b5;
+        margin-top: 0;
+        color: #2C2C2C;
+      }
+      .time-active {
+        font-weight: 700;
+        font-size: calc(30 / $fdf) * $rem;
+        text-align: center;
+        color: #d5e6b5;
+      }
+      .button-order {
+        padding: calc(8 / $fdf) * $rem calc(12 / $fdf) * $rem;
+        background-color: rgb(67, 63, 63);
+        border-radius: 10px;
+        color: #ffffff;
+        text-align: center;
+        width: calc(100 / $fdf) * $rem;
+        height: calc(28 / $fdf) * $rem;
+        margin: 10px auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+  .order-main-content {
+    background-color: #ffffff;
+    padding: calc(12 / $fdf) * $rem;
+    .title {
+      font-weight: 700;
+      margin-bottom: calc(12 / $fdf) * $rem;
+      font-size: calc(30 / $fdf) * $rem;
+      color: #2C2C2C;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .order-selection {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .order-item {
+        margin-right: calc(18 / $fdf) * $rem;
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        img {
+          width: calc(60 / $fdf) * $rem;
+          height: calc(60 / $fdf) * $rem;
+          padding: calc(12 / $fdf) * $rem;
+          box-shadow: 0px 3px 20px rgb(184 184 184);
+          margin: 0 auto;
+          // &.active {
+          //   background-color: #d5e6b5;
+          // }
+        }
+        .order-item-title {
+          font-size: calc(16 / $fdf) * $rem;
+          color: #2c2c2c;
+          font-weight: 400;
+          text-align: center;
+        }
+        &.active{
+          .order-item-title{
+            font-weight: 600;
+          }
+          img{
+            background-color: #d5e6b5;
+          }
+        }
+      }
+    }
+    .order-content {
+      margin-top: calc(24 / $fdf) * $rem;
+    }
+  }
+}

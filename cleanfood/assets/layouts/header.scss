@@ -1,4 +1,5 @@
 .header-component {
+  font-family: 'Roboto';
   position: sticky;
   z-index: 999;
   max-width: 100%;
@@ -6,50 +7,46 @@
   right: 0;
   left: 0;
   font-family: "Roboto";
-  background-color: #ffba00;
-  .header-container {
-  max-width: 936px;
-  margin-left: auto;
-  margin-right: auto;
-    padding: 18px 16px;
-    .header-top {
+  background-color: #d5e6b5;
+  .header-container{
+    margin: 0 auto;
+    .header-content{
       display: flex;
+      height: calc(60 / $fdf) * $rem;
+      line-height: calc(60 / $fdf) * $rem;
+      // padding: calc(18 / $fdf) * $rem calc(16 / $fdf) * $rem;
       justify-content: space-between;
-      margin-bottom: 14px;
-      .header-top-logo {
-        width: 30%;
-      }
-      .header-top-attributes {
-        display: flex;
-        justify-content: space-around;
-        width: 70%;
+      align-items: center;
+      span{
+        font-size: calc(16 / $fdf) * $rem;
         color: #ffffff;
-        font-weight: 400;
-        span:nth-child(1) {
-          font-size: 16px;
-          margin-right: 8px;
-        }
-        .header-menu {
-          font-size: 16px;
-        }
+        font-weight: 600;
+        line-height: calc(19 / $fdf) * $rem;
       }
-    }
-    .header-bottom {
-      display: flex;
-      justify-content: space-between;
-      .header-bottom-search {
-        width: 70%;
-      }
-      .header-bottom-post {
-        button {
-          color: #2c2c2c;
-          background-color: #f0ebeb;
-          border-color: #f0ebeb;
-          border-radius: 5px;
-          &:hover {
-            background-color: #ffffff;
+      .personal-contact{
+        width: calc(100 / $fdf) * $rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        span{
+          &:nth-child(1){
+            margin-right: calc(8 / $fdf) * $rem;
           }
         }
+      }
+      .header-personal{
+        width: calc(100 / $fdf) * $rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        span{
+          &:nth-child(1){
+            margin-right: calc(24 / $fdf) * $rem;
+          }
+        }
+        // .header-account{
+        //   margin-right: calc(8 / $fdf) * $rem;
+        // }
       }
     }
   }

@@ -1,26 +1,27 @@
 .categories-component{
     font-family: 'Roboto';
     background-color: #ffffff;
-    max-width: 960px;
     margin: 0 auto;
+    border-radius: 10px;
     .categories-container{
-        padding: 10px;
-        .all-categories-container{
-            padding: 5px;
-            display: flex;
-            justify-content: space-around;
-            .categories-item{
-                text-align: center;
-                .categories-item-image{
-                    img{
-                        border-radius: 50%;
-                    }
+        padding: calc(8 / $fdf) * $rem 0;
+        display: flex;
+        justify-content: space-around;
+        .categories-item{
+            cursor: pointer;
+            .categories-item-image{
+                display: flex;
+                justify-content: center;
+                img{
+                    border-radius: 50%;
+                    width: calc(50 / $fdf) * $rem;
+                    height: calc(50 / $fdf) * $rem;
                 }
-                span{
-                    font-size: 14px;
-                    color: #2c2c2c;
-                    font-weight: 500;
-                }
+            }
+            span{
+                font-weight: 500;
+                font-size: calc(13 / $fdf) * $rem;
+                color: #2C2C2C;
             }
         }
     }

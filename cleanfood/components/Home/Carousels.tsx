@@ -8,6 +8,7 @@ import {
   SearchOutlined,
 } from "@ant-design/icons";
 import { Input, Carousel } from "antd";
+import 'antd/dist/antd.css';
 // import './style.scss'
 // import './style.scss'
 // import { strapiFreshFast, strapiFreshFastImage, strapiFreshFastClient } from 'utils/utils';
@@ -35,12 +36,12 @@ const onChange = () => {};
 const Carousels:React.FC = () => {
   return (
     <div className="carousel-component">
-      <Carousel afterChange={onChange}>
+      <Carousel>
         <div className="carousel-item">
           <img src="https://cdn.chotot.com/admincentre/3gYR13RERgEIzsrIQxfS1mVwwvcmRT24-8fwjHsVOmk/preset:raw/plain/705b0fb7dd4f4c9312dc5eec3c6f5d30-2780305789471981321.jpg"/>
         </div>
         <div className="carousel-item">
-          <img src="https://cdn.okxe.vn/banner/title1652758695_o.png"/>
+          <img src="https://cdn.chotot.com/admincentre/3gYR13RERgEIzsrIQxfS1mVwwvcmRT24-8fwjHsVOmk/preset:raw/plain/705b0fb7dd4f4c9312dc5eec3c6f5d30-2780305789471981321.jpg"/>
         </div>
       </Carousel>
     </div>

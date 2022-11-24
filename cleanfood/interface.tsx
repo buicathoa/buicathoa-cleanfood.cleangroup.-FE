@@ -1,8 +1,9 @@
 export interface NewsItemInterface {
-    pageType: string,
-    type: string
+    image: string,
+    title: string,
+    content: string,
+    minimum_price: string
 }
-
 export interface UserInforInterface {
     _id: string,
     username: string,
