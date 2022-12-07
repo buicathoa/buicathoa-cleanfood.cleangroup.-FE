@@ -25,7 +25,7 @@
       .title {
         font-weight: 300;
         font-size: calc(30 / $fdf) * $rem;
-        color: #d5e6b5;
+        color: #9cdd22;
         margin-top: 0;
         color: #2C2C2C;
       }
@@ -33,7 +33,7 @@
         font-weight: 700;
         font-size: calc(30 / $fdf) * $rem;
         text-align: center;
-        color: #d5e6b5;
+        color: #9cdd22;
       }
       .button-order {
         padding: calc(8 / $fdf) * $rem calc(12 / $fdf) * $rem;
@@ -77,7 +77,7 @@
           box-shadow: 0px 3px 20px rgb(184 184 184);
           margin: 0 auto;
           // &.active {
-          //   background-color: #d5e6b5;
+          //   background-color: #9cdd22;
           // }
         }
         .order-item-title {
@@ -85,19 +85,17 @@
           color: #2c2c2c;
           font-weight: 400;
           text-align: center;
+          margin-top: calc(8 / $fdf) * $rem;
         }
         &.active{
           .order-item-title{
             font-weight: 600;
           }
           img{
-            background-color: #d5e6b5;
+            background-color: #9cdd22;
           }
         }
       }
-    }
-    .order-content {
-      margin-top: calc(24 / $fdf) * $rem;
     }
   }
 }

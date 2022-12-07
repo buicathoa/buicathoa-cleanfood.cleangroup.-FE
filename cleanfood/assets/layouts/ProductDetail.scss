@@ -27,7 +27,7 @@
       z-index: 1;
       // position: relative;
       .note{
-        color: #FF2033;
+        color: rgb(232, 110, 110);
         font-size: calc(16 / $fdf) * $rem;
         margin-bottom: calc(14 / $fdf) * $rem;
         font-weight: 600;
@@ -37,6 +37,10 @@
         opacity: 0.8;
         font-weight: 300;
         font-size: calc(18 / $fdf) * $rem;
+        .food-detail-info{
+          color: rgb(232, 110, 110);
+          margin-bottom: calc(14 / $fdf) * $rem;;
+        }
       }
       .ant-select{
         display: flex;
@@ -48,6 +52,33 @@
         font-weight: 600;
         font-size: calc(24 / $fdf) * $rem;
         text-align: center;
+      }
+      .product-sub-content{
+        display: flex;
+        align-items: center;
+        margin-bottom: calc(14 / $fdf) * $rem;
+        span{
+          display: block;
+          font-size: calc(16 / $fdf) * $rem;
+          &.rating{
+            padding-right: calc(16 / $fdf) * $rem;
+            .rating-number{
+              padding-left: calc(8 / $fdf) * $rem;
+              font-weight: 700;
+              padding-right: calc(8 / $fdf) * $rem;
+            }
+            .total-review{
+              color: #888585;
+            }
+          }
+          &.delivery-icon{
+            display: flex;
+            align-items: center;
+            .delivery-info{
+              padding-left: calc(8 / $fdf) * $rem;
+            }
+          }
+        }
       }
     }
     .buy-actions{
@@ -61,31 +92,33 @@
       .add-to-cart{
         padding: calc(8 / $fdf) * $rem calc(12 / $fdf) * $rem;
         color: #2C2C2C;
-        border: 3px solid rgb(232, 110, 110);
+        border: 3px solid #9cdd22;
         border-radius: 5px;
         margin-right: calc(24 / $fdf) * $rem;
         width: calc(160 / $fdf) * $rem;
         text-align: center;
         z-index: 99;
         background-color: #ffffff;
+        font-weight: 700;
         cursor: pointer;
         &:hover{
-          background-color: rgb(232, 110, 110);
+          background-color: #9cdd22;
           color: #ffffff
         }
       }
       .buy-now{
-        background-color: rgb(232, 110, 110);
+        background-color: #9cdd22;
         color: #ffffff;
+        font-weight: 700;
         border-radius: 5px;
         padding: calc(8 / $fdf) * $rem calc(12 / $fdf) * $rem;
         width: calc(160 / $fdf) * $rem;
         text-align: center;
-        border: 3px solid rgb(232, 110, 110);
+        border: 3px solid #9cdd22;
         cursor: pointer;
         &:hover{
           background-color: #ffffff;
-          color: rgb(232, 110, 110)
+          color: #9cdd22
         }
       }
     }

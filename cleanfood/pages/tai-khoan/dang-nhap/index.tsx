@@ -2,11 +2,11 @@
 import { Button, Checkbox, Col, Divider, Form, Input, Row } from 'antd'
 import {
     SwapLeftOutlined,
-  } from "@ant-design/icons";
+} from "@ant-design/icons";
 import { useRouter } from 'next/router'
 import React from 'react'
 
-const Register = () => {
+const Login = () => {
     const router = useRouter()
     const validateMessages = {
         required: 'required'
@@ -19,7 +19,7 @@ const Register = () => {
             }
         ]
     }
-    
+
     return (
         <div className="auth-wrapper">
             <div className="backtohome" onClick={() => router.push("/")}><SwapLeftOutlined /> Back to home page</div>
@@ -44,19 +44,11 @@ const Register = () => {
                         name="username"
                         rules={validateSchema.oldpassword}
                     >
-                        <Input className="form-input"/>
+                        <Input className="form-input" />
                     </Form.Item>
 
                     <Form.Item
                         label="Mật khẩu"
-                        name="password"
-                        rules={validateSchema.oldpassword}
-                    >
-                        <Input.Password className="form-input" />
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Nhập lại mật khẩu"
                         name="password"
                         rules={validateSchema.oldpassword}
                     >
@@ -72,17 +64,17 @@ const Register = () => {
                     </Col>
                 </Row>
             </div>
-            <div className="login">
-                <span>Nếu bạn đã có tài khoản ? </span><span className="register-text" onClick={() => router.push("/dang-nhap")}>Đăng nhập!</span>
+            <div className="register">
+                <span>Nếu bạn chưa có tài khoản ? </span><span className="register-text" onClick={() => router.push("/dang-ky")}>Đăng ký!</span>
             </div>
             <div className="other-auth-wrapper">
                 <Divider orientation='center'>Hoặc đăng nhập với</Divider>
                 <div className="other-auth">
                     <div className="auth-way google">
-                        <img src="images/google.png" alt="" />
+                        <img src="../images/google.png" alt="" />
                     </div>
                     <div className="auth-way facebook">
-                        <img src="images/facebook.png" alt="" />
+                        <img src="../images/facebook.png" alt="" />
                     </div>
                 </div>
             </div>
@@ -93,4 +85,4 @@ const Register = () => {
     )
 }
 
-export default Register
+export default Login

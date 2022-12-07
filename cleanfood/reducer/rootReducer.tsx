@@ -2,6 +2,8 @@ import createSagaMiddleware from "@redux-saga/core";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { createRouterMiddleware, routerReducer } from "connected-next-router";
 import rootSaga from "../saga/rootSaga";
+import GeneralMenuReducer from "./generalMenuReducer";
+import ProductReducer from "./ProductReducer";
 // import rootSaga from "../sagas/rootSaga";
 // import NotifyReducer from "reducer/NotifySlice";
 // import AddressReducer from "../reducer/AddressSlice";
@@ -24,7 +26,9 @@ import rootSaga from "../saga/rootSaga";
 // import rootSaga from "./rootSaga";
 
 const rootReducer = combineReducers({
-    router: routerReducer
+    router: routerReducer,
+    generalMenu: GeneralMenuReducer,
+    product: ProductReducer
 })
 
 const sagaMiddleware = createSagaMiddleware();

@@ -1,6 +1,5 @@
 .order-way-component{
     background-color: #ffffff;
-    margin-top: calc(16 / $fdf) * $rem;
     border-radius: 10px;
     .order-way-container{
         padding: calc(18 / $fdf) * $rem calc(16 / $fdf) * $rem;
@@ -17,7 +16,7 @@
                 bottom: -10px;
                 width: calc(100 / $fdf) * $rem;
                 height: calc(5 / $fdf) * $rem;
-                background-color: #d5e6b5;
+                background-color: #9cdd22;
                 transform: translate(-50%, -50%);
                 left:50%;
             }

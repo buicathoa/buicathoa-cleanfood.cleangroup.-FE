@@ -1,0 +1,43 @@
+.footer-tab-component {
+  background-color: #ffffff;
+  font-family: "Roboto";
+  color: #ffffff;
+  position: sticky;
+  bottom:0;
+  left:0;
+  right:0;
+  height: calc(60 / $fdf) * $rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-top: 1px solid #dfd8d8;
+  z-index: 3;
+  .footer-item{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    &:active{
+      background-color: #efefef;
+    }
+    &:hover{
+      background-color: #efefef;
+    }
+    span{
+      color: #a2b7be;
+      display: block;
+      text-align: center;
+      font-size: calc(16 / $fdf) * $rem;
+    }
+    .anticon{
+      font-size: calc(24 / $fdf) * $rem;
+    }
+    &.active{
+      span{
+        color: #9cdd22;
+      }
+    }
+  }
+}

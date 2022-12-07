@@ -6,21 +6,24 @@ import store from "./../reducer/rootReducer"
 import "./../styles/app.scss";
 
 import Header from "./../components/Header";
-import Footer from "./../components/Footer";
+import FooterTab from "../components/FooterTab";
 import { Drawer } from "antd";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Advice from "./advice";
-import Login from "./dang-nhap";
-import Register from "./dang-ky";
-import Verify from "./xac-thuc";
+import Login from "./tai-khoan/dang-nhap";
+import Register from "./tai-khoan/dang-ky";
+import Verify from "./tai-khoan/xac-thuc";
+import ForgetPassword from "./tai-khoan/quen-mat-khau";
+import Account from "./tai-khoan";
+import Footer from "../components/Footer";
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [isAuthPage, setIsAuthPage] = useState({boolean: false, route: ''})
+  const [isAuthPage, setIsAuthPage] = useState({ boolean: false, route: '' })
   useEffect(() => {
     router.events.on("routeChangeStart", (url) => {
       setLoading(true);
@@ -34,11 +37,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [router.events]);
 
   useEffect(() => {
-    if(typeof window !== "undefined"){
-      if(window.location.pathname === '/dang-nhap' || window.location.pathname === '/dang-ky' || window.location.pathname === '/xac-thuc'){
-        setIsAuthPage({boolean: true, route: window.location.pathname})
+    if (typeof window !== "undefined") {
+      if (window.location.pathname === '/tai-khoan/dang-nhap' || window.location.pathname === '/tai-khoan/dang-ky' || window.location.pathname === '/tai-khoan/xac-thuc'
+        || window.location.pathname === '/tai-khoan/quen-mat-khau') {
+        setIsAuthPage({ boolean: true, route: window.location.pathname })
       } else {
-        setIsAuthPage({boolean: false, route: window.location.pathname})
+        setIsAuthPage({ boolean: false, route: window.location.pathname })
       }
     }
   }, [router])
@@ -60,12 +64,15 @@ function MyApp({ Component, pageProps }: AppProps) {
               <Header />
               <Component {...pageProps} />
               <Footer />
+              <FooterTab />
             </div>
           </div> : <div className={`page-wrapper`}>
             <div className={`page-container auth-page ${loading ? 'slide' : 'normal'}`}>
-              {isAuthPage.route === '/dang-nhap' && <Login /> }
-              {isAuthPage.route === '/dang-ky' && <Register />}
-              {isAuthPage.route === '/xac-thuc' && <Verify />}
+              {isAuthPage.route === '/tai-khoan/dang-nhap' && <Login />}
+              {isAuthPage.route === '/tai-khoan/dang-ky' && <Register />}
+              {isAuthPage.route === '/tai-khoan/xac-thuc' && <Verify />}
+              {isAuthPage.route === '/tai-khoan/quen-mat-khau' && <ForgetPassword />}
+              {/* {isAuthPage.route === '/tai-khoan' && <Account/>} */}
             </div>
           </div>}
         </ConnectedRouter>

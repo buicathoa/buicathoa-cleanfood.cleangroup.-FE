@@ -4,7 +4,7 @@ import {
   ShoppingFilled,
   BellFilled
 } from "@ant-design/icons";
-import { Input, Button } from "antd";
+import { Input, Badge, Space } from "antd";
 // import './style.scss'
 // import './style.scss'
 // import { strapiFreshFast, strapiFreshFastImage, strapiFreshFastClient } from 'utils/utils';
@@ -27,21 +27,26 @@ const { Search } = Input;
 //     };
 // }
 
-const Header:React.FC = () => {
+const Header: React.FC = () => {
   return (
     <header className="header-component">
       <div className="header-container">
         <div className="header-content">
           <div className="personal-contact">
-            <MessageFilled/>
+            <MessageFilled />
           </div>
           <span className="header-logo">
             Fresh Meals
           </span>
           <div className="header-personal">
-            <BellFilled />
-            {/* <span className="header-account">Đăng nhập</span> */}
-            <ShoppingFilled />
+            <Space size="middle">
+              <Badge count={5} size="small">
+                <BellFilled className="icon"/>
+              </Badge>
+              <Badge count={5} size="small">
+                <ShoppingFilled className="icon"/>
+              </Badge>
+            </Space>
           </div>
         </div>
       </div>

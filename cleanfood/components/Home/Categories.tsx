@@ -1,7 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
 import React, { Fragment, useEffect, useState } from "react";
 import { Input, Carousel } from "antd";
-
+import { listCombo, listMenuTableData } from "../../interface";
+import Link from 'next/link'
 // import './style.scss'
 // import './style.scss'
 // import { strapiFreshFast, strapiFreshFastImage, strapiFreshFastClient } from 'utils/utils';
@@ -10,60 +12,26 @@ import { Input, Carousel } from "antd";
 // import imageSetup from './../../../helpers/loadImageStrapi';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 const { Search } = Input;
-// export async function getServerSideProps(context) {
-//     const [resJob] = await Promise.all([
-//         fetch(`${strapiFreshFast}/trang-dai-ly-ctv`),
-//     ])
-//     const [job] = await Promise.all([
-//         resJob.json(),
-//     ])
-//     return {
-//         props: {
-//             job,
-//         }
-//     };
-// }
 
-const onChange = () => { };
-
-const Categories: React.FC = () => {
+const Categories = ({ listCombo }: listCombo) => {
     return (
         <div className="categories-component">
             <div className="categories-container">
-                    <div className="categories-item">
-                        <div className="categories-item-image">
-                            <img src='images/cate1.jpg' />
-                        </div>
-                        <span>Combo sáng-trưa</span>
-                    </div>
-                    <div className="categories-item">
-                        <div className="categories-item-image">
-                            <img src='images/cate2.jpg' />
-                        </div>
-                        <span>Combo sáng-tối</span>
-                    </div>
-                    <div className="categories-item">
-                        <div className="categories-item-image">
-                            <img src='images/cate1.jpg' />
-                        </div>
-                        <span>Combo trưa tối</span>
-                    </div>
-                    <div className="categories-item">
-                        <div className="categories-item-image">
-                            <img src='images/cate2.jpg' />
-                        </div>
-                        <span>Combo full</span>
-                    </div>
-                    <div className="categories-item">
-                        <div className="categories-item-image">
-                            <img src='images/cate1.jpg' />
-                        </div>
-                        <span>Combo chay</span>
-                    </div>
-                </div>
+                {listCombo?.length > 0 && listCombo.map((item, index) => {
+                    return (
+                        <Link href={item.package_url_generated} key={index}>
+                            <div className="categories-item">
+                                <div className="categories-item-image">
+                                    <img src={item?.package_image} />
+                                </div>
+                                <span>{item?.package_title}</span>
+                            </div>
+                        </Link>
+                    )
+                })}
             </div>
+        </div>
     );
-    // return <div></div>
 }
 
 export default Categories;

@@ -1,14 +1,12 @@
-export const BASE_URL = 'http://localhost:8000/v1'
+export const BASE_URL = 'http://localhost:3000/v1'
 export const HREF = 'http://localhost:3000/'
 export const apiUrl = {
-    product: {
-        category: 'category/get-all',
-        filterByCategory: 'filter/get-by-id',
-        getBrandBySubcategory: 'category/brand/get-by-id'
+    generalMenus: {
+        getAll: 'general-menu/menu/get-all',
     },
-    user: {
-        getUserInfor: 'user/get-user-info',
-        login: 'auth/login'
+    comboPackage: {
+        getAll: 'combo-package/get-all',
+        getByRoute: 'combo-package/get-by-route'
     },
     location: {
         getListCities: 'province/get-all',

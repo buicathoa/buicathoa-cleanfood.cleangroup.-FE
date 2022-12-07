@@ -1,5 +1,5 @@
 .header-component {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   position: sticky;
   z-index: 999;
   max-width: 100%;
@@ -7,43 +7,61 @@
   right: 0;
   left: 0;
   font-family: "Roboto";
-  background-color: #d5e6b5;
-  .header-container{
+  background-color: #9cdd22;
+  .header-container {
     margin: 0 auto;
-    .header-content{
+    .header-content {
       display: flex;
       height: calc(60 / $fdf) * $rem;
       line-height: calc(60 / $fdf) * $rem;
       // padding: calc(18 / $fdf) * $rem calc(16 / $fdf) * $rem;
       justify-content: space-between;
       align-items: center;
-      span{
+      // span{
+      //   font-size: calc(16 / $fdf) * $rem;
+      //   color: #ffffff;
+      //   font-weight: 600;
+      //   line-height: calc(19 / $fdf) * $rem;
+      // }
+      .personal-contact {
+        width: calc(100 / $fdf) * $rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        span {
+          font-size: calc(22 / $fdf) * $rem;
+          color: #ffffff;
+          font-weight: 600;
+          line-height: calc(19 / $fdf) * $rem;
+          &:nth-child(1) {
+            margin-right: calc(8 / $fdf) * $rem;
+          }
+        }
+      }
+      .header-logo {
         font-size: calc(16 / $fdf) * $rem;
         color: #ffffff;
         font-weight: 600;
         line-height: calc(19 / $fdf) * $rem;
       }
-      .personal-contact{
+      .header-personal {
         width: calc(100 / $fdf) * $rem;
         display: flex;
-        align-items: center;
+        // align-items: center;
         justify-content: center;
-        span{
-          &:nth-child(1){
-            margin-right: calc(8 / $fdf) * $rem;
+        span {
+          &.icon {
+            font-size: calc(22 / $fdf) * $rem;
+            color: #ffffff;
+            font-weight: 600;
+            line-height: calc(19 / $fdf) * $rem;
           }
         }
-      }
-      .header-personal{
-        width: calc(100 / $fdf) * $rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        span{
-          &:nth-child(1){
-            margin-right: calc(24 / $fdf) * $rem;
-          }
-        }
+        // span{
+        //   &:nth-child(1){
+        //     margin-right: calc(24 / $fdf) * $rem;
+        //   }
+        // }
         // .header-account{
         //   margin-right: calc(8 / $fdf) * $rem;
         // }

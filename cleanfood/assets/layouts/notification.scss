@@ -1,0 +1,87 @@
+.notification-wrapper{
+    font-family: "Roboto";
+    .notification-title{
+        padding: calc(18 / $fdf) * $rem;
+        font-size: calc(24 / $fdf) * $rem;
+        font-weight: 700;
+        color: #2C2C2C;
+    }
+    .notification-header{
+        height: calc(40 / $fdf) * $rem;
+        .notification-header-container{
+            padding: 0 calc(12 / $fdf) * $rem;
+            display: flex;
+            height: 100%;
+            border-bottom: 1px solid rgb(202, 198, 198);
+            background-color: #ffffff;
+            .noti-tab{
+                font-size: calc(18 / $fdf) * $rem;
+                color: #2C2C2C;
+                opacity: 0.5;
+                padding: calc(12 / $fdf) * $rem 0;
+                margin-right: calc(18 / $fdf) * $rem;
+                cursor: pointer;
+                &.active{
+                    color: #2C2C2C;
+                    font-weight: 700;
+                    opacity: 1;
+                    border-bottom: 3px solid #9cdd22;
+                }
+            }
+        }
+    }
+    .notification-list{
+        height: calc(100vh - calc(172 / $fdf) * $rem);
+        overflow-y: auto;
+        background-color: #ffffff;
+        margin-top: calc(12 / $fdf) * $rem;
+        .notification-container{
+            border-radius: 10px;
+            .notification-item{
+                padding: calc(18 / $fdf) * $rem;
+                display: flex;
+                border-bottom: 1px solid rgb(202, 198, 198);
+                align-items: center;
+                justify-content: space-between;
+                cursor: pointer;
+                &:hover{
+                    background-color: rgb(202, 198, 198);
+                }
+                .noti-main-content{
+                    display: flex;
+                    .avatar{
+                        padding-right: calc(12 / $fdf) * $rem;
+                        img{
+                            width: calc(50 / $fdf) * $rem;
+                            height: calc(50 / $fdf) * $rem;
+                            border-radius: 50%;
+                            object-fit: cover;
+                        }
+                    }
+                    .content{
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        .noti-content{
+                            font-size: calc(18 / $fdf) * $rem;
+                            color: #2C2C2C;
+                            font-weight: 700;
+                        }
+                        .noti-desc{
+                            overflow: hidden;
+                            text-overflow: ellipsis; 
+                            white-space: nowrap;
+                            width: 200px;
+                            color: #2C2C2C;
+                            font-weight: 400;
+                        }
+                        .noti-time{
+                            font-size: calc(14 / $fdf) * $rem;
+                            color: rgb(202, 198, 198);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

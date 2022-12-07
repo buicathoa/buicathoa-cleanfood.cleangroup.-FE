@@ -1,8 +1,33 @@
-/* eslint-disable @next/next/no-img-element */
-import { Divider, Select } from 'antd'
+import { Divider, Select } from 'antd';
 import React from 'react'
+import { apiUrl } from '../constants';
+import { ComboItem } from '../interface';
+import { apiRequest } from '../utils/apiRequest';
 
-const DetailProduct = () => {
+export async function getServerSideProps(context) {
+
+    const listCombo = await apiRequest(
+        apiUrl.comboPackage.getAll,
+        {},
+        'general'
+      )
+      const data = listCombo
+
+    if(context?.query?.page.length > 1 || listCombo?.data?.filter((item:ComboItem) => item.package_url_generated === `/${context?.query?.page[0]}`).length === 0){
+        return {
+            notFound: true
+        }
+    } else {
+        return {
+            props: {
+              context: context?.query?.page[0],
+            }
+        }; 
+    }
+}
+
+const SEOProduct = ({context}) => {
+    console.log('context', context)
     return (
         <div className="detail-product-wrapper">
             <div className="detail-product-container">
@@ -11,10 +36,17 @@ const DetailProduct = () => {
                     <div className="product-title">
                         Gói Fresh Full
                     </div>
+                    <div className="product-sub-content">
+                        <span className="rating">⭐<span className="rating-number">4.7</span><span className="total-review">(58 Reviews)</span></span>
+                        <span className="delivery-icon">🚚<span className="delivery-info">Giá ship sẽ tùy vào khu vực</span></span>
+                    </div>
                     <div className="note">
                         *** Lưu ý: Giá trên là giá cho Thực Đơn Tiêu Chuẩn 5 ngày từ Thứ 2 đến Thứ 6. Nếu bạn đặt hàng vào hôm nay (Thứ 2), đơn hàng của bạn sẽ được giao từ Thứ 4(23.11). Giá Gói Ăn bạn phải trả là 450,000đ cho 3 ngày (Thứ 4(23.11) tới Thứ 6)
                     </div>
                     <div className="description">
+                        <div className="food-detail-info">
+                            Food Details
+                        </div>
                         Gói 3 bữa SÁNG - TRƯA - TỐI <br /><br />
 
                         - Sử dụng thực đơn 3 bữa/ngày tại trang fitfood.vn/menu.<br /><br />
@@ -76,4 +108,4 @@ const DetailProduct = () => {
     )
 }
 
-export default DetailProduct
+export default SEOProduct

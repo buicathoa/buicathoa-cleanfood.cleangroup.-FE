@@ -3,6 +3,51 @@ body {
   margin: 0 !important;
 }
 
+.ant-carousel .slick-prev,
+.ant-carousel .slick-next,
+.ant-carousel .slick-prev:hover,
+.ant-carousel .slick-next:hover {
+  font-size: inherit;
+  color: currentColor;
+}
+
+.ant-carousel .slick-prev,
+.ant-carousel .slick-prev:hover {
+  left: 10px !important;
+  z-index: 2;
+  color: #2C2C2C !important;
+  font-size: 18px !important;
+  background-color: #ffffff !important;
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 50%;
+  margin-top: -30px !important;
+  border: 1px solid #9cdd22;
+  box-shadow: 0 1px 5px 0 rgb(0 0 0 / 35%);
+  svg{
+    transform: translate(-4%, 25%) !important;
+  }
+}
+
+.ant-carousel .slick-next,
+.ant-carousel .slick-next:hover {
+  right: 10px !important;
+  z-index: 2;
+  color: #2C2C2C !important;
+  font-size: 18px !important;
+  background: #ffffff !important;
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 50%;
+  margin-top: -30px !important;
+  border: 1px solid #9cdd22;
+  box-shadow: 0 1px 5px 0 rgb(0 0 0 / 35%);
+  svg{
+    transform: translate(-4%, 25%) !important;
+  }
+}
+
+
 .form-input {
   width: 100%;
   height: calc(40 / $fdf) * $rem;
@@ -270,15 +315,20 @@ html {
 @import '~antd/dist/antd.css';
 
 @import "./assets/layouts/header.scss";
+@import "./assets/layouts/footertab.scss";
 @import "./assets/layouts/footer.scss";
 @import "./assets/layouts/Home/index.scss";
+@import "./assets/layouts/notification.scss";
 
 //specific pages
 @import "./assets/layouts/Pages/menus.scss";
 @import "./assets/layouts/Pages/order.scss";
-@import "./assets/layouts/Pages/auth.scss";
+@import "./assets/layouts/Pages/account/auth.scss";
+@import "./assets/layouts/Pages/account/account.scss";
 
 //components
-@import "./assets/layouts/ProductItem.scss";
+@import "./assets/layouts/Components/ProductItem.scss";
+@import "./assets/layouts/Components/TableData.scss";
+
 @import "./assets/layouts/ProductDetail.scss";
 

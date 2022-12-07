@@ -30,14 +30,14 @@
         font-weight: 300;
         font-size: calc(30 / $fdf) * $rem;
         text-align: center;
-        color: #d5e6b5;
+        color: #9cdd22;
         margin-top: 0;
       }
       .time-active {
         font-weight: 700;
         font-size: calc(30 / $fdf) * $rem;
         text-align: center;
-        color: #d5e6b5;
+        color: #9cdd22;
       }
       .button-order {
         padding: calc(8 / $fdf) * $rem calc(12 / $fdf) * $rem;
@@ -85,7 +85,7 @@
           width: calc(80 / $fdf) * $rem;
           height: calc(80 / $fdf) * $rem;
           border-radius: 50%;
-          background-color: #d5e6b5;
+          background-color: #9cdd22;
           margin: 0 auto;
         }
         .logo-attr {
@@ -104,7 +104,7 @@
         }
         .title {
           font-weight: 700;
-          color: #d5e6b5;
+          color: #9cdd22;
           font-size: calc(20 / $fdf) * $rem;
           margin-bottom: calc(12 / $fdf) * $rem;
         }
@@ -140,7 +140,7 @@
           bottom: -10px;
           width: calc(100 / $fdf) * $rem;
           height: calc(5 / $fdf) * $rem;
-          background-color: #d5e6b5;
+          background-color: #9cdd22;
           transform: translate(-50%, -50%);
           left: 50%;
         }
@@ -170,72 +170,6 @@
           color: #5a5a5a;
           opacity: 0.5;
           font-size: calc(14 / $fdf) * $rem;
-        }
-      }
-      .timetable {
-        margin-top: calc(18 / $fdf) * $rem;
-        width: 100%;
-        table {
-          width: 100%;
-          border-collapse: collapse;
-          border-spacing: 0 50px;
-          padding: 0 50px 0 50px;
-          tr {
-            border-bottom: 1px solid #e2edcc;
-            td {
-              text-align: center;
-            }
-            th {
-              height: calc(60 / $fdf) * $rem;
-              // &.date {
-              //   span {
-              //     margin-bottom: calc(12 / $fdf) * $rem;
-              //     font-size: calc(16 / $fdf) * $rem;
-              //     padding: calc(16 / $fdf) * $rem;
-              //     padding: calc(16 / $fdf) * $rem;
-              //     border-radius: 50%;
-              //     background-color: #d5e6b5;
-              //     color: #ffffff;
-              //     width: calc(32 / $fdf) * $rem;
-              //   }
-              // }
-            }
-          }
-          thead{
-            tr{
-              th{
-                border: 1px solid #d5e6b5;
-                &:nth-child(1){
-                  background-color: #d5e6b5;
-                }
-              }
-            }
-          }
-          tbody {
-            tr {
-              &:nth-child(even) {
-                background-color: #f2f2f2;
-              }
-              th {
-                width: calc((100% - 90px) / 3);
-                &:nth-child(1) {
-                  width: 90px;
-                  background-color: #d5e6b5;
-                  color: #ffffff;
-                  // opacity: 0.5;
-                  span {
-                    font-weight: 700;
-                    // padding: 16px;
-                    background-color: #d5e6b5;
-                    // border-radius: 50%;
-                  }
-                }
-              }
-              td {
-                font-size: calc(10 / $fdf) * $rem;
-              }
-            }
-          }
         }
       }
       &:nth-child(2){

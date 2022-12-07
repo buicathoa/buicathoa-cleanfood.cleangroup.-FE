@@ -1,12 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
-import Link from "next/link";
-import { Input, Carousel, Row, Col } from "antd";
-import { NewsItemInterface } from "../../interface";
-import { SmileOutlined, HeartOutlined } from "@ant-design/icons";
+import { ProductItemInterface } from "../../interface";
 
-export const ProductItem = (props: NewsItemInterface) => {
-  const { image, title, content, minimum_price } = props;
+export const ProductItem = (props: ProductItemInterface) => {
+  const { image, title, content } = props;
   return (
     <div className="product-item-wrapper">
       <img src={image} alt="" />
@@ -17,7 +14,9 @@ export const ProductItem = (props: NewsItemInterface) => {
             {content}
           </div>
         </div>
-        <div className="min-price">{minimum_price}</div>
+        <div className="min-price">
+          ** Giá sẽ phụ thuộc vào calo trên mỗi bữa ăn **
+        </div>
       </div>
     </div>
   )

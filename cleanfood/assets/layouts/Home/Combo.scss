@@ -1,6 +1,7 @@
 .combo-wrapper{
     background-color: #ffffff;
     border-radius: 10px;
+    font-family: 'Roboto';
     // background-image: url("/images/bgred.jpg");
     // height:  calc(300 / $fdf) * $rem;
     .combo-container{
@@ -21,7 +22,7 @@
                     bottom: -10px;
                     width: calc(100 / $fdf) * $rem;
                     height: calc(5 / $fdf) * $rem;
-                    background-color: #d5e6b5;
+                    background-color: #9cdd22;
                     transform: translate(-50%, -50%);
                     left:50%;
                 }
@@ -47,13 +48,13 @@
                             padding-bottom: calc(24 / $fdf) * $rem;;
                             // box-shadow: 0px 3px 20px rgb(184 184 184);
                             height: calc(250 / $fdf) * $rem;
-                            background-color:#fff9f2 ;
+                            // background-color:#fff9f2 ;
                             .combo-slider{
                                 margin-right: calc(8 / $fdf) * $rem;
                                 .combo-slider-item-image{
                                     img{
                                         width: 100%;
-                                        height: calc(150 / $fdf) * $rem;
+                                        height: calc(250 / $fdf) * $rem;
                                         object-fit: cover;
                                         margin: 0 auto;
                                     }
@@ -62,38 +63,61 @@
                                     padding: 0 calc(10 / $fdf) * $rem;
                                     .title-price{
                                         display: flex;
-                                        justify-content: flex-start;
+                                        justify-content: center;
                                         align-items: center;
                                         margin-top: calc(8 / $fdf) * $rem;
                                         .title{
-                                            font-size: calc(14 / $fdf) * $rem;
-                                            font-weight: 600;
+                                            font-size: calc(20 / $fdf) * $rem;
+                                            font-weight: 400;
                                             color: #2C2C2C;
                                         }
-                                        .price{
-                                            font-size: calc(12 / $fdf) * $rem;
-                                            color: rgb(250, 75, 75);
-                                            font-weight: 600;
-                                        }
+                                        
                                     }
                                     .description{
-                                        margin-top: calc(8 / $fdf) * $rem;;
-                                        font-size: calc(12 / $fdf) * $rem;
-                                        color: #2C2C2C;
+                                        font-size: calc(14 / $fdf) * $rem;
+                                        color: #7f7f7f;
                                         font-weight: 400;
+                                        font-style: italic;
+                                        display: flex;
+                                        justify-content: center;
+                                        word-break: break-all;
+                                    }
+                                    .price{
+                                        font-size: calc(20 / $fdf) * $rem;
+                                        color: rgb(250, 75, 75);
+                                        font-weight: 600;
+                                        display: flex;
+                                        justify-content: center;
                                     }
                                     .note{
                                         font-style: italic;
-                                        color: #2C2C2C;
-                                        font-size:  calc(10 / $fdf) * $rem;
+                                        color: rgb(250, 75, 75);;
+                                        font-size:  calc(14 / $fdf) * $rem;
                                         font-weight: 400;
-                                        margin-top: calc(8 / $fdf) * $rem;
+                                        text-align: center;
                                     }
                                 }
                             }
                         }
                     }
                 }
+            }
+        }
+        .explore-menus{
+            background-color: #9cdd22;
+            padding: 8px 14px;
+            border-radius: 5px;
+            color: #ffffff;
+            font-weight: 500;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            width: 150px;
+            cursor: pointer;
+            margin-top: calc(64 / $fdf) * $rem;
+            &:hover{
+                background-color: #a4f018;
             }
         }
     }
