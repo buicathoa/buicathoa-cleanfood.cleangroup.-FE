@@ -1,10 +1,12 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import moment from 'moment';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import { ProductItem } from '../../components/ProductItem'
 import { apiUrl } from '../../constants';
-import { ComboItem, listCombo, ResponseFormatItem } from '../../interface';
+import { listProduct, ResponseFormatItem } from '../../interface';
 import { GeneralMenuActions } from '../../reducer/generalMenuReducer';
 import { useAppDispatch, useAppSelector } from '../../reducer/hook';
 import { ProductActions } from '../../reducer/ProductReducer';
@@ -18,7 +20,7 @@ import { apiRequest } from '../../utils/apiRequest';
 //             'general'
 //         )
 //     ])
-//     const [listCombo] = await Promise.all([
+//     const [listProduct] = await Promise.all([
 //         resCombo,
 //     ])
 //     return {
@@ -32,31 +34,37 @@ const Order = () => {
     const dispatch = useAppDispatch();
     const [categorySelected, setCategorySelected] = useState('meal')
 
-    const fetchAllCombo = (param: any): Promise<ResponseFormatItem> => {
+    const fetchAllProduct = (param: any): Promise<ResponseFormatItem> => {
         return new Promise((resolve, reject) => {
-            dispatch(ProductActions.fetchAllCombo({ param, resolve, reject }));
+            dispatch(ProductActions.fetchAllProducts({ param, resolve, reject }));
         });
     };
 
+    const fetchProductByRoute = (param: any): Promise<ResponseFormatItem> => {
+        return new Promise((resolve, reject) => {
+            dispatch(ProductActions.fetchProductByRoute({ param, resolve, reject }));
+        });
+    };
+    
     useEffect(() => {
-        fetchAllCombo({})
+        fetchAllProduct({product_type: 'combo', hihi: '123'})
+        fetchProductByRoute({route: '/order-eat-clean-body-building-xay-dung-co-bap'})
     }, [])
 
-    const listCombo:ComboItem[] = useAppSelector(state => state.product.listCombo)
-    console.log('listCombo', listCombo)
+    const listProduct = useAppSelector(state => state.product.listCombo)
     const handleSelectCategory = (cate: string) => {
         setCategorySelected(cate)
     }
 
     const renderCate = () => {
         if (categorySelected === 'meal') {
-            if (listCombo?.length > 0) {
+            if (listProduct?.length > 0) {
                 return (
-                    listCombo?.map((item, index) => {
+                    listProduct?.map((item, index) => {
                         return (
-                            <Link href={item?.package_url_generated || ''} key={index}>
+                            <Link href={item['url_generated'] || ''} key={index}>
                                 <a>
-                                    <ProductItem title={item?.package_title} image={item?.package_image} content={item?.package_sub_title} />
+                                    <ProductItem title={item['title']} image={item['image']} sub_title={item['sub_title']} renderType={"full"}/>
                                 </a>
                             </Link>
                         )
@@ -65,18 +73,18 @@ const Order = () => {
             }
             return (
                 <>
-                    <ProductItem title="Gói Fresh BL" image="https://res.cloudinary.com/dd8brzr2h/image/upload/v1667975232/blogs/l5rxm0xue7rivkquxplw.jpg" content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum" />
-                    <ProductItem title="Gói Fresh BD" image="https://res.cloudinary.com/dd8brzr2h/image/upload/v1667975405/blogs/gymoiwqcehnph7mk8mz2.jpg" content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum" />
-                    <ProductItem title="Gói Fresh LD" image="https://res.cloudinary.com/dd8brzr2h/image/upload/v1667974777/blogs/zo4qqtikgchxyrqtdxtb.jpg" content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum" />
-                    <ProductItem title="Gói Full" image="https://res.cloudinary.com/dd8brzr2h/image/upload/v1665395666/blogs/mvoqp53mxjmwuurofbjx.webp" content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum" />
+                    <ProductItem title="Gói Fresh BL" image="https://res.cloudinary.com/dd8brzr2h/image/upload/v1667975232/blogs/l5rxm0xue7rivkquxplw.jpg" sub_title="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum"  renderType={"full"}/>
+                    <ProductItem title="Gói Fresh BD" image="https://res.cloudinary.com/dd8brzr2h/image/upload/v1667975405/blogs/gymoiwqcehnph7mk8mz2.jpg" sub_title="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum"  renderType={"full"}/>
+                    <ProductItem title="Gói Fresh LD" image="https://res.cloudinary.com/dd8brzr2h/image/upload/v1667974777/blogs/zo4qqtikgchxyrqtdxtb.jpg" sub_title="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum"  renderType={"full"}/>
+                    <ProductItem title="Gói Full" image="https://res.cloudinary.com/dd8brzr2h/image/upload/v1665395666/blogs/mvoqp53mxjmwuurofbjx.webp" sub_title="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum"  renderType={"full"}/>
                 </>
             )
         } else if (categorySelected === 'drink') {
             return (
                 <>
-                    <ProductItem title="Nước xoài" image="https://res.cloudinary.com/dd8brzr2h/image/upload/v1665394936/blogs/tzlkjyurx3pfw0t0kc0g.jpg" content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum" />
-                    <ProductItem title="Nước táo" image="https://res.cloudinary.com/dd8brzr2h/image/upload/v1665395215/blogs/g7p6jwrpplt2cfpxcwjy.jpg" content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum" />
-                    <ProductItem title="Nước vải" image="https://res.cloudinary.com/dd8brzr2h/image/upload/v1665395381/blogs/ascpoqs6xc3m3g4fzads.webp" content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum" />
+                    <ProductItem title="Nước xoài" image="https://res.cloudinary.com/dd8brzr2h/image/upload/v1665394936/blogs/tzlkjyurx3pfw0t0kc0g.jpg" sub_title="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum"  renderType={"full"}/>
+                    <ProductItem title="Nước táo" image="https://res.cloudinary.com/dd8brzr2h/image/upload/v1665395215/blogs/g7p6jwrpplt2cfpxcwjy.jpg" sub_title="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum"  renderType={"full"}/>
+                    <ProductItem title="Nước vải" image="https://res.cloudinary.com/dd8brzr2h/image/upload/v1665395381/blogs/ascpoqs6xc3m3g4fzads.webp" sub_title="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum"  renderType={"full"}/>
                 </>
             )
         }

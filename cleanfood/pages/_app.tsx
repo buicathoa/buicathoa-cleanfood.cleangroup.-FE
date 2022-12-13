@@ -17,6 +17,7 @@ import Verify from "./tai-khoan/xac-thuc";
 import ForgetPassword from "./tai-khoan/quen-mat-khau";
 import Account from "./tai-khoan";
 import Footer from "../components/Footer";
+import Calories from "./tai-khoan/calories";
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
@@ -39,7 +40,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     if (typeof window !== "undefined") {
       if (window.location.pathname === '/tai-khoan/dang-nhap' || window.location.pathname === '/tai-khoan/dang-ky' || window.location.pathname === '/tai-khoan/xac-thuc'
-        || window.location.pathname === '/tai-khoan/quen-mat-khau') {
+        || window.location.pathname === '/tai-khoan/quen-mat-khau' || window.location.pathname === '/tai-khoan/calories') {
         setIsAuthPage({ boolean: true, route: window.location.pathname })
       } else {
         setIsAuthPage({ boolean: false, route: window.location.pathname })
@@ -72,6 +73,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               {isAuthPage.route === '/tai-khoan/dang-ky' && <Register />}
               {isAuthPage.route === '/tai-khoan/xac-thuc' && <Verify />}
               {isAuthPage.route === '/tai-khoan/quen-mat-khau' && <ForgetPassword />}
+              {isAuthPage.route === '/tai-khoan/calories' && <Calories />}
               {/* {isAuthPage.route === '/tai-khoan' && <Account/>} */}
             </div>
           </div>}

@@ -323,8 +323,11 @@ html {
 //specific pages
 @import "./assets/layouts/Pages/menus.scss";
 @import "./assets/layouts/Pages/order.scss";
+
+//Auth
 @import "./assets/layouts/Pages/account/auth.scss";
 @import "./assets/layouts/Pages/account/account.scss";
+@import "./assets/layouts/Pages/account/calories.scss";
 
 //components
 @import "./assets/layouts/Components/ProductItem.scss";

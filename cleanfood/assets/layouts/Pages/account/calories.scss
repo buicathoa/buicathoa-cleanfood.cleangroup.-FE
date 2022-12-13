@@ -1,0 +1,189 @@
+.calories-wrapper {
+  padding: calc(30 / $fdf) * $rem calc(24 / $fdf) * $rem;
+  background-color: #ffffff;
+  min-height: 100vh;
+  font-family: "Roboto";
+  position: relative;
+  .backtohome {
+    // margin-bottom: calc(12 / $fdf) * $rem;
+    color: #7e7979;
+    font-size: calc(18 / $fdf) * $rem;
+    cursor: pointer;
+  }
+  .calories-content {
+    margin-top: calc(14 / $fdf) * $rem;
+    .gender {
+      font-size: calc(22 / $fdf) * $rem;
+      color: #2c2c2c;
+      font-weight: 700;
+    }
+    .gender-selection {
+      display: flex;
+      align-items: center;
+      .ant-radio-button-wrapper {
+        text-align: center;
+        width: 100px;
+        border-radius: 5px;
+        border: 1px solid #cacaca;
+        background-color: #ffffff;
+        font-size: calc(18 / $fdf) * $rem;
+        color: #cacaca;
+        font-weight: 700;
+        cursor: pointer;
+        &:nth-child(1) {
+          margin-right: calc(17 / $fdf) * $rem;
+        }
+        &:hover {
+          background-color: #9cdd22;
+          color: #ffffff;
+          border: 1px solid #9cdd22;
+        }
+        &.ant-radio-button-wrapper-checked {
+          background-color: #9cdd22;
+          color: #ffffff;
+          border: 1px solid #9cdd22;
+        }
+      }
+    }
+    .gender-image {
+      display: flex;
+      justify-content: center;
+      margin: calc(8 / $fdf) * $rem 0;
+      img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+      }
+    }
+    .ant-form {
+      .category-input {
+        display: flex;
+        .category {
+          width: 30%;
+          &:nth-child(1),
+          &:nth-child(2) {
+            padding-right: calc(8 / $fdf) * $rem;
+          }
+          .item-selection {
+            .ant-form-item-control {
+              height: calc(40 / $fdf) * $rem;
+              .form-input{
+                width: 100%;
+                .ant-input {
+                  width: 80%;
+                  height: 100%;
+                }
+                .ant-input-number {
+                  height: 100%;
+                }
+              }
+            }
+          }
+          h3 {
+            font-size: calc(20 / $fdf) * $rem;
+            color: #2c2c2c;
+            font-size: 700;
+          }
+        }
+      }
+      .category {
+        h3 {
+          font-size: calc(20 / $fdf) * $rem;
+          color: #2c2c2c;
+          font-weight: 700;
+        }
+        .ant-radio-button-wrapper {
+          margin-right: calc(8 / $fdf) * $rem;
+          margin-bottom: calc(8 / $fdf) * $rem;
+          border-radius: 10px;
+          font-size: calc(16 / $fdf) * $rem;
+          &::before {
+            background-color: #9cdd22;
+          }
+        }
+        .ant-radio-button-wrapper-checked {
+          background-color: #9cdd22;
+          font-weight: 700;
+          color: #ffffff;
+          border: 1px solid #9cdd22;
+        }
+      }
+    }
+    .note-advice {
+      margin: calc(8 / $fdf) * $rem 0;
+      margin-top: 0;
+      text-align: center;
+      .note-advice-wrapper {
+        display: block;
+        font-size: calc(14 / $fdf) * $rem;
+        color: #2c2c2c;
+        font-weight: 400;
+        .number {
+          color: #ff8057;
+          font-weight: 700;
+        }
+      }
+      // span{
+      //     display: block;
+      //     font-size: calc(14 / $fdf) * $rem;
+      //     color: #2c2c2c;
+      //     font-weight: 400;
+      //     &.number{
+      //         color: #ff8057;
+      //         font-weight: 700;
+      //     }
+      // }
+    }
+    .calo-directional {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: calc(16 / $fdf) * $rem;
+      .button {
+        width: 200px;
+        height: 50px;
+        border-radius: 10px;
+        background-color: #9cdd22;
+        color: #ffffff;
+        font-weight: 600;
+        font-size: calc(18 / $fdf) * $rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        &:nth-child(1) {
+          margin-right: calc(16 / $fdf) * $rem;
+          &:hover{
+            background-color: #ffffff;
+            color: #cacaca;
+          }
+        }
+        &:nth-child(2) {
+          border: 1px solid #cacaca;
+          background-color: #ffffff;
+          font-size: calc(18 / $fdf) * $rem;
+          color: #cacaca;
+          &:hover{
+            background-color: #9cdd22;
+            color: #ffffff;
+          }
+        }
+      }
+    }
+    .calculate-button {
+      width: 50%;
+      height: 50px;
+      text-align: center;
+      background-color: #ff8057;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: calc(20 / $fdf) * $rem;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin: 0 auto;
+    }
+  }
+}

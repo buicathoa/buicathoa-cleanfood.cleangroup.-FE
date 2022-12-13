@@ -11,21 +11,22 @@ export interface MenuTableDataItem{
     _id: string
 }
 
-export interface ComboItem {
+export interface ProductItemInterface {
     createdAt?: Date,
-    package_description?: string,
-    package_image?: string,
-    package_sub_title?: string,
-    package_title?: string,
-    package_url_generated?: string,
+    description?: string,
+    image?: string,
+    sub_title?: string,
+    title?: string,
+    url_generated?: string,
     price_per_meal?: number,
     updatedAt?: Date,
     __v?: number,
-    _id?: string
+    _id?: string,
+    product_type?: string
 }
 
-export interface listCombo{
-    listCombo: ComboItem[]
+export interface listProduct{
+    listProduct: ProductItemInterface[]
 }
 
 export interface listMenuTableData{
@@ -45,14 +46,9 @@ export interface titleHeaders {
 export interface ResponseFormatItem {
     code?: number,
     data?: {
-        data?: any
+        data?: any,
+        total_price?: number,
+        original_price?: number
     },
     message?: string
-}
-
-export interface ProductItemInterface{
-    image?: string,
-    title?: string,
-    content?: string,
-    minimum_price?: number
 }

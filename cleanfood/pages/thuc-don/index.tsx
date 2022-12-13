@@ -25,16 +25,14 @@ export const getServerSideProps  = async () => {
       {},
       'general'
     )
-    const {data}:AxiosResponse = listMenu
     return {
       props: {
-        listMenu: data || undefined,
+        listMenu: listMenu?.data || undefined,
       },
     };
   }
 
 const Menus = ({listMenu}: listMenuTableData) => {
-    console.log('listMenu', listMenu)
     const dispatch = useAppDispatch();
 
     const titleHeader: titleHeaders[] = [

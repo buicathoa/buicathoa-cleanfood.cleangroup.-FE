@@ -1,87 +1,136 @@
 .detail-product-wrapper {
   font-family: "Roboto";
   margin-bottom: calc(18 / $fdf) * $rem;
-  background-color: #ffffff;
-  .detail-product-container{
-    padding: calc(12 / $fdf) * $rem;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  .detail-product-container {
+    padding: calc(16 / $fdf) * $rem;
     display: flex;
     flex-direction: column;
-    .product-title {
-      font-weight: 600;
-      font-size: calc(18 / $fdf) * $rem;
-      color: #2c2c2c;
-      text-transform: uppercase;
-      margin-bottom: calc(24 / $fdf) * $rem;
-    }
-    img{
-      margin: calc(12 / $fdf) * $rem auto;
-      width: 100%;
-      height: calc(300 / $fdf) * $rem;
-      object-fit: cover;
-      border-radius: 20px;
-      margin-bottom: calc(24 / $fdf) * $rem;
-    }
-    .product-content{
-      // height: calc(550 / $fdf) * $rem;
-      position: relative;
-      z-index: 1;
-      // position: relative;
-      .note{
-        color: rgb(232, 110, 110);
-        font-size: calc(16 / $fdf) * $rem;
-        margin-bottom: calc(14 / $fdf) * $rem;
-        font-weight: 600;
-      }
-      .description{
-        color: #2c2c2c;
-        opacity: 0.8;
-        font-weight: 300;
-        font-size: calc(18 / $fdf) * $rem;
-        .food-detail-info{
-          color: rgb(232, 110, 110);
-          margin-bottom: calc(14 / $fdf) * $rem;;
-        }
-      }
-      .ant-select{
-        display: flex;
-        width: 40%;
-        margin: 0 auto;
-      }
-      .price{
-        color: rgb(232, 110, 110);
-        font-weight: 600;
-        font-size: calc(24 / $fdf) * $rem;
-        text-align: center;
-      }
-      .product-sub-content{
-        display: flex;
-        align-items: center;
-        margin-bottom: calc(14 / $fdf) * $rem;
-        span{
-          display: block;
-          font-size: calc(16 / $fdf) * $rem;
-          &.rating{
-            padding-right: calc(16 / $fdf) * $rem;
-            .rating-number{
-              padding-left: calc(8 / $fdf) * $rem;
-              font-weight: 700;
-              padding-right: calc(8 / $fdf) * $rem;
-            }
-            .total-review{
-              color: #888585;
-            }
-          }
-          &.delivery-icon{
+    background-color: #ffffff;
+    .ant-row {
+      .ant-col {
+        &:nth-child(1) {
+          padding-right: calc(16 / $fdf) * $rem;
+          .calories-selected {
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
-            .delivery-info{
-              padding-left: calc(8 / $fdf) * $rem;
+            margin-top: calc(16 / $fdf) * $rem;
+            .droplist-item {
+              display: flex;
+              flex-direction: column;
+              width: 50%;
+              // margin:  calc(4 / $fdf) * $rem auto;
+              label {
+                padding: 0 calc(8 / $fdf) * $rem;
+                font-weight: 600;
+                font-size: calc(10 / $fdf) * $rem;
+                color: #2f2f2f;
+                text-transform: uppercase;
+              }
+              .ant-select {
+                margin: calc(8 / $fdf) * $rem;
+                margin-bottom: calc(8 / $fdf) * $rem;
+                width: 100%;
+                padding-right: 5px;
+              }
             }
+          }
+        }
+        img {
+          width: 100%;
+          height: calc(250 / $fdf) * $rem;
+          border-radius: 10px;
+          object-fit: cover;
+        }
+        .product-content {
+          .product-title {
+            font-weight: 600;
+            font-size: calc(18 / $fdf) * $rem;
+            color: #2f2f2f;
+            text-transform: uppercase;
+            margin-bottom: calc(16 / $fdf) * $rem;
+          }
+          .note {
+            font-weight: 600;
+            font-size: calc(16 / $fdf) * $rem;
+            color: #9cdd22;
+            margin-bottom: calc(16 / $fdf) * $rem;
+          }
+          .description {
+            .food-detail-info {
+              font-weight: 600;
+              font-size: calc(16 / $fdf) * $rem;
+              color: #2f2f2f;
+              margin-bottom: calc(8 / $fdf) * $rem;
+              text-transform: uppercase;
+            }
+            .food-detail-content {
+              font-weight: 400;
+              font-size: calc(14 / $fdf) * $rem;
+              color: #2f2f2f;
+              margin-bottom: calc(8 / $fdf) * $rem;
+              text-indent: calc(16 / $fdf) * $rem;
+            }
+          }
+          .product-sub-content {
+            display: flex;
+            flex-direction: column;
+            .rating {
+              margin-right: calc(16 / $fdf) * $rem;
+              margin-bottom: calc(4 / $fdf) * $rem;
+              .rating-number {
+                font-weight: 600;
+                font-size: calc(16 / $fdf) * $rem;
+                color: #2f2f2f;
+                margin-left: calc(8 / $fdf) * $rem;
+              }
+              .total-review {
+                font-weight: 600;
+                font-size: calc(14 / $fdf) * $rem;
+                color: #2f2f2f;
+              }
+            }
+            .delivery-icon {
+              margin-right: calc(8 / $fdf) * $rem;
+              .delivery-info {
+                font-weight: 600;
+                font-size: calc(16 / $fdf) * $rem;
+                color: #2f2f2f;
+                margin-left: calc(8 / $fdf) * $rem;
+              }
+            }
+          }
+          .price-wrapper{
+            display: flex;
+            justify-content: center;
+            .price {
+              text-align: center;
+              font-weight: 700;
+              font-size: calc(20 / $fdf) * $rem;
+              color: #cf6e6e;
+              margin-right: calc(8 / $fdf) * $rem;
+            }
+            .original-price{
+              text-align: center;
+              font-weight: 700;
+              font-size: calc(18 / $fdf) * $rem;
+              color: #2f2f2f;
+              text-decoration: line-through;
+            }
+          }
+          .price-none{
+            text-align: center;
+            font-weight: 700;
+            font-size: calc(16 / $fdf) * $rem;
+            color: #2f2f2f;
+            margin-bottom: calc(16 / $fdf) * $rem;
           }
         }
       }
     }
-    .buy-actions{
+    .buy-actions {
       position: sticky;
       bottom: 80px;
       display: flex;
@@ -89,9 +138,9 @@
       font-weight: 500;
       justify-content: center;
       z-index: 99;
-      .add-to-cart{
+      .add-to-cart {
         padding: calc(8 / $fdf) * $rem calc(12 / $fdf) * $rem;
-        color: #2C2C2C;
+        color: #2c2c2c;
         border: 3px solid #9cdd22;
         border-radius: 5px;
         margin-right: calc(24 / $fdf) * $rem;
@@ -101,12 +150,12 @@
         background-color: #ffffff;
         font-weight: 700;
         cursor: pointer;
-        &:hover{
+        &:hover {
           background-color: #9cdd22;
-          color: #ffffff
+          color: #ffffff;
         }
       }
-      .buy-now{
+      .buy-now {
         background-color: #9cdd22;
         color: #ffffff;
         font-weight: 700;
@@ -116,11 +165,23 @@
         text-align: center;
         border: 3px solid #9cdd22;
         cursor: pointer;
-        &:hover{
+        &:hover {
           background-color: #ffffff;
-          color: #9cdd22
+          color: #9cdd22;
         }
       }
+    }
+  }
+  .other-product {
+    padding: calc(12 / $fdf) * $rem;
+    background-color: #ffffff;
+    margin-top: calc(8 / $fdf) * $rem;
+    .other-product-title {
+      text-align: center;
+      text-transform: uppercase;
+      color: #2f2f2f;
+      font-weight: 700;
+      font-size: 24px;
     }
   }
 }

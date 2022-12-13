@@ -1,13 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 import { Carousel } from 'antd'
 import React from 'react'
-import { listCombo } from '../../interface'
+import { listProduct, ProductItemInterface } from '../../interface'
 import Link from 'next/link'
 import {
   LeftOutlined, RightOutlined
 } from '@ant-design/icons';
 import "antd/dist/antd.css";
-const Combo = ({ listCombo }: listCombo) => {
+import { ProductItem } from '../ProductItem';
+const Combo = ({ listProduct }: listProduct) => {
 
   return (
     <div className="combo-wrapper">
@@ -21,27 +22,15 @@ const Combo = ({ listCombo }: listCombo) => {
           slidesToShow={2}
           // autoplay={true}
           // dots={false}
-          arrows
+          arrows={true}
           prevArrow={<LeftOutlined />}
           nextArrow={<RightOutlined />}
         >
-          {listCombo?.length > 0 && listCombo?.map((item, index) => {
+          {listProduct?.length > 0 && listProduct?.map((item:ProductItemInterface, index:number) => {
             return (
-              <Link href={item?.package_url_generated} key={index}>
+              <Link href={item?.url_generated || ''} key={index}>
                 <a>
-                  <div className="combo-slider">
-                    <div className="combo-slider-item-image">
-                      <img src={item?.package_image} alt="something" />
-                    </div>
-                    <div className="combo-slider-item-content">
-                      <div className="title-price">
-                        <div className="title">{item?.package_title}</div>
-                        {/* <div className="price">750000đ</div> */}
-                      </div>
-                      <small className="description">{item?.package_description}</small>
-                      <p className="note">** Giá sẽ phụ thuộc vào calo trên mỗi bữa ăn **</p>
-                    </div>
-                  </div>
+                  <ProductItem title={item?.title} image={item?.image} sub_title={item?.sub_title} renderType={"spiece"}/>
                 </a>
               </Link>
             )

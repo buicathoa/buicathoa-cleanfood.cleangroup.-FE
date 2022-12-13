@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { Fragment, useEffect, useState } from "react";
 import { Input, Carousel } from "antd";
-import { listCombo, listMenuTableData } from "../../interface";
+import { listMenuTableData, listProduct, ProductItem } from "../../interface";
 import Link from 'next/link'
 // import './style.scss'
 // import './style.scss'
@@ -13,18 +13,18 @@ import Link from 'next/link'
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 const { Search } = Input;
 
-const Categories = ({ listCombo }: listCombo) => {
+const Categories = ({ listProduct }: listProduct) => {
     return (
         <div className="categories-component">
             <div className="categories-container">
-                {listCombo?.length > 0 && listCombo.map((item, index) => {
+                {listProduct?.length > 0 && listProduct.map((item: ProductItem, index:number) => {
                     return (
-                        <Link href={item.package_url_generated} key={index}>
+                        <Link href={item.url_generated || ''} key={index}>
                             <div className="categories-item">
                                 <div className="categories-item-image">
-                                    <img src={item?.package_image} />
+                                    <img src={item?.image} />
                                 </div>
-                                <span>{item?.package_title}</span>
+                                <span>{item?.title}</span>
                             </div>
                         </Link>
                     )

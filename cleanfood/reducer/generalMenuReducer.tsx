@@ -3,10 +3,13 @@ import { createSlice } from '@reduxjs/toolkit'
 const generalMenu = createSlice({
     name: 'post',
     initialState: {
-        listCombo: []
+        listMenu: [] 
     },
     reducers: ({
         fetchAllGeneralMenu: (state, actions) => {},
+        fetchAllGeneralMenuSuccess: (state, actions) => {
+            state.listMenu = actions.data
+        },
         createGeneralMenus: (state, actions) => {}
     })
 })
