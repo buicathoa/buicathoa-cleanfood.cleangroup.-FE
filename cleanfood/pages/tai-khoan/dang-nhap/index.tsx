@@ -5,9 +5,15 @@ import {
 } from "@ant-design/icons";
 import { useRouter } from 'next/router'
 import React from 'react'
-
+import { ResponseFormatItem } from '../../../interface';
+import { useAppDispatch } from '../../../reducer/hook';
+import { AuthActions } from '../../../reducer/authReducer';
+import Cookies from 'js-cookie';
+import { AppActions } from '../../../reducer/appReducer';
+import { useSelector } from 'react-redux';
 const Login = () => {
     const router = useRouter()
+    const dispatch = useAppDispatch()
     const validateMessages = {
         required: 'required'
     }
@@ -20,6 +26,24 @@ const Login = () => {
         ]
     }
 
+    const fetchLogin = (param:any):Promise<ResponseFormatItem> => {
+        return new Promise((resolve, reject) => {
+          dispatch(AuthActions.fetchLogin({ param, resolve, reject }));
+        });
+      };
+    // const loading = useSelector((state) => state.app.isLoading)
+
+    const onFinish = (event: any) => {
+        dispatch(AppActions.startLoading({}))
+        // debugger
+        fetchLogin(event).then(res => {
+            if(res.token){
+                Cookies.set('cleanfood', res?.token);
+                router.back()
+            }
+        })
+    }
+
     return (
         <div className="auth-wrapper">
             <div className="backtohome" onClick={() => router.push("/")}><SwapLeftOutlined /> Back to home page</div>
@@ -29,13 +53,13 @@ const Login = () => {
             </div>
             <div className="auth-form">
                 <Form
-                    name="basic"
+                    name="login_form"
                     // labelCol={{ span: 8 }}
                     // wrapperCol={{ span: 16 }}
                     initialValues={{ remember: true }}
                     validateMessages={validateMessages}
                     layout="vertical"
-                    // onFinish={onFinish}
+                    onFinish={onFinish}
                     // onFinishFailed={onFinishFailed}
                     autoComplete="off"
                 >
@@ -58,7 +82,7 @@ const Login = () => {
 
                 <Row>
                     <Col span={24} className="auth-button">
-                        <Button form="reset_password_form" key="submit" htmlType="submit">
+                        <Button form="login_form" key="submit" htmlType="submit">
                             Đăng nhập
                         </Button>
                     </Col>

@@ -5,29 +5,31 @@ import {
   BellFilled
 } from "@ant-design/icons";
 import { Input, Badge, Space } from "antd";
-// import './style.scss'
-// import './style.scss'
-// import { strapiFreshFast, strapiFreshFastImage, strapiFreshFastClient } from 'utils/utils';
-// import NewsRelated from '../../../components/NewsRelated';
-// import CarouselItem from 'components/Common/CarouselItem';
-// import imageSetup from './../../../helpers/loadImageStrapi';
+import { ResponseFormatItem } from "../../interface";
+import { useAppDispatch } from "../../reducer/hook";
+import { CartActions } from "../../reducer/cartReducer";
+import Cookies from 'js-cookie';
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 const { Search } = Input;
-// export async function getServerSideProps(context) {
-//     const [resJob] = await Promise.all([
-//         fetch(`${strapiFreshFast}/trang-dai-ly-ctv`),
-//     ])
-//     const [job] = await Promise.all([
-//         resJob.json(),
-//     ])
-//     return {
-//         props: {
-//             job,
-//         }
-//     };
-// }
 
 const Header: React.FC = () => {
+  const dispatch = useAppDispatch()
+  const router = useRouter()
+  const fetchAllCart = (param: any): Promise<ResponseFormatItem> => {
+    return new Promise((resolve, reject) => {
+      dispatch(CartActions.fetchAllCart({ param, resolve, reject }));
+    });
+  };
+
+  const listCartQuantity = useSelector((state) => state.cart.listCartQuantity)
+  useEffect(() => {
+    if (Cookies.get('cleanfood')) {
+      fetchAllCart({})
+    }
+  }, [])
+
   return (
     <header className="header-component">
       <div className="header-container">
@@ -41,10 +43,10 @@ const Header: React.FC = () => {
           <div className="header-personal">
             <Space size="middle">
               <Badge count={5} size="small">
-                <BellFilled className="icon"/>
+                <BellFilled className="icon" />
               </Badge>
-              <Badge count={5} size="small">
-                <ShoppingFilled className="icon"/>
+              <Badge count={listCartQuantity || 0} size="small">
+                <ShoppingFilled className="icon" onClick={() => router.push('/gio-hang')}/>
               </Badge>
             </Space>
           </div>

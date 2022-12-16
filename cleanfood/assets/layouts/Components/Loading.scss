@@ -1,0 +1,27 @@
+.loading-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    opacity: 0.85;
+    z-index: 99999;
+    width: calc(100vw + 6.25rem);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: calc(-100 / $fdf) * $rem;
+    &.hiden {
+      display: none;
+    }
+  
+    .wrap {
+      .text {
+        display: inline-block;
+        font-family: $roboto;
+        font-weight: bold;
+        font-size: calc(24 / $fdf) * $rem;
+        line-height: calc(24 / $fdf) * $rem;
+        color: #0ab2a8;
+      }
+    }
+  }

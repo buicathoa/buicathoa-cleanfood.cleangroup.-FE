@@ -56,9 +56,9 @@
             .ant-col{
                 padding: 0 calc(5 / $fdf) * $rem;
                 .form-input{
-                    text-align: center;
+                    text-align: left;
                     input{
-                        text-align: center;
+                        text-align: left;
                     }
                 }
             }

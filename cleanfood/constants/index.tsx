@@ -9,10 +9,14 @@ export const apiUrl = {
         getByRoute: 'product/get-by-route',
         getMoneyCost: 'product/get-cost',
     },
-    location: {
-        getListCities: 'province/get-all',
-        getListDistricts: 'province/district',
-        getListWards: 'province/ward'
+    cart: {
+        getCartByUser: 'cart/get-cart-by-user',
+        add: 'cart/add',
+        update: 'cart/update-quantity',
+        delete: 'cart/remove-cart-item'
+    },
+    auth: {
+        login: 'auth/login'
     },
     post: {
         uploadImage: 'upload/image',

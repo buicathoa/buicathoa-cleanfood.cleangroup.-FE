@@ -6,6 +6,7 @@ import { fetchAllGeneralMenu, GeneralMenuActions } from "../reducer/generalMenuR
 import { type Saga } from 'redux-saga';
 import { ResponseFormatItem } from "../interface";
 import { ProductActions } from "../reducer/ProductReducer";
+import { AppActions } from "../reducer/appReducer";
 
 function* fetchAllProducts(action):Generator {
     const { param, resolve, reject } = action.payload
@@ -36,9 +37,11 @@ function* fetchMoneyCost(action):Generator {
     const { param, resolve, reject } = action.payload
     try{
         const response = yield apiRequest(apiUrl.product.getMoneyCost, param, 'general')
+        yield put(AppActions.stopLoading({}))
         if (resolve) yield resolve(response)
     }
     catch(err) {
+        yield put(AppActions.stopLoading({}))
         if (reject) yield reject(err)
     }
 }

@@ -14,6 +14,10 @@ import { useAppDispatch } from '../reducer/hook';
 import { ProductActions } from '../reducer/ProductReducer';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
+import { CartActions } from '../reducer/cartReducer';
+import Cookies from 'js-cookie';
+import { AppActions } from '../reducer/appReducer';
+import { openSuccess } from '../components/NotificationStatus';
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const [listProduct] = await Promise.all([
         apiRequest(
@@ -57,6 +61,18 @@ const SEOProduct = ({ productDetail, listProduct }: Props) => {
         });
     };
 
+    const addToCart = (param: any): Promise<ResponseFormatItem> => {
+        return new Promise((resolve, reject) => {
+            dispatch(CartActions.addToCart({ param, resolve, reject }));
+        });
+    };
+
+    const fetchAllCart = (param: any): Promise<ResponseFormatItem> => {
+        return new Promise((resolve, reject) => {
+          dispatch(CartActions.fetchAllCart({ param, resolve, reject }));
+        });
+      };
+
     const [caloriesSeleceted, setCaloriesSelected] = useState<number>()
     const [sessionSelected, setSessionSelected] = useState<number>()
     const [mealplanSelected, setMealplanSelected] = useState<number>()
@@ -99,9 +115,31 @@ const SEOProduct = ({ productDetail, listProduct }: Props) => {
             setSessionSelected(event)
         } else {
             const params = { mealplans_session_id: event, calories_id: caloriesSeleceted, mealplans_id: mealplanSelected }
+            dispatch(AppActions.startLoading({}))
             fetchMoneyCost(params).then(res => {
                 setTotalPrice(res?.data?.total_price)
                 setOriginalPrice(res?.data?.original_price)
+            })
+        }
+    }
+
+    const handleAddToCart = () => {
+        const isLogin = Cookies.get('cleanfood')
+        if(!isLogin) {
+            router.push('/tai-khoan/dang-nhap')
+        } else {
+            dispatch(AppActions.startLoading({}))
+            const params = {
+                product_id: productDetail?._id,
+                quantity: 1,
+                calories_id: caloriesSeleceted,
+                session_id: sessionSelected,
+                mealplans_id: mealplanSelected,
+                price: totalPrice
+            }
+            addToCart(params).then(() => {
+                openSuccess('Thêm sản phẩm vào giỏ hàng thành công')
+                fetchAllCart({})
             })
         }
     }
@@ -179,7 +217,7 @@ const SEOProduct = ({ productDetail, listProduct }: Props) => {
                             {!totalPrice && <div className="price-none">Giá sản phẩm sẽ dựa vào số lượng calo và gói ăn</div>}
                         </div>
                         <div className="buy-actions">
-                            <div className="add-to-cart">add to cart</div>
+                            <div className="add-to-cart" onClick={() => handleAddToCart()}>add to cart</div>
                             <div className="buy-now">buy now</div>
                         </div>
                     </Col>
@@ -189,7 +227,7 @@ const SEOProduct = ({ productDetail, listProduct }: Props) => {
                 <div className="combo">
                     <h3 className="other-product-title">Gói Combo Khác</h3>
                     <Carousel
-                        slidesToShow={3}
+                        slidesToShow={2}
                         // autoplay={true}
                         // dots={false}
                         arrows

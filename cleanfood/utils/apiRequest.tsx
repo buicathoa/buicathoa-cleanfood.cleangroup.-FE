@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 export const apiRequest = (url: string, payload: any, type: string) => {
     const headers = {
         'Content-Type': type === 'general' ? 'application/json;charset=UTF-8' : 'multipart/form-data',
-        'Authorization': Cookies.get('docu_token') ? `Bearer ${Cookies.get('docu_token')}` : '',
+        'Authorization': Cookies.get('cleanfood') ? `Bearer ${Cookies.get('cleanfood')}` : '',
         "Access-Control-Allow-Origin": "*",
         "Accept": "application/json"
     }

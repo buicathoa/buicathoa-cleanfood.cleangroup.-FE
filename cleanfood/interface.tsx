@@ -50,5 +50,27 @@ export interface ResponseFormatItem {
         total_price?: number,
         original_price?: number
     },
+    token?: string,
     message?: string
+}
+
+export interface CartItem {
+    cart_id?: string,
+    daily_calories?: string,
+    mealplans?: string,
+    price?: number,
+    product_info?: ProductItemInterface,
+    quantity?: number,
+    session?: string,
+    total_price?: number,
+    _id?: string
+}
+
+export interface ModalConfirm {
+    title: string,
+    isOpenConfirmModal: boolean,
+    onConfirmOk: () => void,
+    onConfirmCancel: () => void,
+    confirmTitle: string,
+    confirmContent: string
 }
