@@ -18,9 +18,19 @@ export const apiUrl = {
     auth: {
         login: 'auth/login'
     },
+    user: {
+        getUserInfo: 'user/get-user-info',
+        update: 'user/update',
+        uploadAvatar: 'user/upload-avatar'
+    },
     post: {
         uploadImage: 'upload/image',
         createNewPost: 'posts/create'
+    },
+    location: {
+        getAllCity: 'location/province/get-all',
+        getDistrictByCity: 'location/district/get-by-id',
+        getWardByDistrict: 'location/ward/get-by-id'
     }
 }
 

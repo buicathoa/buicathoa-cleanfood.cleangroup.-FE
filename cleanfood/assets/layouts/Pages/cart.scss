@@ -77,7 +77,7 @@
       background-color: #c3e485;
       overflow-y: auto;
       padding: calc(16 / $fdf) * $rem;
-      height: calc(100vh - calc(192 / $fdf) * $rem);
+      height: calc(100vh - calc(176 / $fdf) * $rem);
       position: relative;
       border: 1px solid rgb(240, 237, 237);
       border-top: unset;
@@ -159,131 +159,235 @@
           }
         }
       }
-      .price-info {
-        position: absolute;
-        bottom: calc(40 / $fdf) * $rem;
+      .cart-voucher {
+        padding: calc(8 / $fdf) * $rem;
+        background-color: #ffffff;
+        border-radius: 10px;
         display: flex;
-        justify-content: center;
-        width: 100%;
-        font-size: calc(20 / $fdf) * $rem;
-        color: #2c2c2c;
-        font-weight: 400;
-        .title {
-          color: #2c2c2c;
+        justify-content: space-between;
+        align-items: center;
+        .voucher-left {
+          color: #9cdd22;
+          font-size: calc(14 / $fdf) * $rem;
           font-weight: 800;
-          font-size: calc(24 / $fdf) * $rem;
-        }
-        .subtotal {
-          padding-right: calc(32 / $fdf) * $rem;
-        }
-      }
-      .ant-form {
-        .contact-info {
-          .contact-info-item {
-            margin-bottom: calc(8 / $fdf) * $rem;
-            .contact-info-title {
-              font-size: calc(18 / $fdf) * $rem;
-              font-weight: 700;
-              line-height: calc(20 / $fdf) * $rem;
-              color: #2c2c2c;
-              margin-bottom: calc(8 / $fdf) * $rem;
-            }
-            .ant-row {
-              .ant-col {
-                .ant-form-item {
-                  margin-bottom: calc(8 / $fdf) * $rem;
-                  &.checkbox {
-                    padding-top: calc(8 / $fdf) * $rem;
-                  }
-                  .ant-select-selector {
-                    height: unset !important;
-                  }
-                }
-              }
-              .ant-form-item {
-                .ant-row {
-                  flex-direction: row;
-                  align-items: center;
-                  .ant-form-item-label {
-                    margin-bottom: 0 !important;
-                    padding: 0 !important;
-                    label {
-                      font-size: calc(18 / $fdf) * $rem;
-                      font-weight: 700;
-                      line-height: calc(20 / $fdf) * $rem;
-                      color: #2c2c2c;
-                    }
-                  }
-                }
-              }
+          text-transform: uppercase;
+          span {
+            &:nth-child(2) {
+              margin-left: calc(4 / $fdf) * $rem;
             }
           }
         }
-      }
-      .payment-content {
-        .payment-title {
-          font-size: calc(24 / $fdf) * $rem;
-          color: #2c2c2c;
-          font-weight: 600;
-          margin-bottom: calc(8 / $fdf) * $rem;
-        }
-        .payment-method-selection {
-          .ant-radio-group {
-            display: flex;
-            align-items: center;
-            .payment-method-item {
-              background-color: #ffffff;
-              padding: calc(8 / $fdf) * $rem;
-              margin-right: calc(16 / $fdf) * $rem;
-              border-radius: 10px;
-              img {
-                width: calc(70 / $fdf) * $rem;
-                height: calc(70 / $fdf) * $rem;
-                object-fit: cover;
-              }
-            }
-          }
-        }
-      }
-      .payment-detail {
-        margin-top: calc(32 / $fdf) * $rem;
-        .momo-wrapper {
+        .voucher-right {
           display: flex;
           align-items: center;
-          justify-content: space-around;
-          .momo-content {
-            .momo-title {
-              font-size: calc(20 / $fdf) * $rem;
-              font-weight: 600;
-              line-height: calc(20 / $fdf) * $rem;
-              color: #2c2c2c;
+          .list-vouchers {
+            margin-right: 16px;
+            font-size: 18px;
+          }
+        }
+      }
+      .coin-cart {
+        padding: calc(8 / $fdf) * $rem;
+        background-color: #ffffff;
+        border-radius: 10px;
+        display: flex;
+        // justify-content: space-between;
+        align-items: center;
+        .coin-cart-content {
+          display: flex;
+          flex-direction: column;
+          margin-right: calc(24 / $fdf) * $rem;
+          .coin-cart-title {
+            color: #9cdd22;
+            font-size: calc(14 / $fdf) * $rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            .anticon{
+              margin-right: calc(4 / $fdf) * $rem;
             }
-            .momo-description {
-              font-size: calc(18 / $fdf) * $rem;
-              font-weight: 400;
-              line-height: calc(20 / $fdf) * $rem;
-              color: #2c2c2c;
-              font-style: italic;
-              margin: calc(8 / $fdf) * $rem 0;
+          }
+          .ant-switch {
+            margin-top: calc(8 / $fdf) * $rem;
+            // margin-left: calc(16 / $fdf) * $rem;
+          }
+        }
+      }
+      .payment-wrapper {
+        padding: calc(8 / $fdf) * $rem;
+        background-color: #ffffff;
+        border-radius: 10px;
+        .payment-content {
+          .payment-title {
+            color: #9cdd22;
+            font-size: calc(14 / $fdf) * $rem;
+            font-weight: 800;
+            text-transform: uppercase;
+          }
+          .payment-method-selection {
+            .ant-radio-group {
+              display: flex;
+              align-items: center;
+              .payment-method-item {
+                background-color: #ffffff;
+                padding: calc(8 / $fdf) * $rem;
+                margin-right: calc(16 / $fdf) * $rem;
+                border-radius: 10px;
+                img {
+                  width: calc(70 / $fdf) * $rem;
+                  height: calc(70 / $fdf) * $rem;
+                  object-fit: cover;
+                }
+              }
             }
-            .momo-steps {
-              .step-item {
-                font-size: calc(16 / $fdf) * $rem;
+          }
+        }
+        .payment-detail {
+          margin-top: calc(32 / $fdf) * $rem;
+          .momo-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            .momo-content {
+              .momo-title {
+                font-size: calc(20 / $fdf) * $rem;
+                font-weight: 600;
+                line-height: calc(20 / $fdf) * $rem;
+                color: #2c2c2c;
+              }
+              .momo-description {
+                font-size: calc(18 / $fdf) * $rem;
                 font-weight: 400;
                 line-height: calc(20 / $fdf) * $rem;
                 color: #2c2c2c;
                 font-style: italic;
-                margin-top: calc(8 / $fdf) * $rem;
+                margin: calc(8 / $fdf) * $rem 0;
+              }
+              .momo-steps {
+                .step-item {
+                  font-size: calc(16 / $fdf) * $rem;
+                  font-weight: 400;
+                  line-height: calc(20 / $fdf) * $rem;
+                  color: #2c2c2c;
+                  font-style: italic;
+                  margin-top: calc(8 / $fdf) * $rem;
+                }
               }
             }
-          }
-          img {
-            width: calc(120 / $fdf) * $rem;
-            height: calc(120 / $fdf) * $rem;
-            margin-left: calc(16 / $fdf) * $rem;
+            img {
+              width: calc(120 / $fdf) * $rem;
+              height: calc(120 / $fdf) * $rem;
+              margin-left: calc(16 / $fdf) * $rem;
+            }
           }
         }
       }
+      // .ant-form {
+      //   .contact-info {
+      //     .contact-info-item {
+      //       margin-bottom: calc(8 / $fdf) * $rem;
+      //       .contact-info-title {
+      //         font-size: calc(18 / $fdf) * $rem;
+      //         font-weight: 700;
+      //         line-height: calc(20 / $fdf) * $rem;
+      //         color: #2c2c2c;
+      //         margin-bottom: calc(8 / $fdf) * $rem;
+      //       }
+      //       .ant-row {
+      //         .ant-col {
+      //           .ant-form-item {
+      //             margin-bottom: calc(8 / $fdf) * $rem;
+      //             &.checkbox {
+      //               padding-top: calc(8 / $fdf) * $rem;
+      //             }
+      //             .ant-select-selector {
+      //               height: unset !important;
+      //             }
+      //           }
+      //         }
+      //         .ant-form-item {
+      //           .ant-row {
+      //             flex-direction: row;
+      //             align-items: center;
+      //             .ant-form-item-label {
+      //               margin-bottom: 0 !important;
+      //               padding: 0 !important;
+      //               label {
+      //                 font-size: calc(18 / $fdf) * $rem;
+      //                 font-weight: 700;
+      //                 line-height: calc(20 / $fdf) * $rem;
+      //                 color: #2c2c2c;
+      //               }
+      //             }
+      //           }
+      //         }
+      //       }
+      //     }
+      //   }
+      // }
+      // .payment-content {
+      //   .payment-title {
+      //     font-size: calc(24 / $fdf) * $rem;
+      //     color: #2c2c2c;
+      //     font-weight: 600;
+      //     margin-bottom: calc(8 / $fdf) * $rem;
+      //   }
+      //   .payment-method-selection {
+      //     .ant-radio-group {
+      //       display: flex;
+      //       align-items: center;
+      //       .payment-method-item {
+      //         background-color: #ffffff;
+      //         padding: calc(8 / $fdf) * $rem;
+      //         margin-right: calc(16 / $fdf) * $rem;
+      //         border-radius: 10px;
+      //         img {
+      //           width: calc(70 / $fdf) * $rem;
+      //           height: calc(70 / $fdf) * $rem;
+      //           object-fit: cover;
+      //         }
+      //       }
+      //     }
+      //   }
+      // }
+      // .payment-detail {
+      //   margin-top: calc(32 / $fdf) * $rem;
+      //   .momo-wrapper {
+      //     display: flex;
+      //     align-items: center;
+      //     justify-content: space-around;
+      //     .momo-content {
+      //       .momo-title {
+      //         font-size: calc(20 / $fdf) * $rem;
+      //         font-weight: 600;
+      //         line-height: calc(20 / $fdf) * $rem;
+      //         color: #2c2c2c;
+      //       }
+      //       .momo-description {
+      //         font-size: calc(18 / $fdf) * $rem;
+      //         font-weight: 400;
+      //         line-height: calc(20 / $fdf) * $rem;
+      //         color: #2c2c2c;
+      //         font-style: italic;
+      //         margin: calc(8 / $fdf) * $rem 0;
+      //       }
+      //       .momo-steps {
+      //         .step-item {
+      //           font-size: calc(16 / $fdf) * $rem;
+      //           font-weight: 400;
+      //           line-height: calc(20 / $fdf) * $rem;
+      //           color: #2c2c2c;
+      //           font-style: italic;
+      //           margin-top: calc(8 / $fdf) * $rem;
+      //         }
+      //       }
+      //     }
+      //     img {
+      //       width: calc(120 / $fdf) * $rem;
+      //       height: calc(120 / $fdf) * $rem;
+      //       margin-left: calc(16 / $fdf) * $rem;
+      //     }
+      //   }
+      // }
     }
     .cart-checkout {
       height: calc(64 / $fdf) * $rem;
@@ -303,6 +407,11 @@
       justify-content: space-between;
       .total-price {
         font-size: calc(22 / $fdf) * $rem;
+        font-weight: 700;
+        color: #2c2c2c;
+        .total-price-title {
+          font-weight: 400;
+        }
       }
       .checkout-button {
         width: calc(120 / $fdf) * $rem;

@@ -65,12 +65,15 @@ export interface CartItem {
     total_price?: number,
     _id?: string
 }
+export interface ModalInterface {
+    title?: string,
+    visible?: boolean,
+    setVisible: React.Dispatch<React.SetStateAction<boolean>>,
+    confirmTitle?: string,
+    confirmContent?: string
+}
 
-export interface ModalConfirm {
-    title: string,
-    isOpenConfirmModal: boolean,
-    onConfirmOk: () => void,
-    onConfirmCancel: () => void,
-    confirmTitle: string,
-    confirmContent: string
+export interface ModalInterfaceConfirm extends ModalInterface {
+    onConfirmModal: () => void,
+    onConfirmCancelModal: () => void,
 }

@@ -11,22 +11,34 @@ import { CartActions } from "../../reducer/cartReducer";
 import Cookies from 'js-cookie';
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import { UserActions } from "../../reducer/userReducer";
+import { AppActions } from "../../reducer/appReducer";
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 const { Search } = Input;
 
-const Header: React.FC = () => {
+const Header: React.FC = (props) => {
+  console.log('vcl', props.haha)
   const dispatch = useAppDispatch()
   const router = useRouter()
+
   const fetchAllCart = (param: any): Promise<ResponseFormatItem> => {
     return new Promise((resolve, reject) => {
       dispatch(CartActions.fetchAllCart({ param, resolve, reject }));
     });
   };
 
+  const fetchUserInfo = (param: any): Promise<ResponseFormatItem> => {
+    return new Promise((resolve, reject) => {
+      dispatch(UserActions.fetchUserInfo({ param, resolve, reject }));
+    });
+  };
+
   const listCartQuantity = useSelector((state) => state.cart.listCartQuantity)
   useEffect(() => {
     if (Cookies.get('cleanfood')) {
+      dispatch(AppActions.startLoading({}))
       fetchAllCart({})
+      fetchUserInfo({})
     }
   }, [])
 

@@ -3,6 +3,25 @@ body {
   margin: 0 !important;
 }
 
+.contact-decor {
+  height: 3px;
+  width: 95%;
+  background-position-x: -30px;
+  background-size: 116px 3px;
+  margin: 12px auto;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #6fa6d6,
+    #6fa6d6 33px,
+    transparent 0,
+    transparent 41px,
+    #f18d9b 0,
+    #f18d9b 74px,
+    transparent 0,
+    transparent 82px
+  );
+}
+
 .ant-notification-notice-content {
   .ant-notification-notice-message {
       // display: flex;
@@ -68,7 +87,7 @@ body {
   font-size: calc(16 / $fdf) * $rem;
   color: #2c2c2c;
   line-height: calc(24 / $fdf) * $rem;
-  background-color: #f1f4f6;
+  background-color: #ffffff;
   &::placeholder {
     font-family: $roboto;
     font-weight: 400;
@@ -109,12 +128,13 @@ body {
 }
 
 .form-select {
+  height: calc(40 / $fdf) * $rem;
   .ant-select-selector {
-    height: calc(40 / $fdf) * $rem;
+    height: 100% !important;
     padding: 0 calc(12 / $fdf) * $rem;
     border: 1px solid #d9d9d9;
     border-radius: calc(5 / $fdf) * $rem;
-
+    background-color: #f1f4f6;
     .ant-select-selection-search {
       left: calc(12 / $fdf) * $rem;
       input {
@@ -254,12 +274,51 @@ body {
     margin: 0 calc(7 / $fdf) * $rem 0 calc(25 / $fdf) * $rem;
   }
   &.ant-switch-checked {
-    background-color: #20a2a2;
+    background-color: #9cdd22;
     .ant-switch-handle {
       left: calc(100% - 1.125rem - 0.125rem);
     }
     .ant-switch-inner {
       margin: 0 calc(25 / $fdf) * $rem 0 calc(7 / $fdf) * $rem;
+    }
+  }
+}
+
+.custom-radio-group {
+  .ant-space-item {
+    margin-bottom: calc(20 / $fdf) * $rem !important;
+  }
+  .custom-radio {
+    align-items: center;
+    font-family: $roboto;
+    font-weight: 400;
+    font-size: calc(16 / $fdf) * $rem;
+    line-height: calc(16 / $fdf) * $rem;
+    color: #000;
+    .ant-radio {
+      top: 0;
+      font-size: calc(16 / $fdf) * $rem;
+      line-height: calc(16 / $fdf) * $rem;
+    }
+    input,
+    .ant-radio-inner {
+      width: calc(20 / $fdf) * $rem;
+      height: calc(20 / $fdf) * $rem;
+      border-width: calc(1 / $fdf) * $rem;
+    }
+    .ant-radio-inner {
+      border-color: #9cdd22;
+      &::after {
+        transform: unset;
+        margin-top: 0;
+        margin-left: 0;
+        top: calc(2 / $fdf) * $rem;
+        left: calc(2 / $fdf) * $rem;
+        display: block;
+        width: calc(14 / $fdf) * $rem;
+        height: calc(14 / $fdf) * $rem;
+        background-color: #9cdd22;
+      }
     }
   }
 }
@@ -317,6 +376,92 @@ body {
   letter-spacing: normal;
   width: 100%;
 }
+.ant-modal-header {
+  padding: calc(5 / $fdf) * $rem calc(18 / $fdf) * $rem;
+  background: #9cdd22;
+  > div {
+    font-family: $roboto;
+    font-weight: 700;
+    font-size: calc(17 / $fdf) * $rem;
+    line-height: calc(30 / $fdf) * $rem;
+    color: #fff;
+  }
+  .ant-modal-close-x{
+    color: #ffffff;
+  }
+}
+.ant-modal-body {
+  padding: 0;
+}
+.ant-modal-footer {
+  padding: calc(18 / $fdf) * $rem calc(50 / $fdf) * $rem;
+  border-top: unset;
+  button {
+    background: #9cdd22;
+    width: calc(100 / $fdf) * $rem;
+    height: calc(45 / $fdf) * $rem;
+    padding: 0 calc(15 / $fdf) * $rem;
+    border: 1px solid #9cdd22;
+    border-radius: calc(4 / $fdf) * $rem;
+    font-family: $roboto;
+    font-size: calc(14 / $fdf) * $rem;
+    font-weight: normal;
+    color: #fff;
+    line-height: calc(17 / $fdf) * $rem;
+    &:first-child {
+      // background: #20a2a2;
+      background: #f1f1f1;
+      border: 1px solid #d3d3d3;
+      color: #979797;
+      &:hover {
+        background: #f1f1f1;
+        border: 1px solid #f1f1f1;
+      }
+    }
+    &:last-child {
+      margin-left: calc(12 / $fdf) * $rem;
+      &:hover {
+        background: #9cdd22;
+        border: 1px solid #9df004;
+      }
+    }
+    &.btn-delete {
+      margin-left: calc(12 / $fdf) * $rem;
+      background: #f76868;
+      border: 1px solid #f76868;
+      &:hover {
+        opacity: 0.8;
+      }
+      &.hidden {
+        display: none;
+      }
+    }
+  }
+  // .save-edit{
+  //   background-color:#20a2a2 !important
+  // }
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #9cdd22; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #9dee05; 
+}
 
 html {
   // font-size: calc($fdf/1440 * 100) * $vw;
@@ -337,12 +482,16 @@ html {
 @import "./assets/layouts/Pages/account/auth.scss";
 @import "./assets/layouts/Pages/account/account.scss";
 @import "./assets/layouts/Pages/account/calories.scss";
+@import "./assets/layouts/Pages/account/profile.scss";
 
 //components
 @import "./assets/layouts/Components/ProductItem.scss";
 @import "./assets/layouts/Components/TableData.scss";
 @import "./assets/layouts/Components/Loading.scss";
 @import "./assets/layouts/Components/ModalConfirm.scss";
+@import "./assets/layouts/Components/ModalAddress.scss";
+@import "./assets/layouts/Components/ModalVoucher.scss";
+@import "./assets/layouts/Components/AddressItem.scss";
 
 @import "./assets/layouts/ProductDetail.scss";
 

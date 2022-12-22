@@ -71,7 +71,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               <div className={`page-container ${loading ? 'slide' : 'normal'}`}>
                 <Header />
                 <Loading />
-                <Component {...pageProps} />
+                <Component {...pageProps}/>
                 <Footer />
                 <FooterTab />
               </div>

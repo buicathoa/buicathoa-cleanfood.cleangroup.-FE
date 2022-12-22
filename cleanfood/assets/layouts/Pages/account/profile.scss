@@ -1,0 +1,160 @@
+.profile-wrapper {
+  padding: calc(12 / $fdf) * $rem;
+  background-color: #ffffff;
+  font-family: "Roboto";
+  .section{
+    .title{
+      color: #2c2c2c;
+      font-size: calc(18 / $fdf) * $rem;
+      font-weight: 800;
+      margin: calc(18 / $fdf) * $rem 0;
+      color: #2c2c2c;
+      text-transform: uppercase;
+    }
+  }
+  .profile-section{
+    .profile-avatar {
+      width: calc(82 / $fdf) * $rem;
+      height: calc(82 / $fdf) * $rem;
+      border-radius: 50%;
+      margin: auto;
+      position: relative;
+      img {
+        border-radius: 50%;
+        width: calc(90 / $fdf) * $rem;
+        height: calc(90 / $fdf) * $rem;
+      }
+      label {
+        cursor: pointer;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        .icon-edit-modal {
+          font-size: calc(24 / $fdf) * $rem;
+        }
+      }
+      .input-file {
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+      }
+      input {
+        height: calc(20 / $fdf) * $rem;
+      }
+      .ant-image-mask-info {
+        width: calc(120 / $fdf) * $rem;
+        height: calc(120 / $fdf) * $rem;
+        .anticon {
+          margin-top: calc(50 / $fdf) * $rem;
+          margin-inline-end: unset !important;
+        }
+      }
+      .icon-camera {
+        &::before {
+          position: absolute;
+          right: calc(-13 / $fdf) * $rem;
+          bottom: calc(-8 / $fdf) * $rem;
+          padding: calc(10 / $fdf) * $rem;
+          border-radius: 50%;
+          border: 1px solid #ececec;
+          background-color: #fafafa;
+        }
+      }
+    }
+    .profile-information-content {
+      margin-top: calc(16 / $fdf) * $rem;
+      .ant-form {
+        .ant-row {
+          &.divider{
+            justify-content: space-between;
+          }
+          .ant-col {
+            .flex-profile-item{
+              margin-bottom: calc(16 / $fdf) * $rem;
+              &.flex{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              }
+              &.none{
+                display: block;
+              }
+              .ant-form-item{
+                  margin-bottom: 0;
+                .ant-form-item-label {
+                  width: calc(140 / $fdf) * $rem;
+                  text-align: left;
+                  label {
+                    font-weight: 600;
+                    font-size: calc(18 / $fdf) * $rem;
+                    color: #2c2c2c;
+                  }
+                }
+                .ant-form-item-control{
+                  width: calc(100% - calc(140 / $fdf) * $rem);
+                  .form-input{
+                    &.none{
+                      display: none;
+                    }
+                    &.displayed{
+                      display: block;
+                    }
+                  }
+                }
+              }
+              .field-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                &.displayed{
+                  display: flex;
+                  width: calc(100% - calc(140 / $fdf) * $rem);
+                }
+                &.none{
+                  display: none;
+                }
+                .field-value {
+                  font-weight: 400;
+                  font-size: calc(18 / $fdf) * $rem;
+                  color: #2c2c2c;
+                  padding-right: calc(18 / $fdf) * $rem;
+                }
+              }
+            }
+            .action-buttons{
+              margin: calc(8 / $fdf) * $rem 0;
+              &.displayed{
+                display: flex;
+                justify-content: flex-end;
+              }
+              &.none{
+                display: none;
+              }
+              button{
+                width: calc(100 / $fdf) * $rem;
+                &:nth-child(1){
+                  margin-right: calc(8 / $fdf) * $rem;
+                  background-color: #9cdd22;
+                  border: 1px solid #9cdd22;
+                  color: #ffffff;
+                }
+              }
+            }
+          }
+          .custom-radio-group {
+            display: flex;
+            justify-content: center;
+            .custom-radio {
+              padding: calc(8 / $fdf) * $rem calc(16 / $fdf) * $rem;
+              border: 1px solid #e2dcdc;
+            }
+          }
+        }
+      }
+    }
+  }
+  .delivery-info-section{
+    background-color: #c3e485;
+    padding: calc(16 / $fdf) * $rem;
+  }
+}

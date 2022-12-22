@@ -3,10 +3,11 @@ import React, { useEffect, useState } from 'react'
 import {
     MinusOutlined, PlusOutlined, DeleteOutlined, UserOutlined,
     EnvironmentOutlined,
-    LoadingOutlined,
-    SmileOutlined,
+    GiftOutlined,
+    RightOutlined,
+    DollarOutlined,
 } from "@ant-design/icons";
-import { Button, Checkbox, Col, Form, Input, InputNumber, Radio, RadioChangeEvent, Row, Select, Steps } from 'antd';
+import { Button, Checkbox, Col, Form, Input, InputNumber, Radio, RadioChangeEvent, Row, Select, Steps, Switch, Tag } from 'antd';
 import { useAppDispatch } from '../../reducer/hook';
 import { CartItem, ResponseFormatItem } from '../../interface';
 import { CartActions } from '../../reducer/cartReducer';
@@ -15,29 +16,29 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { AppActions } from '../../reducer/appReducer';
 import ModalConfirm from '../../components/ModalConfirm';
+import ModalAddress from '../../components/ModalAddress';
+import { getrandomcolor } from '../../utils/helper';
+import ModalVoucher from '../../components/ModalVoucher';
+import { UserActions } from '../../reducer/userReducer';
+import AddressItem from '../../components/AddressItem';
 const Cart: React.FC = () => {
     const router = useRouter()
     const dispatch = useAppDispatch()
     const listPaymentMethods = [{ name: 'Momo', image: 'images/momo.png' }, { name: 'COD', image: 'images/cod.png' }]
-    const [value, setValue] = useState(0)
     const listCart = useSelector((state) => state.cart.listCart)
+    const user = useSelector((state) => state.user.user)
+
+    const [value, setValue] = useState(0)
     const [currentStep, setCurrentStep] = useState(0);
     const [isOpenConfirmModal, setIsOpenConfirmModal] = useState(false)
+    const [isOpenAddressModal, setIsOpenAddressModal] = useState(false)
+    const [isOpenVoucherModal, setIsOpenVoucherModal] = useState(false)
+    const [isUseCoin, setIsUseCoin] = useState(false)
     const [cartSelected, setCartSelected] = useState<CartItem>({})
     const [paymentSelected, setPaymentSelected] = useState('Momo')
 
     const { Step } = Steps;
-    const validateMessages = {
-        required: 'required'
-    }
 
-    const validateSchema = {
-        oldpassword: [
-            {
-                required: true
-            }
-        ]
-    }
     //Chung
     const handleMoveToCheckoutPage = () => {
         setCurrentStep(currentStep + 1)
@@ -92,7 +93,6 @@ const Cart: React.FC = () => {
     const handleDeleteCartItem = (item: CartItem) => {
         setCartSelected(item)
         setIsOpenConfirmModal(true)
-
     }
 
     const handleModalDelete = () => {
@@ -194,186 +194,68 @@ const Cart: React.FC = () => {
 
                 {currentStep === 1 && (
                     // ======================================== Contact ====================================//
-                    <div className="basic-info">
-                        <div className="cart-content">
-                            <div className="contact-info">
-                                <div className="contact-info-title">
+                    <div className="cart-content">
+                        <AddressItem isOpenAddressModal={isOpenAddressModal} setIsOpenAddressModal={setIsOpenAddressModal}/>
+                        <AddressItem isOpenAddressModal={isOpenAddressModal} setIsOpenAddressModal={setIsOpenAddressModal}/>
+                        <AddressItem isOpenAddressModal={isOpenAddressModal} setIsOpenAddressModal={setIsOpenAddressModal}/>
+                        <AddressItem isOpenAddressModal={isOpenAddressModal} setIsOpenAddressModal={setIsOpenAddressModal}/>
+                        <AddressItem isOpenAddressModal={isOpenAddressModal} setIsOpenAddressModal={setIsOpenAddressModal}/>
+                        {/* <div className="contact-info">
+                            <div className="contact-info-title">
+                                <div className="title">
                                     <EnvironmentOutlined />
                                     <span>Địa chỉ nhận hàng</span>
                                 </div>
-                                <div className="contact-info-content">
-                                    <div className="user-info">
-                                        <div className="user-name">Bùi Cát Hòa</div>
-                                        <div className="user-phone">0909370002</div>
-                                    </div>
-                                    <div className="user-address">
-                                        107/16 Hà Đặc, phường Trung Mỹ Tây, quận 12, tpHcm
-                                    </div>
+                                <div className="contact-default">
+                                    <Tag color="#f50">Mặc định</Tag>
+                                    <Tag color="#108ee9" onClick={() => setIsOpenAddressModal(true)}>Thay đổi</Tag>
                                 </div>
                             </div>
-                            <div className="contact-decor"></div>
-                            {/* <Form
-                                name="basic"
-                                initialValues={{ remember: true }}
-                                validateMessages={validateMessages}
-                                layout="vertical"
-                                autoComplete="off"
-                            >
-                                <div className="contact-info">
-                                    <div className="contact-info-item">
-                                        <div className="contact-info-title">
-                                            Liên hệ chi tiết
-                                        </div>
-                                        <Row>
-                                            <Col span={24}>
-                                                <Form.Item
-                                                    name="username"
-                                                    rules={validateSchema.oldpassword}
-                                                >
-
-                                                    <Input className="form-input" placeholder="Full Name" />
-                                                </Form.Item>
-                                            </Col>
-                                            <Col span={24}>
-                                                <Form.Item
-                                                    name="username"
-                                                    rules={validateSchema.oldpassword}
-                                                >
-
-                                                    <Input className="form-input" placeholder="Mobile No" />
-                                                </Form.Item>
-                                            </Col>
-                                        </Row>
-                                    </div>
-                                    <div className="contact-info-item">
-                                        <div className="contact-info-title">
-                                            Địa chỉ
-                                        </div>
-                                        <Row>
-                                            <Col span={24}>
-                                                <Form.Item
-                                                    name="username"
-                                                    rules={validateSchema.oldpassword}
-                                                >
-
-                                                    <Select
-                                                        placeholder="Tỉnh / Thành phố"
-                                                        className="form-select"
-                                                        // onChange={handleChange}
-                                                        options={[
-                                                            {
-                                                                value: 'jack',
-                                                                label: 'Jack',
-                                                            },
-                                                            {
-                                                                value: 'lucy',
-                                                                label: 'Lucy',
-                                                            },
-                                                        ]}
-                                                    />
-                                                </Form.Item>
-                                            </Col>
-                                            <Col span={24}>
-                                                <Form.Item
-                                                    name="username"
-                                                    rules={validateSchema.oldpassword}
-                                                >
-
-                                                    <Select
-                                                        placeholder="Quận / huyện"
-                                                        className="form-select"
-                                                        // onChange={handleChange}
-                                                        options={[
-                                                            {
-                                                                value: 'jack',
-                                                                label: 'Jack',
-                                                            },
-                                                            {
-                                                                value: 'lucy',
-                                                                label: 'Lucy',
-                                                            },
-                                                        ]}
-                                                    />
-                                                </Form.Item>
-                                            </Col>
-                                            <Col span={24}>
-                                                <Form.Item
-                                                    name="username"
-                                                    rules={validateSchema.oldpassword}
-                                                >
-
-                                                    <Select
-                                                        placeholder="Phường / Xã"
-                                                        className="form-select"
-                                                        // onChange={handleChange}
-                                                        options={[
-                                                            {
-                                                                value: 'jack',
-                                                                label: 'Jack',
-                                                            },
-                                                            {
-                                                                value: 'lucy',
-                                                                label: 'Lucy',
-                                                            },
-                                                        ]}
-                                                    />
-                                                </Form.Item>
-                                            </Col>
-                                            <Col span={24}>
-                                                <Form.Item
-                                                    name="username"
-                                                    rules={validateSchema.oldpassword}
-                                                >
-
-                                                    <Input className="form-input" placeholder="Địa chỉ chi tiết" />
-                                                </Form.Item>
-                                            </Col>
-                                            <Col span={24}>
-                                                <Form.Item name="only_root" valuePropName="checked" label="Đặt làm địa chỉ mặc định" className="checkbox">
-                                                    <Checkbox className="form-checkbox" />
-                                                </Form.Item>
-                                            </Col>
-                                        </Row>
-                                    </div>
-                                    <div className="contact-info-item">
-                                        <div className="contact-info-title">
-                                            Thời gian giao hàng
-                                        </div>
-                                        <Row>
-                                            <Col span={24}>
-                                                <Form.Item
-                                                    name="username"
-                                                    rules={validateSchema.oldpassword}
-                                                >
-                                                    <Select
-                                                        placeholder="Thời gian giao hàng"
-                                                        className="form-select"
-                                                        // onChange={handleChange}
-                                                        options={[
-                                                            {
-                                                                value: 'jack',
-                                                                label: 'Jack',
-                                                            },
-                                                            {
-                                                                value: 'lucy',
-                                                                label: 'Lucy',
-                                                            },
-                                                        ]}
-                                                    />
-                                                </Form.Item>
-                                            </Col>
-                                        </Row>
-                                    </div>
+                            <div className="contact-info-content">
+                                <div className="user-info">
+                                    <div className="user-name">{`${user?.firstname} ${user?.lastname}`}</div>
+                                    <div className="user-phone">0909370002</div>
                                 </div>
-                            </Form>
+                                <div className="user-address">
+                                    107/16 Hà Đặc, phường Trung Mỹ Tây, quận 12, tpHcm
+                                </div>
+                            </div>
+                        </div> */}
+                        <div className="contact-decor"></div>
+                        <div className="cart-voucher">
+                            <div className="voucher-left"><GiftOutlined /> <span className="voucher-title">FreshMeal Vouchers</span></div>
+                            <div className="voucher-right">
+                                <div className="list-vouchers">
+                                    <Tag color={getrandomcolor()}>magenta</Tag>
+                                    <Tag color={getrandomcolor()}>Hihi</Tag>
+                                </div>
+                                <div className="voucher-more">
+                                    <RightOutlined onClick={() => setIsOpenVoucherModal(true)} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="contact-decor"></div>
+                        <div className="coin-cart">
+                            <div className="coin-cart-content">
+                                <div className="coin-cart-title">
+                                    <DollarOutlined /> Dùng xu
+                                </div>
+                                <Switch checkedChildren="Dùng" unCheckedChildren="Không" className="form-switch" checked={isUseCoin} onChange={() => setIsUseCoin(!isUseCoin)} />
+                            </div>
+                            {isUseCoin && <div className="coin-cart-typing">
+                                <InputNumber className="form-input" placeholder='Số lượng xu'/>
+                            </div>}
+                        </div>
+                        <div className="contact-decor"></div>
+                        <div className="payment-wrapper">
                             <div className="payment-content">
                                 <div className="payment-title">Phương thức thanh toán</div>
                                 <div className="payment-method-selection">
-                                    <Radio.Group value={paymentSelected} onChange={onChangePaymentMethods}>
+                                    <Radio.Group value={paymentSelected} onChange={onChangePaymentMethods} className="custom-radio-group">
                                         {listPaymentMethods.map((item, index) => {
                                             return (
                                                 <div className="payment-method-item" key={index}>
-                                                    <Radio value={item.name}>{item.name}</Radio>
+                                                    <Radio value={item.name} className="custom-radio">{item.name}</Radio>
                                                     <img src={item.image} alt="" />
                                                 </div>
                                             )
@@ -399,7 +281,7 @@ const Cart: React.FC = () => {
                                         <div className="cod-detail">Vui lòng thanh toán đúng ngày giờ dùm tao</div>
                                     </div>
                                 }
-                            </div> */}
+                            </div>
                         </div>
                     </div>
 
@@ -410,20 +292,23 @@ const Cart: React.FC = () => {
 
                 <div className="cart-checkout">
                     {(currentStep === 1 || currentStep === 2 || currentStep === 3) && <Button className="checkout-button left" onClick={() => handleBackToPreviousPage()}>Trở lại</Button>}
-                    <div className="total-price">{listCart?.total_price?.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</div>
+                    <div className="total-price"><span className="total-price-title">Tổng tiền: </span>{listCart?.total_price?.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</div>
                     {currentStep === 0 && <Button className="checkout-button right" onClick={() => handleMoveToCheckoutPage()}>Check Out</Button>}
                     {(currentStep === 1 || currentStep === 2) && <Button className="checkout-button right" onClick={() => handleMoveToNextPage()}>Tiếp theo</Button>}
                 </div>
 
             </div>
+            <ModalAddress visible={isOpenAddressModal} setVisible={setIsOpenAddressModal} />
             <ModalConfirm
-                isOpenConfirmModal={isOpenConfirmModal}
-                onConfirmOk={handleModalDelete}
-                onConfirmCancel={handleModalCancel}
+                visible={isOpenConfirmModal}
+                setVisible={setIsOpenConfirmModal}
+                onConfirmModal={handleModalDelete}
+                onConfirmCancelModal={handleModalCancel}
                 title="Xác nhận"
                 confirmTitle="Bạn có chắc chắn muốn xóa sản phẩm này?"
                 confirmContent="Sau khi xóa sản phẩm, dữ liệu sẽ không thể hoàn tác"
             />
+            <ModalVoucher visible={isOpenVoucherModal} setVisible={setIsOpenVoucherModal} />
         </div>
     )
 }

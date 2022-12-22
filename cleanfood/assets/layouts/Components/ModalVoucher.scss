@@ -1,0 +1,82 @@
+.modal-voucher-container{
+    font-family: "Roboto";
+    .ant-modal-body {
+        height: calc(500 / $fdf) * $rem;
+        overflow: auto;
+        .modal-voucher-content{
+            padding: calc(12 / $fdf) * $rem;
+            .voucher-manual{
+                display: flex;
+                align-items: center;
+                padding: calc(8 / $fdf) * $rem;
+                background-color: #f8f8f8;
+                justify-content: center;
+                .title{
+                    font-size:  calc(18 / $fdf) * $rem;
+                    color: rgba(0,0,0,.54);
+                    padding-right: calc(12 / $fdf) * $rem;
+                }
+                .form-input{
+                    width: unset !important;
+                    margin-right: calc(12 / $fdf) * $rem;
+                }
+                .apply-button{
+                    height: calc(40 / $fdf) * $rem;
+                }
+            }
+            .voucher-list{
+                margin: calc(16 / $fdf) * $rem 0;
+                .ant-checkbox-group{
+                    .ant-checkbox-wrapper{
+                        margin-bottom: calc(16 / $fdf) * $rem;
+                        align-items: center;
+                        justify-content: center;
+                        display: flex;
+                        margin-left: unset !important;
+                        box-shadow: 0.125rem 0.125rem 0.3125rem rgb(0 0 0 / 7%);
+                        &.form-checkbox{                            
+                            .ant-checkbox{
+                                margin-right: calc(8 / $fdf) * $rem;
+                            }
+                        }
+                        .voucher-item{
+                            display: flex;
+                            align-items: center;
+                            img{
+                                width:  30%;
+                                height:  30%;
+                                object-fit: cover;
+                            }
+                            .voucher-item-content{
+                                width: 70%;
+                                margin-left: calc(24 / $fdf) * $rem;
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: space-between;
+                                .voucher-item-content-top{
+                                    padding-bottom:  calc(12 / $fdf) * $rem;
+                                    .voucher-item-title{
+                                        font-size: calc(20 / $fdf) * $rem;
+                                        color: #2c2c2c;
+                                        font-weight: 600;
+                                        margin-bottom: calc(8 / $fdf) * $rem;
+                                        display: block;
+                                    }
+                                    .voucher-item-description{
+                                        font-size: calc(18 / $fdf) * $rem;
+                                        color: #2c2c2c;
+                                        font-weight: 400;
+                                    }
+                                }
+                                .voucher-item-expire{
+                                    color: #c2bdbd;
+                                    font-size: calc(18 / $fdf) * $rem;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

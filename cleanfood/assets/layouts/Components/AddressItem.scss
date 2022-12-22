@@ -1,0 +1,46 @@
+.contact-info {
+    padding: calc(8 / $fdf) * $rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    font-family: 'Roboto';
+    margin: calc(8 / $fdf) * $rem 0;
+    .contact-info-title {
+      display: flex;
+      justify-content: space-between;
+      .title {
+        color: #9cdd22;
+        font-size: calc(14 / $fdf) * $rem;
+        font-weight: 800;
+        span {
+          text-transform: uppercase;
+          &:nth-child(2) {
+            margin-left: calc(4 / $fdf) * $rem;
+          }
+        }
+      }
+      .contact-default {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+    }
+    .contact-info-content {
+      padding-top: calc(16 / $fdf) * $rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      align-items: center;
+      .user-info {
+        color: #2c2c2c;
+        font-weight: 700;
+        font-size: calc(20 / $fdf) * $rem;
+        .user-name {
+          padding-bottom: calc(8 / $fdf) * $rem;
+        }
+      }
+      .user-address {
+        font-size: calc(16 / $fdf) * $rem;
+        color: #2c2c2c;
+      }
+    }
+  }

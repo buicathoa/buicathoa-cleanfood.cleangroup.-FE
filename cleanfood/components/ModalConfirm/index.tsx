@@ -2,24 +2,33 @@
 import React from 'react'
 
 import { Modal, Button } from 'antd'
-import { ModalConfirm } from '../../interface'
+import { ModalInterface, ModalInterfaceConfirm } from '../../interface'
 
 // import './style.scss'
 
-const ModalConfirm = ({title, isOpenConfirmModal, onConfirmOk, onConfirmCancel, confirmTitle, confirmContent} : ModalConfirm) => {
+const ModalConfirm = ({title, visible,setVisible, onConfirmModal, onConfirmCancelModal, confirmTitle, confirmContent} : ModalInterfaceConfirm) => {
+
+    const onConfirmOk = () => {
+        onConfirmModal()
+    }
+
+    const onConfirmCancel = () => {
+        setVisible(false)
+    }
+
     return (
         <>
             <Modal
                 className="modal-confirm-container"
                 title={title}
-                visible={isOpenConfirmModal}
+                visible={visible}
                 onOk={() => onConfirmOk()}
                 onCancel={() => onConfirmCancel()}
                 footer={[
                     <Button key="Cancel" onClick={() => onConfirmCancel()}>
                         Hủy
                     </Button>,
-                    <Button className="modal-confirm-delete-btn" key="Delete" onClick={() => onConfirmOk()}>
+                    <Button className="modal-confirm-delete-btn" key="Delete-cart-item" onClick={() => onConfirmOk()}>
                         Xóa
                     </Button>
                 ]}
