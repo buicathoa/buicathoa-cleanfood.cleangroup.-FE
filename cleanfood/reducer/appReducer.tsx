@@ -6,12 +6,9 @@ const App = createSlice({
         isLoading: false 
     },
     reducers: ({
-        startLoading: (state, actions) => {
-            state.isLoading = true
+        openLoading: (state, actions) => {
+            state.isLoading = actions.payload
         },
-        stopLoading: (state, actions) => {
-            state.isLoading = false
-        }
         // addToCart: (state, actions) => {}
     })
 })

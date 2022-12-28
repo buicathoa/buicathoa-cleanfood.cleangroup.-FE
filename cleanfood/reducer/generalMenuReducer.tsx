@@ -8,7 +8,7 @@ const generalMenu = createSlice({
     reducers: ({
         fetchAllGeneralMenu: (state, actions) => {},
         fetchAllGeneralMenuSuccess: (state, actions) => {
-            state.listMenu = actions.data
+            state.listMenu = actions.payload
         },
         createGeneralMenus: (state, actions) => {}
     })

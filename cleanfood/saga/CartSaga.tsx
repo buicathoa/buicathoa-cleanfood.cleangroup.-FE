@@ -19,9 +19,7 @@ function* fetchAllCart(action):Generator {
     const { param, resolve, reject } = action.payload
     try{
         const response = yield apiRequest(apiUrl.cart.getCartByUser, param, 'general')
-        if(response){
-            yield put(CartActions.fetchAllCartSuccess((response as ResponseFormatItem).data))
-        }
+        yield put(CartActions.fetchAllCartSuccess((response as ResponseFormatItem).data))
         if (resolve) yield resolve(response)
     }
     catch(err) {

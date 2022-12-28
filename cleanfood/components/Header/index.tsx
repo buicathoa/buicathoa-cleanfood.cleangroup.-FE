@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { Fragment, useEffect, useState } from "react";
 import {
   MessageFilled,
@@ -17,7 +18,6 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 const { Search } = Input;
 
 const Header: React.FC = (props) => {
-  console.log('vcl', props.haha)
   const dispatch = useAppDispatch()
   const router = useRouter()
 
@@ -36,8 +36,6 @@ const Header: React.FC = (props) => {
   const listCartQuantity = useSelector((state) => state.cart.listCartQuantity)
   useEffect(() => {
     if (Cookies.get('cleanfood')) {
-      dispatch(AppActions.startLoading({}))
-      fetchAllCart({})
       fetchUserInfo({})
     }
   }, [])

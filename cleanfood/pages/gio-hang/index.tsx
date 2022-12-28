@@ -96,7 +96,7 @@ const Cart: React.FC = () => {
     }
 
     const handleModalDelete = () => {
-        dispatch(AppActions.startLoading({}))
+        dispatch(AppActions.openLoading(true))
         const payload = { cart_id: cartSelected?.cart_id }
         deleteCartItem(payload).then(() => {
             setIsOpenConfirmModal(false)

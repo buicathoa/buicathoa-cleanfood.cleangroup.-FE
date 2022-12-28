@@ -7,7 +7,7 @@
       color: #2c2c2c;
       font-size: calc(18 / $fdf) * $rem;
       font-weight: 800;
-      margin: calc(18 / $fdf) * $rem 0;
+      margin: calc(8 / $fdf) * $rem 0;
       color: #2c2c2c;
       text-transform: uppercase;
     }
@@ -21,8 +21,8 @@
       position: relative;
       img {
         border-radius: 50%;
-        width: calc(90 / $fdf) * $rem;
-        height: calc(90 / $fdf) * $rem;
+        width: 100%;
+        height: 100%;
       }
       label {
         cursor: pointer;
@@ -70,7 +70,6 @@
           }
           .ant-col {
             .flex-profile-item{
-              margin-bottom: calc(16 / $fdf) * $rem;
               &.flex{
                 display: flex;
                 align-items: center;
@@ -81,23 +80,25 @@
               }
               .ant-form-item{
                   margin-bottom: 0;
-                .ant-form-item-label {
-                  width: calc(140 / $fdf) * $rem;
-                  text-align: left;
-                  label {
-                    font-weight: 600;
-                    font-size: calc(18 / $fdf) * $rem;
-                    color: #2c2c2c;
-                  }
-                }
-                .ant-form-item-control{
-                  width: calc(100% - calc(140 / $fdf) * $rem);
-                  .form-input{
-                    &.none{
-                      display: none;
+                .ant-form-item-row{
+                  flex-direction: row;
+                  .ant-form-item-label {
+                    text-align: left;
+                    width: fit-content;
+                    label {
+                      font-weight: 600;
+                      font-size: calc(18 / $fdf) * $rem;
+                      color: #2c2c2c;
                     }
-                    &.displayed{
-                      display: block;
+                  }
+                  .ant-form-item-control{
+                    .form-input{
+                      &.none{
+                        display: none;
+                      }
+                      &.displayed{
+                        display: block;
+                      }
                     }
                   }
                 }

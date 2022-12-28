@@ -34,8 +34,7 @@ const Login = () => {
     // const loading = useSelector((state) => state.app.isLoading)
 
     const onFinish = (event: any) => {
-        dispatch(AppActions.startLoading({}))
-        // debugger
+        dispatch(AppActions.openLoading(true))
         fetchLogin(event).then(res => {
             if(res.token){
                 Cookies.set('cleanfood', res?.token);

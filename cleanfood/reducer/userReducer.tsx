@@ -1,22 +1,37 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { UserReducer } from '../interface'
+import { genLocation } from '../utils/helper'
+
+const initialState: UserReducer = {
+    user: {},
+    listDeliveryAddress: []
+}
 
 const User = createSlice({
     name: 'user',
-    initialState: {
-        user: {}
-    },
+    initialState,
     reducers: ({
-        fetchUserInfo: (state, actions) => {},
+        fetchUserInfo: (state, actions) => { },
         fetchUserInfoSuccess: (state, actions) => {
             state.user = actions.payload
         },
-        updateUser: (state, actions) => {},
+        updateUser: (state, actions) => { },
         updateUserSuccess: (state, actions) => {
-            state.user = {...state.user, ...actions.payload}
+            state.user = { ...state.user, ...actions.payload }
         },
-        uploadAvatar: (state, actions) => {},
-        uploadAvatarSuccess: (state, actions) => {
-            // debugger
+        uploadAvatar: (state, actions) => { },
+        uploadAvatarSuccess: (state, actions) => { },
+        
+        getAllDeliveryAddress: (state, actions) => { },
+        getAllDeliveryAddressSuccess: (state, actions) => {
+            state.listDeliveryAddress = actions.payload
+        },
+        createDeliveryAddress: (state, actions) => { },
+        createDeliveryAddressSuccess: (state, actions) => {
+            // state.listDeliveryAddress.push(actions.payload)
+        },
+        updateDefaultDeliveryAddress: (state, actions) => { },
+        updateDefaultDeliveryAddressSuccess: (state, actions) => {
         }
     })
 })

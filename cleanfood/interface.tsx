@@ -77,3 +77,8 @@ export interface ModalInterfaceConfirm extends ModalInterface {
     onConfirmModal: () => void,
     onConfirmCancelModal: () => void,
 }
+
+export interface UserReducer {
+    user: any,
+    listDeliveryAddress: any[]
+}

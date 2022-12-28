@@ -6,12 +6,11 @@ import Cookies from 'js-cookie';
 import { CameraOutlined, EditOutlined } from '@ant-design/icons'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router';
-import { useAppDispatch } from '../../../reducer/hook';
+import { useAppDispatch, useAppSelector } from '../../../reducer/hook';
 import { UserActions } from '../../../reducer/userReducer';
 import { ResponseFormatItem } from '../../../interface';
 import AddressItem from '../../../components/AddressItem';
 import ModalAddress from '../../../components/ModalAddress';
-
 const Profile = () => {
     const router = useRouter()
     const [form] = Form.useForm()
@@ -23,7 +22,8 @@ const Profile = () => {
     const [formValues, setFormvalues] = useState({})
     const [gender, setGender] = useState('')
 
-    const user = useSelector((state) => state.user.user)
+    const user = useAppSelector((state) => state.user.user)
+    const listDeliveryAddress = useAppSelector((state) => state.user.listDeliveryAddress)
 
     const updateUser = (param: any): Promise<ResponseFormatItem> => {
         return new Promise((resolve, reject) => {
@@ -37,9 +37,17 @@ const Profile = () => {
         });
     };
 
+    const getAllDeliveryAddress = (param: any): Promise<ResponseFormatItem> => {
+        return new Promise((resolve, reject) => {
+            dispatch(UserActions.getAllDeliveryAddress({ param, resolve, reject }));
+        });
+    };
+
     useEffect(() => {
         if (!Cookies.get('cleanfood')) {
             router.push('/tai-khoan/dang-nhap')
+        } else {
+            getAllDeliveryAddress({})
         }
     }, [])
 
@@ -67,10 +75,14 @@ const Profile = () => {
         ]
     }
 
-    const onSubmitFile = (event) => {
+    const onSubmitFile = (event:React.FormEvent) => {
         const formData = new FormData()
-        formData.append('image', event.target.files[0])
-        uploadAvatar(formData).then((res) => {
+        const inputRef = event.target as HTMLInputElement;
+        if(inputRef.files !== null){
+            
+            formData.append('image', inputRef.files[0])
+        }
+        uploadAvatar(formData).then((res:any) => {
             setAvatar(res?.data)
         })
     }
@@ -114,6 +126,7 @@ const Profile = () => {
                         onFinish={onSubmitForm}
                         autoComplete="off"
                         requiredMark={false}
+                        layout="horizontal"
                     >
                         <Row>
                             <Col span={24}>
@@ -130,7 +143,7 @@ const Profile = () => {
                                 </div>
                             </Col>
                         </Row>
-                        <Row className="divider">
+                        <Row>
                             <Col span={24}>
                                 <div className={`flex-profile-item ${fieldnameEdit === 'firstname' ? 'none' : 'flex'}`}>
                                     <Form.Item
@@ -240,11 +253,7 @@ const Profile = () => {
             <div className="delivery-info-section section">
                 <h3 className="title">Thông tin giao hàng</h3>
                 <div className="delivery-info-content">
-                    <AddressItem isOpenAddressModal={isOpenAddressModal} setIsOpenAddressModal={setIsOpenAddressModal}/>
-                    <AddressItem isOpenAddressModal={isOpenAddressModal} setIsOpenAddressModal={setIsOpenAddressModal}/>
-                    <AddressItem isOpenAddressModal={isOpenAddressModal} setIsOpenAddressModal={setIsOpenAddressModal}/>
-                    <AddressItem isOpenAddressModal={isOpenAddressModal} setIsOpenAddressModal={setIsOpenAddressModal}/>
-                    <AddressItem isOpenAddressModal={isOpenAddressModal} setIsOpenAddressModal={setIsOpenAddressModal}/>
+                    <AddressItem isOpenAddressModal={isOpenAddressModal} setIsOpenAddressModal={setIsOpenAddressModal} listDeliveryAddress={listDeliveryAddress}/>
                 </div>
             </div>
             <ModalAddress visible={isOpenAddressModal} setVisible={setIsOpenAddressModal} />

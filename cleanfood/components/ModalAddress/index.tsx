@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Button, Checkbox, Col, Empty, Form, Input, Modal, Row, Select } from 'antd'
+import { Button, Checkbox, Col, Empty, Form, Input, Modal, Row, Select, TimePicker } from 'antd'
 import React, { useEffect, useState } from 'react'
 import {
     PushpinFilled
@@ -10,18 +10,25 @@ import { LocationActions } from '../../reducer/LocationReducer';
 import { useSelector } from 'react-redux';
 import { removeAccentsToLower } from '../../utils/string';
 import _, { isEmpty } from 'lodash'
+import { UserActions } from '../../reducer/userReducer';
+import moment, { Moment } from 'moment'
+import { openWarning } from '../NotificationStatus';
 
 const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
     const { Option } = Select
+    const [form] = Form.useForm()
     const dispatch = useAppDispatch()
     const listCity = useSelector((state) => state.location.listCity)
     const listDistrict = useSelector((state) => state.location.listDistrict)
     const listWard = useSelector((state) => state.location.listWard)
     const user = useSelector((state) => state.user.user)
-    console.log('user', user)
+    const listDeliveryAddress = useSelector((state) => state.user.listDeliveryAddress)
 
     const [isOpenAddressDetail, setIsOpenAddressDetail] = useState(false)
     const [isEditAddress, setIsEditAddress] = useState(false)
+    const [formValues, setformValues] = useState({})
+    const [isUpdateAddressDefault, setIsUpdateAddressDefault] = useState(false)
+
     const validateMessages = {
         required: 'required'
     }
@@ -52,19 +59,83 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
         });
     };
 
-    useEffect(() => {
-        if (isOpenAddressDetail) {
-            fetchListCity({})
-        }
-    }, [isOpenAddressDetail])
+    const createDeliveryAddress = (param: any): Promise<ResponseFormatItem> => {
+        return new Promise((resolve, reject) => {
+            dispatch(UserActions.createDeliveryAddress({ param, resolve, reject }));
+        });
+    };
 
-    const handleEditAddress = () => {
+    const updateDefaultDeliveryAddress = (param: any): Promise<ResponseFormatItem> => {
+        return new Promise((resolve, reject) => {
+            dispatch(UserActions.updateDefaultDeliveryAddress({ param, resolve, reject }));
+        });
+    };
+
+    const getAllDeliveryAddress = (param: any): Promise<ResponseFormatItem> => {
+        return new Promise((resolve, reject) => {
+            dispatch(UserActions.getAllDeliveryAddress({ param, resolve, reject }));
+        });
+    };
+
+    useEffect(() => {
+        if(visible){
+            getAllDeliveryAddress({})
+            if(isOpenAddressDetail){
+                fetchListCity({})
+            }
+        }
+    }, [visible, isOpenAddressDetail, isUpdateAddressDefault])
+
+    useEffect(() => {
+        form.resetFields()
+    }, [formValues])
+
+    const handleEditAddress = (item) => {
         setIsOpenAddressDetail(true)
         setIsEditAddress(true)
+        const listDeliveryTime = item?.delivery_time?.map(item => {
+            return moment(item)
+        })
+        setformValues({ ...item, delivery_time: listDeliveryTime })
+        const payload = {
+            province_id: item.province_id
+        }
+        fetchListDistrict(payload).then(() => {
+            const payload = {
+                district_id: item.district_id
+            }
+            fetchListWard(payload)
+        })
     }
 
     const onSubmitForm = (values) => {
-        console.log(values)
+        if (!isEditAddress) {
+            const payload = {
+                ...values,
+                default_address: (values?.default_address === false || !values?.default_address) ? false : true,
+                delivery_time: values?.delivery_time,
+            }
+            createDeliveryAddress(payload).then(() => {
+                setIsOpenAddressDetail(false)
+            })
+        } else {
+            const payload = {
+                ...values,
+                delivery_address_id: formValues?._id,
+                default_address: (values?.default_address === false || !values?.default_address) ? false : true,
+                delivery_time: values?.delivery_time,
+            }
+            updateDefaultDeliveryAddress({payload:payload, update_type: 'form'}).then(() => {
+                setIsOpenAddressDetail(false)
+            })
+        }
+    }
+
+    const handleSetDefaultAddress = (item) => {
+        const payload = {...item, default_address: true, delivery_address_id: item._id}
+        updateDefaultDeliveryAddress(payload).then(() => {
+            setIsUpdateAddressDefault(!isUpdateAddressDefault)
+        })
     }
 
     const handleCloseModal = () => {
@@ -73,9 +144,15 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
         setVisible(false)
     }
 
+    const handleBackToPreviousForm = () => {
+        setIsOpenAddressDetail(false)
+        setIsEditAddress(false)
+    }
+
     const handleAddNewAddress = () => {
         setIsEditAddress(false)
         setIsOpenAddressDetail(true)
+        setformValues({})
     }
 
     const handleSelectProvince = (event) => {
@@ -92,30 +169,69 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
         fetchListWard(payload)
     }
 
-
     return (
-        <Modal className="modal-address" title={(visible && !isOpenAddressDetail) ? 'Địa chỉ của tôi' : (isEditAddress ? 'Chỉnh sửa địa chỉ' : 'Thêm mới địa chỉ')} open={visible}
+        <Modal className="modal-address" getContainer={false} title={(visible && !isOpenAddressDetail) ? 'Địa chỉ của tôi' : (isEditAddress ? 'Chỉnh sửa địa chỉ' : 'Thêm mới địa chỉ')} open={visible}
             onOk={onSubmitForm}
             onCancel={() => setVisible(false)}
             footer={[
-                <Button key="back" onClick={() => handleCloseModal()}>
-                    Cancel
+                <Button key="exit" onClick={() => handleCloseModal()}>
+                    Thoát
+                </Button>,
+                <Button key="back" onClick={() => handleBackToPreviousForm()}>
+                    Trở lại
                 </Button>,
                 <Button form="basic" key="submit" htmlType="submit">
-                    Save
+                    Lưu
                 </Button>
             ]}>
             {isOpenAddressDetail ?
                 <Form
                     name="basic"
-                    initialValues={{ remember: true }}
+                    initialValues={formValues}
                     validateMessages={validateMessages}
                     layout="vertical"
                     autoComplete="off"
                     onFinish={onSubmitForm}
+                    form={form}
                 >
                     <div className="contact-info">
                         <div className="contact-info-item">
+                            <div className="contact-info-title">
+                                Thông tin cơ bản
+                            </div>
+                            <Row className="multiple">
+                                <Col span={12}>
+                                    <Form.Item
+                                        name="full_name"
+                                        rules={validateSchema.oldpassword}
+                                    >
+
+                                        <Input className="form-input" placeholder="Họ Tên" />
+                                    </Form.Item>
+                                </Col>
+                                <Col span={12}>
+                                    <Form.Item
+                                        name="phone_number"
+                                        rules={validateSchema.oldpassword}
+                                    >
+
+                                        <Input className="form-input" placeholder="Số điện thoại" />
+                                    </Form.Item>
+                                </Col>
+                            </Row>
+                            <div className="contact-info-title">
+                                Thông tin giao hàng
+                            </div>
+                            <Row className="multiple">
+                                <Col span={24}>
+                                    <Form.Item
+                                        name="delivery_time"
+                                        rules={validateSchema.oldpassword}
+                                    >
+                                        <TimePicker.RangePicker format="HH:mm:ss" className="form-date" />
+                                    </Form.Item>
+                                </Col>
+                            </Row>
                             <div className="contact-info-title">
                                 Địa chỉ
                             </div>
@@ -218,7 +334,7 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
                                 </Col>
                                 <Col span={24}>
                                     <Form.Item
-                                        name="username"
+                                        name="address_detail"
                                         rules={validateSchema.oldpassword}
                                     >
 
@@ -226,7 +342,7 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
                                     </Form.Item>
                                 </Col>
                                 <Col span={24}>
-                                    <Form.Item name="only_root" valuePropName="checked" label="Đặt làm mặc định" className="checkbox">
+                                    <Form.Item name="default_address" valuePropName="checked" label="Đặt làm mặc định" className="checkbox">
                                         <Checkbox className="form-checkbox" />
                                     </Form.Item>
                                 </Col>
@@ -235,27 +351,27 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
                     </div>
                 </Form> :
                 <div className="list-address">
-                    {!_.isEmpty(user?.delivery_address) ? user?.delivery_address?.map((item, index) => {
+                    {!_.isEmpty(listDeliveryAddress) ? listDeliveryAddress?.map((item, index) => {
                         return (
                             <div className="address-item" key={index}>
                                 <div className="address-pin">
-                                    <PushpinFilled />
+                                    {item?.default_address && <PushpinFilled />}
                                 </div>
                                 <div className="address-detail">
                                     <div className="user-info">
-                                        <div className="user-name">Bùi Cát Hòa</div>
-                                        <div className="user-phone">(+84) 0909370002</div>
+                                        <div className="user-name">{item?.full_name}</div>
+                                        <div className="user-phone">(+84) {item?.phone_number}</div>
                                     </div>
-                                    <div className="full-address">107/16 Hà đặc, phường Trung Mỹ Tây, quận 12, tphcm</div>
-                                    <div className="is-default">Mặc định</div>
+                                    <div className="full-address">{item?.full_address}</div>
+                                    {item?.default_address ? <Button className="is-default" disabled>Mặc định</Button> : <div className="make-default" onClick={() => handleSetDefaultAddress(item)}>Đặt làm mặc định</div>}
                                 </div>
                                 <div className="actions-button">
-                                    <div className="update-address" onClick={() => handleEditAddress()}>Cập nhật</div>
+                                    <div className="update-address" onClick={() => handleEditAddress(item)}>Cập nhật</div>
                                     <div className="delete-address">Xóa</div>
                                 </div>
                             </div>
                         )
-                    }) : <Empty className="empty-data"/>}
+                    }) : <Empty className="empty-data" />}
                     <div className="create-new-delivery" onClick={() => handleAddNewAddress()}>
                         <span>Thêm mới địa chỉ</span>
                     </div>

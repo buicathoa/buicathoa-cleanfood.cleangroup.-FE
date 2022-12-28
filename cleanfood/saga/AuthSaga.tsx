@@ -27,11 +27,11 @@ function* fetchLogin(action):Generator {
     const { param, resolve, reject } = action.payload
     try{
         const response = yield apiRequest(apiUrl.auth.login, param, 'general')
-        yield put(AppActions.stopLoading({}))
+        yield put(AppActions.openLoading(false))
         if (resolve) yield resolve(response)
     }
     catch(err) {
-        yield put(AppActions.stopLoading({}))
+        yield put(AppActions.openLoading(false))
         if (reject) yield reject(err)
     }
 }

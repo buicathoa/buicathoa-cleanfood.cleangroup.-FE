@@ -24,7 +24,6 @@ const Cart = createSlice({
                 listCart = [
                     ...(state?.listCart as any)?.list_carts.map((item: any) => {
                         if (item.cart_id === actions?.payload?.cart_id) {
-                            debugger
                             item = { ...item, quantity: actions?.payload?.quantity, total_price: actions?.payload?.quantity * item.price }
                             return item
                         } else {

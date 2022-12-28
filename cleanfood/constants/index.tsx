@@ -21,7 +21,12 @@ export const apiUrl = {
     user: {
         getUserInfo: 'user/get-user-info',
         update: 'user/update',
-        uploadAvatar: 'user/upload-avatar'
+        uploadAvatar: 'user/upload-avatar',
+        delivery: {
+            create: 'delivery/create',
+            update: 'delivery/update',
+            getAll: 'delivery/get-all',
+        }
     },
     post: {
         uploadImage: 'upload/image',
