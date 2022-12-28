@@ -1,23 +1,28 @@
 /* eslint-disable @next/next/no-img-element */
-import { Divider, Row, Select, Col, Carousel } from 'antd';
 import React, { useState } from 'react'
-import { apiUrl, optionsCalories, optionsMealPlans, optionsMealPlansSession } from '../constants';
-import { listProduct, ProductItemInterface, ResponseFormatItem } from '../interface';
-import { apiRequest } from '../utils/apiRequest';
 import {
     StarOutlined, CarOutlined, LeftOutlined, RightOutlined
 } from '@ant-design/icons';
-
+import { Divider, Row, Select, Col, Carousel } from 'antd';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { GetServerSideProps } from 'next';
+import Cookies from 'js-cookie';
+
 import { ProductItem } from '../components/ProductItem';
+import { openSuccess } from '../components/NotificationStatus';
+
 import { useAppDispatch } from '../reducer/hook';
 import { ProductActions } from '../reducer/ProductReducer';
-import { GetServerSideProps } from 'next';
-import { useRouter } from 'next/router';
 import { CartActions } from '../reducer/cartReducer';
-import Cookies from 'js-cookie';
 import { AppActions } from '../reducer/appReducer';
-import { openSuccess } from '../components/NotificationStatus';
+
+import { apiUrl, optionsCalories, optionsMealPlans, optionsMealPlansSession } from '../constants';
+
+import { ProductItemInterface, ResponseFormatItem } from '../interface';
+
+import { apiRequest } from '../utils/apiRequest';
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const [listProduct] = await Promise.all([
         apiRequest(
@@ -115,7 +120,7 @@ const SEOProduct = ({ productDetail, listProduct }: Props) => {
             setSessionSelected(event)
         } else {
             const params = { mealplans_session_id: event, calories_id: caloriesSeleceted, mealplans_id: mealplanSelected }
-            dispatch(AppActions.startLoading({}))
+            dispatch(AppActions.openLoading(true))
             fetchMoneyCost(params).then(res => {
                 setTotalPrice(res?.data?.total_price)
                 setOriginalPrice(res?.data?.original_price)
@@ -128,7 +133,7 @@ const SEOProduct = ({ productDetail, listProduct }: Props) => {
         if(!isLogin) {
             router.push('/tai-khoan/dang-nhap')
         } else {
-            dispatch(AppActions.startLoading({}))
+            dispatch(AppActions.openLoading(true))
             const params = {
                 product_id: productDetail?._id,
                 quantity: 1,

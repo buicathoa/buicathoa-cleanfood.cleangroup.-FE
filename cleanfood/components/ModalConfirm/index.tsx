@@ -2,7 +2,7 @@
 import React from 'react'
 
 import { Modal, Button } from 'antd'
-import { ModalInterface, ModalInterfaceConfirm } from '../../interface'
+import { ModalInterfaceConfirm } from '../../interface'
 
 // import './style.scss'
 

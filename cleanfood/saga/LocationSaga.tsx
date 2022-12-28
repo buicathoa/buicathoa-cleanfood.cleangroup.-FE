@@ -6,8 +6,9 @@ import { fetchAllGeneralMenu, GeneralMenuActions } from "../reducer/generalMenuR
 import { type Saga } from 'redux-saga';
 import { ResponseFormatItem } from "../interface";
 import { LocationActions } from "../reducer/LocationReducer";
+import { AnyAction } from "@reduxjs/toolkit";
 
-function* fetchListCity(action):Generator {
+function* fetchListCity(action:AnyAction):Generator {
     const { param, resolve, reject } = action.payload
     try{
         const response = yield apiRequest(apiUrl.location.getAllCity, param, 'general')
@@ -21,7 +22,7 @@ function* fetchListCity(action):Generator {
     }
 }
 
-function* fetchListDistrict(action):Generator {
+function* fetchListDistrict(action:AnyAction):Generator {
     const { param, resolve, reject } = action.payload
     try{
         const response = yield apiRequest(apiUrl.location.getDistrictByCity, param, 'general')
@@ -35,7 +36,7 @@ function* fetchListDistrict(action):Generator {
     }
 }
 
-function* fetchListWard(action):Generator {
+function* fetchListWard(action:AnyAction):Generator {
     const { param, resolve, reject } = action.payload
     try{
         const response = yield apiRequest(apiUrl.location.getWardByDistrict, param, 'general')
@@ -50,7 +51,7 @@ function* fetchListWard(action):Generator {
 }
 
 export function* FollowFetchLocation():Generator {
-    yield takeLatest(LocationActions.fetchListCity().type, fetchListCity)
-    yield takeLatest(LocationActions.fetchListDistrict().type, fetchListDistrict)
-    yield takeLatest(LocationActions.fetchListWard().type, fetchListWard)
+    yield takeLatest(LocationActions.fetchListCity({}).type, fetchListCity)
+    yield takeLatest(LocationActions.fetchListDistrict({}).type, fetchListDistrict)
+    yield takeLatest(LocationActions.fetchListWard({}).type, fetchListWard)
 }

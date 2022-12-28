@@ -5,8 +5,9 @@ import { apiUrl } from "../constants";
 import { fetchAllGeneralMenu, GeneralMenuActions } from "../reducer/generalMenuReducer";
 import { type Saga } from 'redux-saga';
 import { ResponseFormatItem } from "../interface";
+import { AnyAction } from "@reduxjs/toolkit";
 
-function* fetchAllGeneralMenus(action):Generator {
+function* fetchAllGeneralMenus(action:AnyAction):Generator {
     const { param, resolve, reject } = action.payload
     try{
         const response = yield apiRequest(apiUrl.generalMenus.getAll, param, 'general')
@@ -20,7 +21,7 @@ function* fetchAllGeneralMenus(action):Generator {
     }
 }
 
-function* createGeneralMenus(action):Generator {
+function* createGeneralMenus(action:AnyAction):Generator {
     const { param, resolve, reject } = action.payload
     try{
         const response = yield apiRequest(apiUrl.generalMenus.getAll, param, 'general')
@@ -31,6 +32,6 @@ function* createGeneralMenus(action):Generator {
     }
 }
 export function* FollowFetchGeneralMenu():Generator {
-    yield takeLatest(GeneralMenuActions.fetchAllGeneralMenu().type, fetchAllGeneralMenus)
-    yield takeLatest(GeneralMenuActions.createGeneralMenus().type, createGeneralMenus)
+    yield takeLatest(GeneralMenuActions.fetchAllGeneralMenu({}).type, fetchAllGeneralMenus)
+    yield takeLatest(GeneralMenuActions.createGeneralMenus({}).type, createGeneralMenus)
 }

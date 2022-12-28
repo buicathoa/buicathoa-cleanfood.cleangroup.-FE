@@ -7,15 +7,16 @@ import { type Saga } from 'redux-saga';
 import { ResponseFormatItem } from "../interface";
 import { CartActions } from "../reducer/cartReducer";
 import { AppActions } from "../reducer/appReducer";
+import { AnyAction } from "@reduxjs/toolkit";
 
 export function* FollowFetchCart():Generator {
-    yield takeLatest(CartActions.fetchAllCart().type, fetchAllCart)
-    yield takeLatest(CartActions.addToCart().type, addToCart)
-    yield takeLatest(CartActions.updateCartByUser().type, updateCartByUser)
-    yield takeLatest(CartActions.deleteCartItem().type, deleteCartItem)
+    yield takeLatest(CartActions.fetchAllCart({}).type, fetchAllCart)
+    yield takeLatest(CartActions.addToCart({}).type, addToCart)
+    yield takeLatest(CartActions.updateCartByUser({}).type, updateCartByUser)
+    yield takeLatest(CartActions.deleteCartItem({}).type, deleteCartItem)
 }
 
-function* fetchAllCart(action):Generator {
+function* fetchAllCart(action:AnyAction):Generator {
     const { param, resolve, reject } = action.payload
     try{
         const response = yield apiRequest(apiUrl.cart.getCartByUser, param, 'general')
@@ -27,44 +28,44 @@ function* fetchAllCart(action):Generator {
     }
 }
 
-function* addToCart(action):Generator {
+function* addToCart(action:AnyAction):Generator {
     const { param, resolve, reject } = action.payload
     try{
         const response = yield apiRequest(apiUrl.cart.add, param, 'general')
-        yield put(AppActions.stopLoading({}))
+        yield put(AppActions.openLoading(false))
         yield put(CartActions.addToCartSuccess((response as ResponseFormatItem).data))
         if (resolve) yield resolve(response)
     }
     catch(err) {
         if (reject) yield reject(err)
-        yield put(AppActions.stopLoading({}))
+        yield put(AppActions.openLoading(false))
     }
 }
 
-function* updateCartByUser(action):Generator {
+function* updateCartByUser(action:AnyAction):Generator {
     const { param, resolve, reject } = action.payload
     try{
         const response = yield apiRequest(apiUrl.cart.update, param, 'general')
-        yield put(AppActions.stopLoading({}))
+        yield put(AppActions.openLoading(false))
         yield put(CartActions.updateCartByUserSuccess((param as ResponseFormatItem)))
         if (resolve) yield resolve(response)
     }
     catch(err) {
         if (reject) yield reject(err)
-        yield put(AppActions.stopLoading({}))
+        yield put(AppActions.openLoading(false))
     }
 }
 
-function* deleteCartItem(action):Generator {
+function* deleteCartItem(action:AnyAction):Generator {
     const { param, resolve, reject } = action.payload
     try{
         const response = yield apiRequest(apiUrl.cart.delete, param, 'general')
-        yield put(AppActions.stopLoading({}))
+        yield put(AppActions.openLoading(false))
         yield put(CartActions.updateCartByUserSuccess((response as ResponseFormatItem)))
         if (resolve) yield resolve(response)
     }
     catch(err) {
         if (reject) yield reject(err)
-        yield put(AppActions.stopLoading({}))
+        yield put(AppActions.openLoading(false))
     }
 }

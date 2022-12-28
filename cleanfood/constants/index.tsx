@@ -96,3 +96,10 @@ export const optionsMealPlans = [
         label: '2 tuần',
     },
 ]
+
+//====================================//
+
+export const deliveryItem = {
+    full_name: '', phone_number: '', delivery_time: [], province_id: '',
+    district_id: '', ward_id: '', address_detail: '', default_address: false, user: '', full_address: ''
+}

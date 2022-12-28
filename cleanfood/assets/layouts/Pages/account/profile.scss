@@ -2,8 +2,8 @@
   padding: calc(12 / $fdf) * $rem;
   background-color: #ffffff;
   font-family: "Roboto";
-  .section{
-    .title{
+  .section {
+    .title {
       color: #2c2c2c;
       font-size: calc(18 / $fdf) * $rem;
       font-weight: 800;
@@ -12,7 +12,7 @@
       text-transform: uppercase;
     }
   }
-  .profile-section{
+  .profile-section {
     .profile-avatar {
       width: calc(82 / $fdf) * $rem;
       height: calc(82 / $fdf) * $rem;
@@ -65,75 +65,77 @@
       margin-top: calc(16 / $fdf) * $rem;
       .ant-form {
         .ant-row {
-          &.divider{
+          &.divider {
             justify-content: space-between;
           }
           .ant-col {
-            .flex-profile-item{
-              &.flex{
-                display: flex;
-                align-items: center;
-                justify-content: center;
-              }
-              &.none{
-                display: block;
-              }
-              .ant-form-item{
-                  margin-bottom: 0;
-                .ant-form-item-row{
-                  flex-direction: row;
-                  .ant-form-item-label {
-                    text-align: left;
-                    width: fit-content;
-                    label {
-                      font-weight: 600;
-                      font-size: calc(18 / $fdf) * $rem;
-                      color: #2c2c2c;
-                    }
-                  }
-                  .ant-form-item-control{
-                    .form-input{
-                      &.none{
-                        display: none;
-                      }
-                      &.displayed{
-                        display: block;
-                      }
-                    }
-                  }
-                }
-              }
-              .field-wrapper {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                &.displayed{
-                  display: flex;
-                  width: calc(100% - calc(140 / $fdf) * $rem);
-                }
-                &.none{
+            .flex-profile-item {
+              &.form-displayed {
+                .field-wrapper {
                   display: none;
                 }
-                .field-value {
-                  font-weight: 400;
-                  font-size: calc(18 / $fdf) * $rem;
-                  color: #2c2c2c;
-                  padding-right: calc(18 / $fdf) * $rem;
+                .ant-form-item {
+                  display: block;
+                  margin-bottom: calc(8 / $fdf) * $rem;
+                  .ant-form-item-row{
+                    flex-direction: row;
+                    align-items: center;
+                    .ant-form-item-label{
+                      flex: unset !important;
+                      color: #2c2c2c;
+                      font-size: calc(14 / $fdf) * $rem;
+                      font-weight: 800;
+                      margin: calc(8 / $fdf) * $rem 0;
+                      color: #2c2c2c;
+                      width: 20%;
+                    }
+                    .ant-form-item-control{
+                      flex: unset !important;
+                      width: 60%;
+                    }
+                  }
+                }
+              }
+              &.div-displayed {
+                .ant-form-item {
+                  display: none;
+                }
+                .field-wrapper {
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  .field-wrapper-content {
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    .field-label {
+                      color: #2c2c2c;
+                      font-size: calc(14 / $fdf) * $rem;
+                      font-weight: 800;
+                      margin: calc(8 / $fdf) * $rem 0;
+                      color: #2c2c2c;
+                      padding-right: calc(16 / $fdf) * $rem;
+                      width: 20%;
+                    }
+                    .field-value {
+                      width: 60%;
+                    }
+                  }
                 }
               }
             }
-            .action-buttons{
+            .action-buttons {
               margin: calc(8 / $fdf) * $rem 0;
-              &.displayed{
+              &.displayed {
                 display: flex;
                 justify-content: flex-end;
               }
-              &.none{
+              &.none {
                 display: none;
               }
-              button{
+              button {
                 width: calc(100 / $fdf) * $rem;
-                &:nth-child(1){
+                &:nth-child(1) {
                   margin-right: calc(8 / $fdf) * $rem;
                   background-color: #9cdd22;
                   border: 1px solid #9cdd22;
@@ -144,18 +146,22 @@
           }
           .custom-radio-group {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             .custom-radio {
-              padding: calc(8 / $fdf) * $rem calc(16 / $fdf) * $rem;
+              padding: calc(4 / $fdf) * $rem;
               border: 1px solid #e2dcdc;
+              border-radius: 5px;
             }
           }
         }
       }
     }
   }
-  .delivery-info-section{
+  .delivery-info-section {
     background-color: #c3e485;
     padding: calc(16 / $fdf) * $rem;
+    .title{
+      margin-top: 0;
+    }
   }
 }

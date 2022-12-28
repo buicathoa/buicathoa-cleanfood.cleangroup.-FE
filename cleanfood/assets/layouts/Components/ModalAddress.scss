@@ -67,7 +67,7 @@
             text-align: center;
             font-weight: 700;
             cursor: pointer;
-            &:hover{
+            &:hover {
               background-color: #f5f5f5;
             }
           }
@@ -77,13 +77,29 @@
           display: flex;
           font-size: calc(14 / $fdf) * $rem;
           .update-address {
-            color: rgb(61, 159, 252);
+            color: #9cdd22;
             margin-right: calc(16 / $fdf) * $rem;
             cursor: pointer;
+            // background-color: rgb(243, 101, 49);
+            border: 1px solid #9cdd22;
+            border-radius: 5px;
+            padding: 4px;
+            &:hover {
+              transform: rotate(360deg);
+              transition: transform 0.5s ease;
+            }
           }
           .delete-address {
             color: rgb(243, 101, 49);
+            // background-color: rgb(61, 159, 252);
             cursor: pointer;
+            border: 1px solid rgb(243, 101, 49);
+            border-radius: 5px;
+            padding: 4px;
+            &:hover {
+              transform: rotate(360deg);
+              transition: transform 0.5s ease;
+            }
           }
         }
       }
@@ -114,7 +130,7 @@
       }
       .ant-row {
         flex-direction: row-reverse !important;
-        // justify-content: flex-end;
+        justify-content: flex-end;
         .checkbox {
           .ant-form-item-row {
             align-items: center;
@@ -137,9 +153,11 @@
             }
           }
         }
-        &.multiple{
-          .ant-col{
-            &:nth-child(1){
+        &.multiple {
+          flex-direction: row !important;
+          justify-content: unset !important;
+          .ant-col {
+            &:nth-child(1) {
               padding-right: 8px;
             }
           }
@@ -154,7 +172,7 @@
           transform: rotate(360deg);
           transition: transform 0.5s ease;
         }
-        &:nth-child(2){
+        &:nth-child(2) {
           color: #ffffff;
         }
       }

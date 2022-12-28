@@ -8,6 +8,7 @@ import { ResponseFormatItem } from "../interface";
 import { CartActions } from "../reducer/cartReducer";
 import { AuthActions } from "../reducer/authReducer";
 import { AppActions } from "../reducer/appReducer";
+import { AnyAction } from "@reduxjs/toolkit";
 
 // function* fetchAllGeneralMenus(action):Generator {
 //     const { param, resolve, reject } = action.payload
@@ -23,7 +24,7 @@ import { AppActions } from "../reducer/appReducer";
 //     }
 // }
 
-function* fetchLogin(action):Generator {
+function* fetchLogin(action:AnyAction):Generator {
     const { param, resolve, reject } = action.payload
     try{
         const response = yield apiRequest(apiUrl.auth.login, param, 'general')
@@ -37,5 +38,5 @@ function* fetchLogin(action):Generator {
 }
 export function* FollowFetchAuth():Generator {
     // yield takeLatest(GeneralMenuActions.fetchAllGeneralMenu().type, fetchAllGeneralMenus)
-    yield takeLatest(AuthActions.fetchLogin().type, fetchLogin)
+    yield takeLatest(AuthActions.fetchLogin({}).type, fetchLogin)
 }

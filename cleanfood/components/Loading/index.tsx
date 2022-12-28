@@ -3,12 +3,12 @@ import ClassNames from 'classnames'
 import { useSelector } from 'react-redux'
 
 import { LoadingOutlined } from '@ant-design/icons'
+import { useAppSelector } from '../../reducer/hook'
 
 // import './style.scss'
 
 const Loading = () => {
-    const loading = useSelector((state) => state.app.isLoading)
-    console.log('loading', loading)
+    const loading = useAppSelector((state) => state.app.isLoading)
     return (
         <div className={ClassNames('loading-content', !loading && 'hiden')}>
             <div className="wrap">

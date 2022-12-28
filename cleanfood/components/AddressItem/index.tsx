@@ -2,18 +2,20 @@ import { EnvironmentOutlined } from '@ant-design/icons'
 import { Tag } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { deliveryItem } from '../../constants'
+import { AddressItemComponentInterface, DeliveryItemInterface } from '../../interface'
 
-const AddressItem = ({ isOpenAddressModal, setIsOpenAddressModal, listDeliveryAddress }) => {
+const AddressItem = ({ setIsOpenAddressModal, listDeliveryAddress }:AddressItemComponentInterface) => {
     
-    const [defaultAddress, setDefaultAddress] = useState({})
+    const [defaultAddress, setDefaultAddress] = useState<DeliveryItemInterface>(deliveryItem)
 
     useEffect(() => {
-        if(listDeliveryAddress?.length > 0){
-            const address = listDeliveryAddress?.find(item => item.default_address === true)
+        if(listDeliveryAddress && listDeliveryAddress?.length > 0){
+            const address:DeliveryItemInterface = listDeliveryAddress?.find(item => item.default_address === true)!
             setDefaultAddress(address)
         }
     }, [listDeliveryAddress])
-    const user = useSelector((state) => state.user.user)
+    
     return (
         <div className="contact-info">
             <div className="contact-info-title">

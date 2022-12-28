@@ -1,32 +1,33 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Button, Checkbox, Col, Empty, Form, Input, Modal, Row, Select, TimePicker } from 'antd'
 import React, { useEffect, useState } from 'react'
+import { Button, Checkbox, Col, Empty, Form, Input, Modal, Row, Select, TimePicker } from 'antd'
 import {
     PushpinFilled
 } from "@ant-design/icons";
-import { ModalInterface, ResponseFormatItem } from '../../interface';
-import { useAppDispatch } from '../../reducer/hook';
+import moment from 'moment'
+import _ from 'lodash'
+
+import { DeliveryItemInterface, DeliveryPayloadApi, DistrictInterface, ModalInterface, ProvinceInterface, ResponseFormatItem, WardInterface } from '../../interface';
+
+import { useAppDispatch, useAppSelector } from '../../reducer/hook';
 import { LocationActions } from '../../reducer/LocationReducer';
-import { useSelector } from 'react-redux';
-import { removeAccentsToLower } from '../../utils/string';
-import _, { isEmpty } from 'lodash'
 import { UserActions } from '../../reducer/userReducer';
-import moment, { Moment } from 'moment'
-import { openWarning } from '../NotificationStatus';
+
+import { removeAccentsToLower } from '../../utils/string';
+import { deliveryItem } from '../../constants';
 
 const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
     const { Option } = Select
     const [form] = Form.useForm()
     const dispatch = useAppDispatch()
-    const listCity = useSelector((state) => state.location.listCity)
-    const listDistrict = useSelector((state) => state.location.listDistrict)
-    const listWard = useSelector((state) => state.location.listWard)
-    const user = useSelector((state) => state.user.user)
-    const listDeliveryAddress = useSelector((state) => state.user.listDeliveryAddress)
+    const listCity = useAppSelector((state) => state.location.listCity)
+    const listDistrict = useAppSelector((state) => state.location.listDistrict)
+    const listWard = useAppSelector((state) => state.location.listWard)
+    const listDeliveryAddress = useAppSelector((state) => state.user.listDeliveryAddress)
 
     const [isOpenAddressDetail, setIsOpenAddressDetail] = useState(false)
     const [isEditAddress, setIsEditAddress] = useState(false)
-    const [formValues, setformValues] = useState({})
+    const [formValues, setformValues] = useState<DeliveryItemInterface>(deliveryItem)
     const [isUpdateAddressDefault, setIsUpdateAddressDefault] = useState(false)
 
     const validateMessages = {
@@ -78,9 +79,9 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
     };
 
     useEffect(() => {
-        if(visible){
+        if (visible) {
             getAllDeliveryAddress({})
-            if(isOpenAddressDetail){
+            if (isOpenAddressDetail) {
                 fetchListCity({})
             }
         }
@@ -90,12 +91,13 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
         form.resetFields()
     }, [formValues])
 
-    const handleEditAddress = (item) => {
+    const handleEditAddress = (item: DeliveryItemInterface) => {
         setIsOpenAddressDetail(true)
         setIsEditAddress(true)
         const listDeliveryTime = item?.delivery_time?.map(item => {
             return moment(item)
         })
+        debugger
         setformValues({ ...item, delivery_time: listDeliveryTime })
         const payload = {
             province_id: item.province_id
@@ -108,7 +110,7 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
         })
     }
 
-    const onSubmitForm = (values) => {
+    const onSubmitForm = (values: DeliveryPayloadApi) => {
         if (!isEditAddress) {
             const payload = {
                 ...values,
@@ -125,14 +127,14 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
                 default_address: (values?.default_address === false || !values?.default_address) ? false : true,
                 delivery_time: values?.delivery_time,
             }
-            updateDefaultDeliveryAddress({payload:payload, update_type: 'form'}).then(() => {
+            updateDefaultDeliveryAddress(payload).then(() => {
                 setIsOpenAddressDetail(false)
             })
         }
     }
 
-    const handleSetDefaultAddress = (item) => {
-        const payload = {...item, default_address: true, delivery_address_id: item._id}
+    const handleSetDefaultAddress = (item: DeliveryItemInterface) => {
+        const payload = { ...item, default_address: true, delivery_address_id: item._id }
         updateDefaultDeliveryAddress(payload).then(() => {
             setIsUpdateAddressDefault(!isUpdateAddressDefault)
         })
@@ -152,17 +154,17 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
     const handleAddNewAddress = () => {
         setIsEditAddress(false)
         setIsOpenAddressDetail(true)
-        setformValues({})
+        setformValues(deliveryItem)
     }
 
-    const handleSelectProvince = (event) => {
+    const handleSelectProvince = (event: string) => {
         const payload = {
             province_id: event
         }
         fetchListDistrict(payload)
     }
 
-    const handleSelectDistrict = (event) => {
+    const handleSelectDistrict = (event: string) => {
         const payload = {
             district_id: event
         }
@@ -171,7 +173,6 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
 
     return (
         <Modal className="modal-address" getContainer={false} title={(visible && !isOpenAddressDetail) ? 'Địa chỉ của tôi' : (isEditAddress ? 'Chỉnh sửa địa chỉ' : 'Thêm mới địa chỉ')} open={visible}
-            onOk={onSubmitForm}
             onCancel={() => setVisible(false)}
             footer={[
                 <Button key="exit" onClick={() => handleCloseModal()}>
@@ -249,7 +250,7 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
                                             virtual={false}
                                             showSearch
                                             optionFilterProp="children"
-                                            filterOption={(input, option) =>
+                                            filterOption={(input, option:any) =>
                                                 removeAccentsToLower(option.children).indexOf(removeAccentsToLower(input)) >= 0
                                             }
                                             filterSort={(optionA, optionB) =>
@@ -258,7 +259,7 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
                                             getPopupContainer={(triggerNode) => triggerNode.parentNode}
                                             onChange={handleSelectProvince}
                                         >
-                                            {listCity?.map((item, index) => {
+                                            {listCity?.map((item:ProvinceInterface, index) => {
                                                 return (
                                                     <Option value={item?.province_id} key={index}>
                                                         {item?.province_name}
@@ -281,7 +282,7 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
                                             virtual={false}
                                             showSearch
                                             optionFilterProp="children"
-                                            filterOption={(input, option) =>
+                                            filterOption={(input, option:any) =>
                                                 removeAccentsToLower(option.children).indexOf(removeAccentsToLower(input)) >= 0
                                             }
                                             filterSort={(optionA, optionB) =>
@@ -290,7 +291,7 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
                                             getPopupContainer={(triggerNode) => triggerNode.parentNode}
                                             onChange={handleSelectDistrict}
                                         >
-                                            {listDistrict?.map((item, index) => {
+                                            {listDistrict?.map((item:DistrictInterface, index) => {
                                                 return (
                                                     <Option value={item?.district_id} key={index}>
                                                         {item?.district_name}
@@ -313,7 +314,7 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
                                             virtual={false}
                                             showSearch
                                             optionFilterProp="children"
-                                            filterOption={(input, option) =>
+                                            filterOption={(input, option:any) =>
                                                 removeAccentsToLower(option.children).indexOf(removeAccentsToLower(input)) >= 0
                                             }
                                             filterSort={(optionA, optionB) =>
@@ -322,7 +323,7 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
                                             getPopupContainer={(triggerNode) => triggerNode.parentNode}
                                             onChange={handleSelectDistrict}
                                         >
-                                            {listWard?.map((item, index) => {
+                                            {listWard?.map((item:WardInterface, index) => {
                                                 return (
                                                     <Option value={item?.ward_id} key={index}>
                                                         {item?.ward_name}

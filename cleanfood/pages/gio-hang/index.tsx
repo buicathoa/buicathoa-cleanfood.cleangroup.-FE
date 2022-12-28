@@ -1,40 +1,43 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react'
+import { Button, InputNumber, Radio, RadioChangeEvent, Row, Select, Steps, Switch, Tag } from 'antd';
 import {
     MinusOutlined, PlusOutlined, DeleteOutlined, UserOutlined,
-    EnvironmentOutlined,
     GiftOutlined,
     RightOutlined,
     DollarOutlined,
 } from "@ant-design/icons";
-import { Button, Checkbox, Col, Form, Input, InputNumber, Radio, RadioChangeEvent, Row, Select, Steps, Switch, Tag } from 'antd';
-import { useAppDispatch } from '../../reducer/hook';
-import { CartItem, ResponseFormatItem } from '../../interface';
-import { CartActions } from '../../reducer/cartReducer';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
+
+import { CartItemInterface, listCartsInterface, ResponseFormatItem } from '../../interface';
+
+import { useAppDispatch, useAppSelector } from '../../reducer/hook';
+import { CartActions } from '../../reducer/cartReducer';
 import { AppActions } from '../../reducer/appReducer';
+import { UserActions } from '../../reducer/userReducer';
+
+import { getrandomcolor } from '../../utils/helper';
+
 import ModalConfirm from '../../components/ModalConfirm';
 import ModalAddress from '../../components/ModalAddress';
-import { getrandomcolor } from '../../utils/helper';
 import ModalVoucher from '../../components/ModalVoucher';
-import { UserActions } from '../../reducer/userReducer';
 import AddressItem from '../../components/AddressItem';
 const Cart: React.FC = () => {
     const router = useRouter()
     const dispatch = useAppDispatch()
     const listPaymentMethods = [{ name: 'Momo', image: 'images/momo.png' }, { name: 'COD', image: 'images/cod.png' }]
-    const listCart = useSelector((state) => state.cart.listCart)
-    const user = useSelector((state) => state.user.user)
-
+    const listCart: listCartsInterface = useAppSelector((state) => state.cart.listCart)
+    const user = useAppSelector((state) => state.user.user)
+    const listDeliveryAddress = useAppSelector((state) => state.user.listDeliveryAddress)
+    
     const [value, setValue] = useState(0)
     const [currentStep, setCurrentStep] = useState(0);
     const [isOpenConfirmModal, setIsOpenConfirmModal] = useState(false)
     const [isOpenAddressModal, setIsOpenAddressModal] = useState(false)
     const [isOpenVoucherModal, setIsOpenVoucherModal] = useState(false)
     const [isUseCoin, setIsUseCoin] = useState(false)
-    const [cartSelected, setCartSelected] = useState<CartItem>({})
+    const [cartSelected, setCartSelected] = useState<CartItemInterface>({})
     const [paymentSelected, setPaymentSelected] = useState('Momo')
 
     const { Step } = Steps;
@@ -68,9 +71,26 @@ const Cart: React.FC = () => {
         });
     };
 
+    const fetchAllCart = (param: any): Promise<ResponseFormatItem> => {
+        return new Promise((resolve, reject) => {
+            dispatch(CartActions.fetchAllCart({ param, resolve, reject }));
+        });
+    };
+
+    const getAllDeliveryAddress = (param: any): Promise<ResponseFormatItem> => {
+        return new Promise((resolve, reject) => {
+            dispatch(UserActions.getAllDeliveryAddress({ param, resolve, reject }));
+        });
+    };
+
     useEffect(() => {
         if (!Cookies.get('cleanfood')) {
             router.push('/tai-khoan/dang-nhap')
+        } else {
+            if(currentStep === 0){
+                fetchAllCart({})
+            }
+            getAllDeliveryAddress({})
         }
     }, [])
 
@@ -83,14 +103,14 @@ const Cart: React.FC = () => {
         setValue(event)
     }
 
-    const handleBlurUpdateQuantity = (item: CartItem) => {
+    const handleBlurUpdateQuantity = (item: CartItemInterface) => {
         const params = { cart_id: item?.cart_id, quantity: value }
         updateCartByUser(params).then(() => {
             setValue(0)
         })
     }
 
-    const handleDeleteCartItem = (item: CartItem) => {
+    const handleDeleteCartItem = (item: CartItemInterface) => {
         setCartSelected(item)
         setIsOpenConfirmModal(true)
     }
@@ -161,7 +181,7 @@ const Cart: React.FC = () => {
                 </div>
                 {currentStep === 0 && <>
                     <div className="cart-content">
-                        {listCart?.total_quantity > 0 && listCart?.list_carts?.map((item, index) => {
+                        {listCart?.total_quantity! > 0 && listCart?.list_carts?.map((item, index) => {
                             return (
                                 <div className="cart-item" key={item?._id}>
                                     <div className="cart-item-info">
@@ -177,7 +197,7 @@ const Cart: React.FC = () => {
                                     <div className="cart-item-actions">
                                         <div className="update-quantity">
                                             <PlusOutlined onClick={() => handleUpdateQuantity(1, item)} />
-                                            <InputNumber type="number" value={item?.quantity} onChange={(event) => handleUpdateQuantityInput(event)} onBlur={() => handleBlurUpdateQuantity(item)} />
+                                            <InputNumber type="number" value={item?.quantity} onChange={(event) => handleUpdateQuantityInput(event!)} onBlur={() => handleBlurUpdateQuantity(item)} />
                                             <MinusOutlined onClick={() => handleUpdateQuantity(-1, item)} />
                                         </div>
                                         <div className="remove-item">
@@ -195,11 +215,7 @@ const Cart: React.FC = () => {
                 {currentStep === 1 && (
                     // ======================================== Contact ====================================//
                     <div className="cart-content">
-                        <AddressItem isOpenAddressModal={isOpenAddressModal} setIsOpenAddressModal={setIsOpenAddressModal}/>
-                        <AddressItem isOpenAddressModal={isOpenAddressModal} setIsOpenAddressModal={setIsOpenAddressModal}/>
-                        <AddressItem isOpenAddressModal={isOpenAddressModal} setIsOpenAddressModal={setIsOpenAddressModal}/>
-                        <AddressItem isOpenAddressModal={isOpenAddressModal} setIsOpenAddressModal={setIsOpenAddressModal}/>
-                        <AddressItem isOpenAddressModal={isOpenAddressModal} setIsOpenAddressModal={setIsOpenAddressModal}/>
+                        <AddressItem setIsOpenAddressModal={setIsOpenAddressModal} listDeliveryAddress={listDeliveryAddress}/>
                         {/* <div className="contact-info">
                             <div className="contact-info-title">
                                 <div className="title">

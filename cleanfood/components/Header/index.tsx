@@ -7,7 +7,7 @@ import {
 } from "@ant-design/icons";
 import { Input, Badge, Space } from "antd";
 import { ResponseFormatItem } from "../../interface";
-import { useAppDispatch } from "../../reducer/hook";
+import { useAppDispatch, useAppSelector } from "../../reducer/hook";
 import { CartActions } from "../../reducer/cartReducer";
 import Cookies from 'js-cookie';
 import { useSelector } from "react-redux";
@@ -33,7 +33,7 @@ const Header: React.FC = (props) => {
     });
   };
 
-  const listCartQuantity = useSelector((state) => state.cart.listCartQuantity)
+  const listCartQuantity = useAppSelector((state) => state.cart.listCartQuantity)
   useEffect(() => {
     if (Cookies.get('cleanfood')) {
       fetchUserInfo({})

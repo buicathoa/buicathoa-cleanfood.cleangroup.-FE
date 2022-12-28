@@ -1,16 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
-import { Button, Col, Form, Input, Radio, Row } from 'antd'
 import React, { useEffect, useState } from 'react'
 import Cookies from 'js-cookie';
-import { CameraOutlined, EditOutlined } from '@ant-design/icons'
-import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router';
+
+import { Button, Col, Form, Input, Radio, RadioChangeEvent, Row } from 'antd'
+import { CameraOutlined, EditOutlined } from '@ant-design/icons'
+
 import { useAppDispatch, useAppSelector } from '../../../reducer/hook';
+
+import { ResponseFormatItem, UserPayloadApi } from '../../../interface';
+
 import { UserActions } from '../../../reducer/userReducer';
-import { ResponseFormatItem } from '../../../interface';
 import AddressItem from '../../../components/AddressItem';
 import ModalAddress from '../../../components/ModalAddress';
+
 const Profile = () => {
     const router = useRouter()
     const [form] = Form.useForm()
@@ -19,7 +23,7 @@ const Profile = () => {
     const [isOpenAddressModal, setIsOpenAddressModal] = useState(false)
     const [avatar, setAvatar] = useState('')
     const [fieldnameEdit, setFieldnameEdit] = useState('')
-    const [formValues, setFormvalues] = useState({})
+    const [formValues, setFormvalues] = useState<UserPayloadApi>({firstname: '', lastname: '', username: '', phone_number: '', gender: ''})
     const [gender, setGender] = useState('')
 
     const user = useAppSelector((state) => state.user.user)
@@ -75,25 +79,26 @@ const Profile = () => {
         ]
     }
 
-    const onSubmitFile = (event:React.FormEvent) => {
+    const onSubmitFile = (event: React.FormEvent) => {
         const formData = new FormData()
         const inputRef = event.target as HTMLInputElement;
-        if(inputRef.files !== null){
-            
+        if (inputRef.files !== null) {
+
             formData.append('image', inputRef.files[0])
         }
-        uploadAvatar(formData).then((res:any) => {
+        uploadAvatar(formData).then((res: any) => {
             setAvatar(res?.data)
         })
     }
 
-    const onSubmitForm = (values) => {
+    const onSubmitForm = (values: UserPayloadApi) => {
         updateUser({ ...values, gender: gender })
     }
 
-    const handleChangeGender = (event) => {
-        setGender(event.target.value)
-        updateUser({ gender: event.target.value })
+    const handleChangeGender = (event: RadioChangeEvent) => {
+        const inputRef = event.target as HTMLInputElement;
+        setGender(inputRef.value)
+        updateUser({ gender: inputRef.value })
     }
 
     return (
@@ -112,7 +117,8 @@ const Profile = () => {
                             id="upload_avatar"
                             onChange={(e) => onSubmitFile(e)}
                             onClick={(event) => {
-                                event.target.value = ''
+                                const inputRef = event.target as HTMLInputElement;
+                                inputRef.value = ''
                             }}
                         />
                     </div>
@@ -125,27 +131,24 @@ const Profile = () => {
                         validateMessages={validateMessages}
                         onFinish={onSubmitForm}
                         autoComplete="off"
-                        requiredMark={false}
-                        layout="horizontal"
+                        layout="vertical"
                     >
                         <Row>
                             <Col span={24}>
-                                <div className="flex-profile-item none">
-                                    <Form.Item
-                                        label="Username"
-                                        name="username"
-                                    >
-                                        {fieldnameEdit === 'username' ? <Input className="form-input" placeholder='username' /> :
-                                            (<div className="field-wrapper">
-                                                <span className="field-value">{formValues?.username}</span>
-                                            </div>)}
-                                    </Form.Item>
+                                <div className="flex-profile-item div-displayed">
+                                    <div className={`field-wrapper`}>
+                                        <div className="field-wrapper-content">
+                                            <span className="field-label">Username:</span>
+                                            <span className="field-value">{formValues?.username}</span>
+                                        </div>
+                                        <EditOutlined onClick={() => setFieldnameEdit('firstname')} />
+                                    </div>
                                 </div>
                             </Col>
                         </Row>
                         <Row>
                             <Col span={24}>
-                                <div className={`flex-profile-item ${fieldnameEdit === 'firstname' ? 'none' : 'flex'}`}>
+                                <div className={`flex-profile-item ${fieldnameEdit === 'firstname' ? 'form-displayed' : 'div-displayed'}`}>
                                     <Form.Item
                                         label="First Name"
                                         name="firstname"
@@ -154,8 +157,12 @@ const Profile = () => {
                                         <Input className={`form-input ${fieldnameEdit === 'firstname' ? 'displayed' : 'none'}`} placeholder='Họ' />
 
                                     </Form.Item>
-                                    <div className={`field-wrapper ${fieldnameEdit !== 'firstname' ? 'displayed' : 'none'}`}>
-                                        <span className="field-value">{formValues?.firstname}</span><EditOutlined onClick={() => setFieldnameEdit('firstname')} />
+                                    <div className={`field-wrapper`}>
+                                        <div className="field-wrapper-content">
+                                            <span className="field-label">First Name:</span>
+                                            <span className="field-value">{formValues?.firstname}</span>
+                                        </div>
+                                        <EditOutlined onClick={() => setFieldnameEdit('firstname')} />
                                     </div>
                                 </div>
                                 <div className={`action-buttons ${fieldnameEdit === 'firstname' ? 'displayed' : 'none'}`}>
@@ -170,7 +177,7 @@ const Profile = () => {
                         </Row>
                         <Row>
                             <Col span={24}>
-                                <div className={`flex-profile-item ${fieldnameEdit === 'lastname' ? 'none' : 'flex'}`}>
+                                <div className={`flex-profile-item ${fieldnameEdit === 'lastname' ? 'form-displayed' : 'div-displayed'}`}>
                                     <Form.Item
                                         label="Last Name"
                                         name="lastname"
@@ -179,8 +186,12 @@ const Profile = () => {
                                         <Input className={`form-input ${fieldnameEdit === 'lastname' ? 'displayed' : 'none'}`} placeholder='Tên' />
 
                                     </Form.Item>
-                                    <div className={`field-wrapper ${fieldnameEdit !== 'lastname' ? 'displayed' : 'none'}`}>
-                                        <span className="field-value">{formValues?.lastname}</span><EditOutlined onClick={() => setFieldnameEdit('lastname')} />
+                                    <div className={`field-wrapper`}>
+                                        <div className="field-wrapper-content">
+                                            <span className="field-label">Last Name:</span>
+                                            <span className="field-value">{formValues?.lastname}</span>
+                                        </div>
+                                        <EditOutlined onClick={() => setFieldnameEdit('lastname')} />
                                     </div>
                                 </div>
                                 <div className={`action-buttons ${fieldnameEdit === 'lastname' ? 'displayed' : 'none'}`}>
@@ -195,7 +206,7 @@ const Profile = () => {
                         </Row>
                         <Row>
                             <Col span={24}>
-                                <div className={`flex-profile-item ${fieldnameEdit === 'phone_number' ? 'none' : 'flex'}`}>
+                                <div className={`flex-profile-item ${fieldnameEdit === 'phone_number' ? 'form-displayed' : 'div-displayed'}`}>
                                     <Form.Item
                                         label="Số điện thoại"
                                         name="phone_number"
@@ -204,8 +215,12 @@ const Profile = () => {
                                         <Input className={`form-input ${fieldnameEdit === 'phone_number' ? 'displayed' : 'none'}`} placeholder='Số điện thoại' />
 
                                     </Form.Item>
-                                    <div className={`field-wrapper ${fieldnameEdit !== 'phone_number' ? 'displayed' : 'none'}`}>
-                                        <span className="field-value">{formValues?.phone_number}</span><EditOutlined onClick={() => setFieldnameEdit('phone_number')} />
+                                    <div className={`field-wrapper`}>
+                                        <div className="field-wrapper-content">
+                                            <span className="field-label">Phone:</span>
+                                            <span className="field-value">{formValues?.phone_number}</span>
+                                        </div>
+                                        <EditOutlined onClick={() => setFieldnameEdit('phone_number')} />
                                     </div>
                                 </div>
                                 <div className={`action-buttons ${fieldnameEdit === 'phone_number' ? 'displayed' : 'none'}`}>
@@ -220,12 +235,12 @@ const Profile = () => {
                         </Row>
                         <Row>
                             <Col span={24}>
-                                <div className="flex-profile-item none">
+                                <div className="flex-profile-item form-displayed">
                                     <Form.Item
                                         label="Giới tính"
                                         name="gender"
                                     >
-                                        <Radio.Group className="custom-radio-group" value={gender} onChange={handleChangeGender}>
+                                        <Radio.Group className="custom-radio-group" value={gender} onChange={(e) => handleChangeGender(e)}>
                                             <Radio value={'male'} className="custom-radio">Nam</Radio>
                                             <Radio value={'female'} className="custom-radio">Nữ</Radio>
                                             <Radio value={'other'} className="custom-radio">Khác</Radio>
@@ -234,18 +249,6 @@ const Profile = () => {
                                 </div>
                             </Col>
                         </Row>
-                        {/* <Row>
-                        <Col span={24}>
-                            <Form.Item
-                                label="Địa chỉ"
-                                name="full_address
-                            >
-                                {fieldnameEdit === 'full_address' ? <Input className="form-input" placeholder='Địa chỉ' /> : (<div className="field-wrapper">
-                                    <span className="field-value">{formValues?.full_address}</span><EditOutlined />
-                                </div>)}
-                            </Form.Item>
-                        </Col>
-                    </Row> */}
                     </Form>
                 </div>
             </div>
@@ -253,7 +256,7 @@ const Profile = () => {
             <div className="delivery-info-section section">
                 <h3 className="title">Thông tin giao hàng</h3>
                 <div className="delivery-info-content">
-                    <AddressItem isOpenAddressModal={isOpenAddressModal} setIsOpenAddressModal={setIsOpenAddressModal} listDeliveryAddress={listDeliveryAddress}/>
+                    <AddressItem setIsOpenAddressModal={setIsOpenAddressModal} listDeliveryAddress={listDeliveryAddress} />
                 </div>
             </div>
             <ModalAddress visible={isOpenAddressModal} setVisible={setIsOpenAddressModal} />

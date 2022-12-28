@@ -7,8 +7,9 @@ import { type Saga } from 'redux-saga';
 import { ResponseFormatItem } from "../interface";
 import { ProductActions } from "../reducer/ProductReducer";
 import { AppActions } from "../reducer/appReducer";
+import { AnyAction } from "@reduxjs/toolkit";
 
-function* fetchAllProducts(action):Generator {
+function* fetchAllProducts(action: AnyAction):Generator {
     const { param, resolve, reject } = action.payload
     try{
         const response = yield apiRequest(apiUrl.product.getAll, param, 'general')
@@ -22,7 +23,7 @@ function* fetchAllProducts(action):Generator {
     }
 }
 
-function* fetchProductByRoute(action):Generator {
+function* fetchProductByRoute(action: AnyAction):Generator {
     const { param, resolve, reject } = action.payload
     try{
         const response = yield apiRequest(apiUrl.product.getByRoute, param, 'general')
@@ -33,22 +34,22 @@ function* fetchProductByRoute(action):Generator {
     }
 }
 
-function* fetchMoneyCost(action):Generator {
+function* fetchMoneyCost(action: AnyAction):Generator {
     const { param, resolve, reject } = action.payload
     try{
         const response = yield apiRequest(apiUrl.product.getMoneyCost, param, 'general')
-        yield put(AppActions.stopLoading({}))
+        yield put(AppActions.openLoading(false))
         if (resolve) yield resolve(response)
     }
     catch(err) {
-        yield put(AppActions.stopLoading({}))
+        yield put(AppActions.openLoading(false))
         if (reject) yield reject(err)
     }
 }
 
 
 export function* FollowFetchProduct():Generator {
-    yield takeEvery(ProductActions.fetchAllProducts().type, fetchAllProducts)
-    yield takeLatest(ProductActions.fetchProductByRoute().type, fetchProductByRoute)
-    yield takeLatest(ProductActions.fetchMoneyCost().type, fetchMoneyCost)
+    yield takeEvery(ProductActions.fetchAllProducts({}).type, fetchAllProducts)
+    yield takeLatest(ProductActions.fetchProductByRoute({}).type, fetchProductByRoute)
+    yield takeLatest(ProductActions.fetchMoneyCost({}).type, fetchMoneyCost)
 }

@@ -25,17 +25,20 @@
       }
     }
     .contact-info-content {
-      padding-top: calc(16 / $fdf) * $rem;
+      padding-top: calc(8 / $fdf) * $rem;
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
       align-items: center;
       .user-info {
         color: #2c2c2c;
-        font-weight: 700;
-        font-size: calc(20 / $fdf) * $rem;
+        font-weight: 400;
+        font-size: calc(14 / $fdf) * $rem;
+        padding-right: calc(8 / $fdf) * $rem;
         .user-name {
           padding-bottom: calc(8 / $fdf) * $rem;
+          font-size: calc(16 / $fdf) * $rem;
+          font-weight: bold;
         }
       }
       .user-address {

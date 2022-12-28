@@ -10,9 +10,10 @@ import { AuthActions } from "../reducer/authReducer";
 import { AppActions } from "../reducer/appReducer";
 import { UserActions } from "../reducer/userReducer";
 import { openSuccess } from "../components/NotificationStatus";
+import { AnyAction } from "@reduxjs/toolkit";
 
 
-function* fetchUserInfo(action):Generator {
+function* fetchUserInfo(action:AnyAction):Generator {
     const { param, resolve, reject } = action.payload
     try{
         yield put(AppActions.openLoading(true))
@@ -30,7 +31,7 @@ function* fetchUserInfo(action):Generator {
     }
 }
 
-function* updateUser(action):Generator {
+function* updateUser(action:AnyAction):Generator {
     const { param, resolve, reject } = action.payload
     try{
         const response = yield apiRequest(apiUrl.user.update, param, 'general')
@@ -44,7 +45,7 @@ function* updateUser(action):Generator {
     }
 }
 
-function* uploadAvatar(action):Generator {
+function* uploadAvatar(action:AnyAction):Generator {
     const { param, resolve, reject } = action.payload
     try{
         const response = yield apiRequest(apiUrl.user.uploadAvatar, param, 'formdata')
@@ -57,7 +58,7 @@ function* uploadAvatar(action):Generator {
     }
 }
 
-function* getAllDeliveryAddress(action):Generator {
+function* getAllDeliveryAddress(action:AnyAction):Generator {
     const { param, resolve, reject } = action.payload
     try{
         const response:any = yield apiRequest(apiUrl.user.delivery.getAll, param, 'general')
@@ -71,7 +72,7 @@ function* getAllDeliveryAddress(action):Generator {
     }
 }
 
-function* createDeliveryAddress(action):Generator {
+function* createDeliveryAddress(action:AnyAction):Generator {
     const { param, resolve, reject } = action.payload
     try{
         const response = yield apiRequest(apiUrl.user.delivery.create, param, 'general')
@@ -85,7 +86,7 @@ function* createDeliveryAddress(action):Generator {
     }
 }
 
-function* updateDefaultDeliveryAddress(action):Generator {
+function* updateDefaultDeliveryAddress(action:AnyAction):Generator {
     const { param, resolve, reject } = action.payload
     try{
         const response:any = yield apiRequest(apiUrl.user.delivery.update, param, 'general')
@@ -102,12 +103,12 @@ function* updateDefaultDeliveryAddress(action):Generator {
 
 export function* FollowFetchUser():Generator {
     yield all([
-        yield takeLatest(UserActions.fetchUserInfo().type, fetchUserInfo),
-        yield takeLatest(UserActions.updateUser().type, updateUser),
-        yield takeLatest(UserActions.uploadAvatar().type, uploadAvatar),
+        yield takeLatest(UserActions.fetchUserInfo({}).type, fetchUserInfo),
+        yield takeLatest(UserActions.updateUser({}).type, updateUser),
+        yield takeLatest(UserActions.uploadAvatar({}).type, uploadAvatar),
 
-        yield takeLatest(UserActions.getAllDeliveryAddress().type, getAllDeliveryAddress),
-        yield takeLatest(UserActions.createDeliveryAddress().type, createDeliveryAddress),
-        yield takeLatest(UserActions.updateDefaultDeliveryAddress().type, updateDefaultDeliveryAddress)
+        yield takeLatest(UserActions.getAllDeliveryAddress({}).type, getAllDeliveryAddress),
+        yield takeLatest(UserActions.createDeliveryAddress({}).type, createDeliveryAddress),
+        yield takeLatest(UserActions.updateDefaultDeliveryAddress({}).type, updateDefaultDeliveryAddress)
     ])
 }
