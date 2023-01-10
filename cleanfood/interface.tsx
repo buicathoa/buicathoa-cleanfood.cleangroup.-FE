@@ -3,7 +3,11 @@
 import { Moment } from "moment"
 
 //General Component Interface
-export interface MenuTableDataItem{
+export interface EditOrderTrackingInterface {
+    trackingDaySelected: string,
+    setIsEditTrackingOrder: React.Dispatch<React.SetStateAction<boolean>>
+}
+export interface MenuTableDataItem {
     breakfast_en: string,
     breakfast_vi: string,
     createdAt: Date,
@@ -27,18 +31,18 @@ export interface ProductItemInterface {
     updatedAt?: Date,
     __v?: number,
     _id?: string,
-    product_type?: string
+    product_type: string
 }
 
-export interface listProduct{
+export interface listProduct {
     listProduct: ProductItemInterface[]
 }
 
-export interface listMenuTableData{
+export interface listMenuTableData {
     listMenu: MenuTableDataItem[]
 }
 
-export interface MenuTableData extends listMenuTableData{
+export interface MenuTableData extends listMenuTableData {
     titleHeader: titleHeaders[],
     type: string
 }
@@ -53,9 +57,17 @@ export interface ModalInterface {
     visible?: boolean,
     setVisible: React.Dispatch<React.SetStateAction<boolean>>,
     confirmTitle?: string,
-    confirmContent?: string
+    confirmContent?: string,
+    paymentSelected?: { name: string, value: string },
 }
 
+export interface ModalTrackingOrderInterface extends ModalInterface {
+    trackingDaySelected: string
+}
+
+export interface ModalPaymentInterface extends ModalInterface {
+    setPaymentSelected: React.Dispatch<React.SetStateAction<{ name: string, value: string }>>
+}
 export interface ModalInterfaceConfirm extends ModalInterface {
     onConfirmModal: () => void,
     onConfirmCancelModal: () => void,
@@ -69,6 +81,27 @@ export interface AddressItemComponentInterface {
 ////////////////////////////////////////////////////////
 
 //Response From api
+export interface OrderTrackingInterface {
+    address_detail?: string,
+    calories?: string,
+    createdAt?: Date,
+    district_id?: string,
+    end?: Date,
+    full_name?: string,
+    mealplans?: string,
+    order_status?: string,
+    phone_number?: string,
+    product?: string,
+    province_id?: string,
+    session?: string,
+    ship_place?: string,
+    start?: Date
+    updatedAt?: Date,
+    user_id?: string,
+    ward_id?: string,
+    __v?: number
+    _id?: string,
+}
 export interface ResponseFormatItem {
     code?: number,
     data?: {
@@ -76,6 +109,18 @@ export interface ResponseFormatItem {
         total_price?: number,
         original_price?: number
     },
+    token?: string,
+    message?: string
+}
+
+export interface ResponseFormatObjectItemInterface {
+    code?: number,
+    data: any,
+    message?: string
+}
+export interface ResponseFormatListInterface {
+    code?: number,
+    data?: Array<any>,
     token?: string,
     message?: string
 }
@@ -118,7 +163,7 @@ export interface DeliveryItemInterface {
 export interface ProvinceInterface {
     province_id: string,
     province_name: string,
-    _v?:number,
+    _v?: number,
     _id?: string
 }
 
@@ -126,7 +171,7 @@ export interface DistrictInterface {
     district_id: string,
     district_name: string,
     province_id: string,
-    _v?:number,
+    _v?: number,
     _id?: string
 }
 
@@ -134,14 +179,20 @@ export interface WardInterface {
     district_id: string,
     ward_id: string,
     ward_name: string,
-    _v?:number,
+    _v?: number,
     _id?: string
 }
 
 ////////// Reducer Interface
-export interface UserReducer {
+export interface UserReducerInterface {
     user: any,
     listDeliveryAddress: any[]
+}
+
+export interface CartReducerInterface {
+    listCartQuantity: number,
+    listCart: listCartsInterface,
+    updateCart: boolean
 }
 
 //Payload Api
@@ -153,15 +204,33 @@ export interface UserPayloadApi {
     username: string
 }
 
-export interface DeliveryPayloadApi{
+export interface DeliveryPayloadApi {
     address_detail: string,
     default_address: boolean,
     delivery_address_id?: string,
-    _id?:string,
+    _id?: string,
     delivery_time: Array<Moment>,
     district_id: string,
     province_id: string,
     ward_id: string,
     phone_number: string,
     full_name: string
+}
+
+export interface OrderTrackingInterfaceConvert {
+    start?: string,
+    end?: string,
+    title?: string,
+    id?: string,
+    extendedProps?: {
+        calories?: string,
+        session?: string,
+        mealplans?: string,
+        province_id?: string,
+        district_id?: string,
+        ward_id?: string,
+        address_detail?: string,
+        ship_place?: string,
+        order_status?: string
+    }
 }

@@ -1,0 +1,21 @@
+.payment-content {
+    padding: calc(16 / $fdf) * $rem;
+    .payment-title {
+      color: $maincolor;
+      font-size: calc(14 / $fdf) * $rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .payment-method-selection {
+      .ant-radio-group {
+        display: flex;
+        flex-direction: column;
+        .payment-method-item {
+          background-color: #ffffff;
+          padding: calc(8 / $fdf) * $rem;
+          margin-right: calc(16 / $fdf) * $rem;
+          border-radius: 10px;
+        }
+      }
+    }
+  }

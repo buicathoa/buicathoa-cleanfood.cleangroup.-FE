@@ -19,10 +19,5 @@ const Product = createSlice({
 
 export const ProductActions = Product.actions;
 
-export const fetchAllProduct = (state) => state.product.fetchAllProducts;
-export const fetchAllGeneralMenuSuccess = (state) => state.product.fetchAllComboSuccess;
-
-export const fetchProductByRoute = (state) => state.product.fetchProductByRoutes;
-
 const ProductReducer = Product.reducer;
 export default ProductReducer;

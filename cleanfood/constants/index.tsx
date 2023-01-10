@@ -3,6 +3,10 @@ export const HREF = 'http://localhost:3000/'
 export const apiUrl = {
     generalMenus: {
         getAll: 'general-menu/menu/get-all',
+        createDaysRegister: 'general-menu/day-register/create',
+        getDaysRegister: 'general-menu/day-register/get-all',
+        getOneDayRegister: 'general-menu/day-register/get-by-id',
+        updateDaysRegister: 'general-menu/day-register/update'
     },
     product: {
         getAll: 'product/get-all',
@@ -36,6 +40,9 @@ export const apiUrl = {
         getAllCity: 'location/province/get-all',
         getDistrictByCity: 'location/district/get-by-id',
         getWardByDistrict: 'location/ward/get-by-id'
+    },
+    order: {
+        purchase: 'order/purchase'
     }
 }
 

@@ -7,6 +7,7 @@ import AuthReducer from "./authReducer";
 import CartReducer from "./cartReducer";
 import GeneralMenuReducer from "./generalMenuReducer";
 import LocationReducer from "./LocationReducer";
+import orderReducer from "./orderReducer";
 import ProductReducer from "./ProductReducer";
 import UserReducer from "./userReducer";
 
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
     auth: AuthReducer,
     app: AppReducer,
     user: UserReducer,
-    location: LocationReducer
+    location: LocationReducer,
+    order: orderReducer
 })
 
 const sagaMiddleware = createSagaMiddleware();

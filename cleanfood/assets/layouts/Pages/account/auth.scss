@@ -44,7 +44,7 @@
             justify-content: center;
             button{
                 width: calc(200 / $fdf) * $rem;
-                background-color: #9cdd22;
+                background-color: $maincolor;
                 color: #ffffff;
             }
             &.verify{
@@ -102,7 +102,7 @@
                 margin-right: calc(16 / $fdf) * $rem;
                 padding: calc(8 / $fdf) * $rem calc(12 / $fdf) * $rem;
                 border-radius: 5px;
-                border: 3px solid #9cdd22;
+                border: 3px solid $maincolor;
                 cursor: pointer;
                 background-color: #ffffff;
                 img{

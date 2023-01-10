@@ -1,0 +1,24 @@
+.modal-tracking-order{
+    font-family: 'Roboto';
+    .ant-modal-content{
+        .ant-modal-body{
+            padding: calc(16 / $fdf) * $rem;
+            .ant-form{
+                .ant-row{
+                    .ant-col-8{
+                        padding-right: calc(8 / $fdf) * $rem;
+                        &:last-child{
+                            padding-right: 0;
+                        }
+                    }
+                    .ant-col-12{
+                        padding-right: calc(8 / $fdf) * $rem;
+                        &:last-child{
+                            padding-right: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

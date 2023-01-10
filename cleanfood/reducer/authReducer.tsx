@@ -13,8 +13,5 @@ const Auth = createSlice({
 
 export const AuthActions = Auth.actions;
 
-export const fetchLogin = (state) => state.Auth.fetchLogin;
-// export const addToCart = (state) => state.Auth.addToCart;
-
 const AuthReducer = Auth.reducer;
 export default AuthReducer;

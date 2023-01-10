@@ -137,8 +137,8 @@
                 width: calc(100 / $fdf) * $rem;
                 &:nth-child(1) {
                   margin-right: calc(8 / $fdf) * $rem;
-                  background-color: #9cdd22;
-                  border: 1px solid #9cdd22;
+                  background-color: $maincolor;
+                  border: 1px solid $maincolor;
                   color: #ffffff;
                 }
               }
@@ -158,7 +158,7 @@
     }
   }
   .delivery-info-section {
-    background-color: #c3e485;
+    background-color: $maincolor;
     padding: calc(16 / $fdf) * $rem;
     .title{
       margin-top: 0;

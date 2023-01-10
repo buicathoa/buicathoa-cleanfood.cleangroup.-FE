@@ -1,49 +1,75 @@
 .contact-info {
-    padding: calc(8 / $fdf) * $rem;
-    background-color: #ffffff;
-    border-radius: 10px;
-    font-family: 'Roboto';
-    margin: calc(8 / $fdf) * $rem 0;
-    .contact-info-title {
-      display: flex;
-      justify-content: space-between;
-      .title {
-        color: #9cdd22;
-        font-size: calc(14 / $fdf) * $rem;
-        font-weight: 800;
-        span {
-          text-transform: uppercase;
-          &:nth-child(2) {
-            margin-left: calc(4 / $fdf) * $rem;
-          }
+  padding: calc(8 / $fdf) * $rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+  font-family: "Roboto";
+  margin: calc(8 / $fdf) * $rem 0;
+  .contact-info-title {
+    display: flex;
+    justify-content: space-between;
+    .title {
+      color: $maincolor;
+      font-size: calc(14 / $fdf) * $rem;
+      font-weight: 800;
+      span {
+        text-transform: uppercase;
+        &:nth-child(2) {
+          margin-left: calc(4 / $fdf) * $rem;
         }
       }
-      .contact-default {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-      }
     }
-    .contact-info-content {
-      padding-top: calc(8 / $fdf) * $rem;
+    .contact-default {
       display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
       align-items: center;
-      .user-info {
+      flex-wrap: wrap;
+    }
+  }
+  .contact-info-content {
+    padding-top: calc(8 / $fdf) * $rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    .user-info {
+      .user-basic-info {
         color: #2c2c2c;
         font-weight: 400;
         font-size: calc(14 / $fdf) * $rem;
         padding-right: calc(8 / $fdf) * $rem;
         .user-name {
           padding-bottom: calc(8 / $fdf) * $rem;
-          font-size: calc(16 / $fdf) * $rem;
-          font-weight: bold;
+          font-size: calc(14 / $fdf) * $rem;
+          font-weight: 400;
+          span{
+            font-weight: 600;
+          }
+        }
+        .user-phone{
+          padding-bottom: calc(8 / $fdf) * $rem;
+          font-size: calc(14 / $fdf) * $rem;
+          font-weight: 400;
+          span{
+            font-weight: 600;
+          }
         }
       }
-      .user-address {
-        font-size: calc(16 / $fdf) * $rem;
+      .delivery-time{
         color: #2c2c2c;
+        font-weight: 400;
+        font-size: calc(14 / $fdf) * $rem;
+        padding-bottom: calc(8 / $fdf) * $rem;
+        span{
+          font-weight: 600;
+        }
+      }
+      .user-address{
+        color: #2c2c2c;
+        font-weight: 400;
+        font-size: calc(14 / $fdf) * $rem;
+        span{
+          font-weight: 600;
+        }
       }
     }
   }
+}

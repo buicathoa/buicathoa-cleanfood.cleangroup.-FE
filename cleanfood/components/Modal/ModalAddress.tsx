@@ -29,6 +29,7 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
     const [isEditAddress, setIsEditAddress] = useState(false)
     const [formValues, setformValues] = useState<DeliveryItemInterface>(deliveryItem)
     const [isUpdateAddressDefault, setIsUpdateAddressDefault] = useState(false)
+    const [deliveryTime, setDeliveryTime] = useState<string>('')
 
     const validateMessages = {
         required: 'required'
@@ -97,7 +98,6 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
         const listDeliveryTime = item?.delivery_time?.map(item => {
             return moment(item)
         })
-        debugger
         setformValues({ ...item, delivery_time: listDeliveryTime })
         const payload = {
             province_id: item.province_id
@@ -178,10 +178,10 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
                 <Button key="exit" onClick={() => handleCloseModal()}>
                     Thoát
                 </Button>,
-                <Button key="back" onClick={() => handleBackToPreviousForm()}>
+                isOpenAddressDetail && <Button key="back" onClick={() => handleBackToPreviousForm()}>
                     Trở lại
                 </Button>,
-                <Button form="basic" key="submit" htmlType="submit">
+                isOpenAddressDetail && <Button form="basic" key="submit" htmlType="submit">
                     Lưu
                 </Button>
             ]}>
@@ -361,9 +361,10 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
                                 <div className="address-detail">
                                     <div className="user-info">
                                         <div className="user-name">{item?.full_name}</div>
-                                        <div className="user-phone">(+84) {item?.phone_number}</div>
+                                        <div className="user-phone">(+84) {item?.phone_number}</div>                                        
                                     </div>
                                     <div className="full-address">{item?.full_address}</div>
+                                    <div className="delivery-time">Thời gian giao: <span>{`${moment(item.delivery_time[0]).format('HH:mm')} - ${moment(item.delivery_time[1]).format('HH:mm')}`}</span></div>
                                     {item?.default_address ? <Button className="is-default" disabled>Mặc định</Button> : <div className="make-default" onClick={() => handleSetDefaultAddress(item)}>Đặt làm mặc định</div>}
                                 </div>
                                 <div className="actions-button">

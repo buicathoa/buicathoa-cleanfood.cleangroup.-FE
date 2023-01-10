@@ -1,11 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { CartReducerInterface } from '../interface'
+
+const initialState: CartReducerInterface = {
+    listCart: {list_carts: [], total_price: 0, total_quantity: 0},
+    listCartQuantity: 0,
+    updateCart: false
+}
 
 const Cart = createSlice({
     name: 'cart',
-    initialState: {
-        listCart: {},
-        listCartQuantity: 0
-    },
+    initialState,
     reducers: ({
         fetchAllCart: (state, actions) => { },
         fetchAllCartSuccess: (state, actions) => {
@@ -14,6 +18,7 @@ const Cart = createSlice({
         },
         addToCart: (state, actions) => { },
         addToCartSuccess: (state, actions) => {
+            state.updateCart = !state.updateCart
         },
         updateCartByUser: (state, actions) => { },
         updateCartByUserSuccess: (state, actions) => {
@@ -21,6 +26,7 @@ const Cart = createSlice({
             let totalPrice = 0
             let totalQuantity = 0
             if (actions?.payload?.quantity) {
+                debugger
                 listCart = [
                     ...(state?.listCart as any)?.list_carts.map((item: any) => {
                         if (item.cart_id === actions?.payload?.cart_id) {
@@ -56,27 +62,23 @@ const Cart = createSlice({
             state.listCart = { list_carts: listCart, total_price: totalPrice || 0, total_quantity: totalQuantity || 0 }
         },
         deleteCartItem: (state, actions) => {
-            const listCart = [...state.listCart.list_carts].filter(item => item.cart_id !== actions?.payload?.param?.cart_id)
+            const listCart = [...state.listCart.list_carts!].filter(item => item.cart_id !== actions?.payload?.param?.cart_id)
             const totalPrice = listCart
                 ?.map((item) => {
                     return item?.total_price
                 })
-                ?.reduce((prev, curr) => prev + curr, 0)
+                ?.reduce((prev, curr) => prev! + curr!, 0)
             const totalQuantity = listCart
                 ?.map((item) => {
                     return item.quantity
                 })
-                ?.reduce((prev, curr) => prev + curr, 0)
+                ?.reduce((prev, curr) => prev! + curr!, 0)
             state.listCart = { list_carts: listCart, total_price: totalPrice || 0, total_quantity: totalQuantity || 0 }
         }
     })
 })
 
 export const CartActions = Cart.actions;
-
-export const listCart = (state) => state.Cart.listCart;
-export const fetchAllCartSuccess = (state) => state.Cart.fetchAllCartSuccess;
-export const addToCart = (state) => state.Cart.addToCart;
 
 const CartReducer = Cart.reducer;
 export default CartReducer;

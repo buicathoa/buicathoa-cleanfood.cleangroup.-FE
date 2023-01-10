@@ -1,23 +1,29 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const generalMenu = createSlice({
-    name: 'post',
+    name: 'generalMenu',
     initialState: {
-        listMenu: [] 
+        listMenu: [],
+        daysRegister: []
     },
     reducers: ({
         fetchAllGeneralMenu: (state, actions) => {},
         fetchAllGeneralMenuSuccess: (state, actions) => {
             state.listMenu = actions.payload
         },
-        createGeneralMenus: (state, actions) => {}
+        createGeneralMenus: (state, actions) => {},
+        createDaysRegister: (state, actions) => {},
+        getAllDaysRegister: (state, actions) => {},
+        getAllDaysRegisterSuccess: (state, actions) => {
+            state.daysRegister = actions.payload
+        },
+        getOneDayRegister: (state, actions) => {},
+        updateDaysRegister: (state, actions) => {},
+        updateDaysRegisterSuccess: (state, actions) => {}
     })
 })
 
 export const GeneralMenuActions = generalMenu.actions;
-
-export const fetchAllGeneralMenu = (state) => state.generalMenu.fetchAllGeneralMenu;
-export const createGeneralMenus = (state) => state.generalMenu.createGeneralMenus;
 
 const GeneralMenuReducer = generalMenu.reducer;
 export default GeneralMenuReducer;

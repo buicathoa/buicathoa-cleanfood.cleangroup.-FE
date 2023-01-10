@@ -50,7 +50,7 @@ body {
   height: 30px !important;
   border-radius: 50%;
   margin-top: -30px !important;
-  border: 1px solid #9cdd22;
+  border: 1px solid $maincolor;
   box-shadow: 0 1px 5px 0 rgb(0 0 0 / 35%);
   svg{
     transform: translate(-4%, 25%) !important;
@@ -68,7 +68,7 @@ body {
   height: 30px !important;
   border-radius: 50%;
   margin-top: -30px !important;
-  border: 1px solid #9cdd22;
+  border: 1px solid $maincolor;
   box-shadow: 0 1px 5px 0 rgb(0 0 0 / 35%);
   svg{
     transform: translate(-4%, 25%) !important;
@@ -124,6 +124,9 @@ body {
   }
   .ant-input-number-handler-wrap{
     display: none;
+  }
+  &.ant-input-number{
+    padding: 0 calc(8 / $fdf) * $rem;
   }
 }
 
@@ -250,8 +253,8 @@ body {
     }
   }
   .ant-checkbox-checked .ant-checkbox-inner {
-    background-color: #9cdd22 !important;
-    border-color: #9cdd22 !important;
+    background-color: $maincolor !important;
+    border-color: $maincolor !important;
   }
 }
 
@@ -274,7 +277,7 @@ body {
     margin: 0 calc(7 / $fdf) * $rem 0 calc(25 / $fdf) * $rem;
   }
   &.ant-switch-checked {
-    background-color: #9cdd22;
+    background-color: $maincolor;
     .ant-switch-handle {
       left: calc(100% - 1.125rem - 0.125rem);
     }
@@ -307,7 +310,7 @@ body {
       border-width: calc(1 / $fdf) * $rem;
     }
     .ant-radio-inner {
-      border-color: #9cdd22;
+      border-color: $maincolor;
       &::after {
         transform: unset;
         margin-top: 0;
@@ -317,7 +320,7 @@ body {
         display: block;
         width: calc(14 / $fdf) * $rem;
         height: calc(14 / $fdf) * $rem;
-        background-color: #9cdd22;
+        background-color: $maincolor;
       }
     }
   }
@@ -378,7 +381,7 @@ body {
 }
 .ant-modal-header {
   padding: calc(5 / $fdf) * $rem calc(18 / $fdf) * $rem;
-  background: #9cdd22;
+  background: $maincolor;
   > div {
     font-family: $roboto;
     font-weight: 700;
@@ -390,6 +393,18 @@ body {
     color: #ffffff;
   }
 }
+.ant-modal-content{
+  .ant-modal-close{
+    top: calc(10 / $fdf) * $rem;
+    right: calc(12 / $fdf) * $rem;
+    color: #ffffff;
+    .ant-modal-close-x{
+        width: calc(22 / $fdf) * $rem;
+        height: calc(22 / $fdf) * $rem;
+        line-height: calc(22 / $fdf) * $rem;
+    }
+}
+}
 .ant-modal-body {
   padding: 0;
 }
@@ -397,11 +412,11 @@ body {
   padding: calc(18 / $fdf) * $rem calc(50 / $fdf) * $rem;
   border-top: unset;
   button {
-    background: #9cdd22;
+    background: $maincolor;
     width: calc(100 / $fdf) * $rem;
     height: calc(45 / $fdf) * $rem;
     padding: 0 calc(15 / $fdf) * $rem;
-    border: 1px solid #9cdd22;
+    border: 1px solid $maincolor;
     border-radius: calc(4 / $fdf) * $rem;
     font-family: $roboto;
     font-size: calc(14 / $fdf) * $rem;
@@ -421,7 +436,7 @@ body {
     &:last-child {
       margin-left: calc(12 / $fdf) * $rem;
       &:hover {
-        background: #9cdd22;
+        background: $maincolor;
         border: 1px solid #9df004;
       }
     }
@@ -454,7 +469,7 @@ body {
  
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #9cdd22; 
+  background: $maincolor; 
   border-radius: 10px;
 }
 
@@ -483,15 +498,19 @@ html {
 @import "./assets/layouts/Pages/account/account.scss";
 @import "./assets/layouts/Pages/account/calories.scss";
 @import "./assets/layouts/Pages/account/profile.scss";
+@import "./assets/layouts/Pages/account/order-manage.scss";
 
 //components
 @import "./assets/layouts/Components/ProductItem.scss";
 @import "./assets/layouts/Components/TableData.scss";
 @import "./assets/layouts/Components/Loading.scss";
-@import "./assets/layouts/Components/ModalConfirm.scss";
-@import "./assets/layouts/Components/ModalAddress.scss";
-@import "./assets/layouts/Components/ModalVoucher.scss";
+@import "./assets/layouts/Components/Modal/ModalConfirm.scss";
+@import "./assets/layouts/Components/Modal/ModalAddress.scss";
+@import "./assets/layouts/Components/Modal/ModalVoucher.scss";
+@import "./assets/layouts/Components/Modal/ModalPayment.scss";
+@import "./assets/layouts/Components/Modal/ModalTrackingOrder.scss";
 @import "./assets/layouts/Components/AddressItem.scss";
+@import "./assets/layouts/Components/EditOrderTracking.scss";
 
 @import "./assets/layouts/ProductDetail.scss";
 

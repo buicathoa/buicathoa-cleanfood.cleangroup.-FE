@@ -20,7 +20,7 @@
             //     padding: calc(16 / $fdf) * $rem;
             //     padding: calc(16 / $fdf) * $rem;
             //     border-radius: 50%;
-            //     background-color: #9cdd22;
+            //     background-color: $maincolor;
             //     color: #ffffff;
             //     width: calc(32 / $fdf) * $rem;
             //   }
@@ -30,9 +30,9 @@
         thead{
           tr{
             th{
-              border: 1px solid #9cdd22;
+              border: 1px solid $maincolor;
               &:nth-child(1){
-                background-color: #9cdd22;
+                background-color: $maincolor;
               }
             }
           }
@@ -46,13 +46,13 @@
               width: calc((100% - 90px) / 3);
               &:nth-child(1) {
                 width: 90px;
-                background-color: #9cdd22;
+                background-color: $maincolor;
                 color: #ffffff;
                 // opacity: 0.5;
                 span {
                   font-weight: 700;
                   // padding: 16px;
-                  background-color: #9cdd22;
+                  background-color: $maincolor;
                   // border-radius: 50%;
                 }
               }

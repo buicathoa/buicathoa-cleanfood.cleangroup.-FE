@@ -10,6 +10,10 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@fullcalendar/daygrid": "^6.0.2",
+    "@fullcalendar/interaction": "^6.0.2",
+    "@fullcalendar/list": "^6.0.2",
+    "@fullcalendar/react": "^6.0.2",
     "@redux-saga/core": "^1.2.1",
     "@reduxjs/toolkit": "^1.8.5",
     "antd": "^4.23.4",

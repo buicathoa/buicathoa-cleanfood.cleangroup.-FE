@@ -22,7 +22,7 @@
           width: 10%;
           padding-right: calc(8 / $fdf) * $rem;
           .anticon {
-            color: #9cdd22;
+            color: $maincolor;
             font-size: calc(20 / $fdf) * $rem;
           }
         }
@@ -34,21 +34,37 @@
             align-items: center;
             .user-name {
               padding-right: calc(8 / $fdf) * $rem;
-              font-weight: 700;
-              font-size: calc(18 / $fdf) * $rem;
               color: #2c2c2c;
+              font-weight: 400;
+              font-size: calc(14 / $fdf) * $rem;
               border-right: 1px solid rgba(0, 0, 0, 0.54);
+              span {
+                font-weight: 600;
+              }
             }
             .user-phone {
               padding-left: calc(8 / $fdf) * $rem;
-              color: rgba(0, 0, 0, 0.54);
-              font-size: calc(16 / $fdf) * $rem;
+              color: #2c2c2c;
+              font-weight: 400;
+              font-size: calc(14 / $fdf) * $rem;
+              span {
+                font-weight: 600;
+              }
             }
           }
           .full-address {
             color: rgba(0, 0, 0, 0.54);
             font-size: calc(16 / $fdf) * $rem;
             margin-bottom: calc(4 / $fdf) * $rem;
+          }
+          .delivery-time {
+            color: #2c2c2c;
+            font-weight: 400;
+            font-size: calc(14 / $fdf) * $rem;
+            margin-top: calc(8 / $fdf) * $rem;
+            span {
+              font-weight: 600;
+            }
           }
           .is-default {
             padding: calc(4 / $fdf) * $rem;
@@ -61,8 +77,8 @@
           }
           .make-default {
             padding: calc(4 / $fdf) * $rem;
-            border: 1px solid #9cdd22;
-            color: #9cdd22;
+            border: 1px solid $maincolor;
+            color: $maincolor;
             width: calc(140 / $fdf) * $rem;
             text-align: center;
             font-weight: 700;
@@ -77,11 +93,11 @@
           display: flex;
           font-size: calc(14 / $fdf) * $rem;
           .update-address {
-            color: #9cdd22;
+            color: $maincolor;
             margin-right: calc(16 / $fdf) * $rem;
             cursor: pointer;
             // background-color: rgb(243, 101, 49);
-            border: 1px solid #9cdd22;
+            border: 1px solid $maincolor;
             border-radius: 5px;
             padding: 4px;
             &:hover {
@@ -112,8 +128,8 @@
           width: calc(140 / $fdf) * $rem;
           text-align: center;
           padding: calc(8 / $fdf) * $rem;
-          border: 1px solid #9cdd22;
-          background-color: #9cdd22;
+          border: 1px solid $maincolor;
+          background-color: $maincolor;
           color: #ffffff;
           margin: calc(8 / $fdf) * $rem 0;
         }

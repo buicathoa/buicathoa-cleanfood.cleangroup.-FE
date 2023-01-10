@@ -1,0 +1,48 @@
+.modal-confirm-container {
+    width: calc(400 / $fdf) * $rem !important;
+    .ant-modal-content{
+        .modal-confirm-content-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            img {
+                width: calc(70 / $fdf) * $rem;
+            }
+            h4 {
+                margin-top: calc(24 / $fdf) * $rem;
+                font-size: calc(18 / $fdf) * $rem;
+                font-weight: 500;
+            }
+            h5 {
+                font-weight: 400;
+                font-size: calc(14 / $fdf) * $rem;
+                color: #595959;
+            }
+            h4,h5 {
+                text-align: center;
+            }
+        }
+        .modal-confirm-delete-btn {
+            color: white;
+            background-color: $maincolor;
+            &:hover{
+                color: white;
+            }
+        }
+        .ant-modal-body{
+            padding:  calc(18 / $fdf) * $rem 0;
+        }
+        .ant-modal-footer {
+            padding-top: unset !important;
+            .ant-btn-primary {
+                background-color: $maincolor;
+                border-color: $maincolor;
+                &:hover{
+                    color: white;
+                    border-color: none !important;
+                }
+            }
+        }
+    }
+}

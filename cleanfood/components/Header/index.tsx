@@ -1,31 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   MessageFilled,
   ShoppingFilled,
   BellFilled
 } from "@ant-design/icons";
-import { Input, Badge, Space } from "antd";
-import { ResponseFormatItem } from "../../interface";
-import { useAppDispatch, useAppSelector } from "../../reducer/hook";
-import { CartActions } from "../../reducer/cartReducer";
+import { Badge, Space } from "antd";
 import Cookies from 'js-cookie';
-import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
+
+import { useAppDispatch, useAppSelector } from "../../reducer/hook";
 import { UserActions } from "../../reducer/userReducer";
-import { AppActions } from "../../reducer/appReducer";
+
+import { ResponseFormatItem, CartItemInterface } from "../../interface";
+import { CartActions } from "../../reducer/cartReducer";
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-const { Search } = Input;
 
 const Header: React.FC = (props) => {
   const dispatch = useAppDispatch()
   const router = useRouter()
 
-  const fetchAllCart = (param: any): Promise<ResponseFormatItem> => {
-    return new Promise((resolve, reject) => {
-      dispatch(CartActions.fetchAllCart({ param, resolve, reject }));
-    });
-  };
+  const [cartQuantity, setCartQuantity] = useState<number>()
 
   const fetchUserInfo = (param: any): Promise<ResponseFormatItem> => {
     return new Promise((resolve, reject) => {
@@ -33,10 +28,18 @@ const Header: React.FC = (props) => {
     });
   };
 
+  const fetchAllCart = (param: any): Promise<ResponseFormatItem> => {
+    return new Promise((resolve, reject) => {
+      dispatch(CartActions.fetchAllCart({ param, resolve, reject }));
+    });
+  };
+
   const listCartQuantity = useAppSelector((state) => state.cart.listCartQuantity)
+  const user = useAppSelector((state) => state.user.user)
   useEffect(() => {
     if (Cookies.get('cleanfood')) {
       fetchUserInfo({})
+      fetchAllCart({})
     }
   }, [])
 

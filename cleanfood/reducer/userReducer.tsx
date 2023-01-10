@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { UserReducer } from '../interface'
+import { UserReducerInterface } from '../interface'
 import { genLocation } from '../utils/helper'
 
-const initialState: UserReducer = {
+const initialState: UserReducerInterface = {
     user: {},
     listDeliveryAddress: []
 }
@@ -37,11 +37,6 @@ const User = createSlice({
 })
 
 export const UserActions = User.actions;
-
-export const fetchUserInfo = (state) => state.User.fetchUserInfo;
-export const updateUser = (state) => state.User.updateUser;
-
-// export const addToCart = (state) => state.Auth.addToCart;
 
 const UserReducer = User.reducer;
 export default UserReducer;

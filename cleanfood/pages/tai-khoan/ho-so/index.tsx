@@ -13,7 +13,7 @@ import { ResponseFormatItem, UserPayloadApi } from '../../../interface';
 
 import { UserActions } from '../../../reducer/userReducer';
 import AddressItem from '../../../components/AddressItem';
-import ModalAddress from '../../../components/ModalAddress';
+import ModalAddress from '../../../components/Modal/ModalAddress';
 
 const Profile = () => {
     const router = useRouter()

@@ -26,11 +26,5 @@ const location = createSlice({
 
 export const LocationActions = location.actions;
 
-export const fetchListCity = (state) => state.location.fetchListCity;
-export const fetchListDistrict = (state) => state.location.fetchListDistrict;
-export const fetchListWard = (state) => state.location.fetchListWard;
-
-export const createGeneralMenus = (state) => state.location.createGeneralMenus;
-
 const LocationReducer = location.reducer;
 export default LocationReducer;

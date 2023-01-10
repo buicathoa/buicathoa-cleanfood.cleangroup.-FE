@@ -55,7 +55,7 @@
           .note {
             font-weight: 600;
             font-size: calc(16 / $fdf) * $rem;
-            color: #9cdd22;
+            color: $maincolor;
             margin-bottom: calc(16 / $fdf) * $rem;
           }
           .description {
@@ -141,7 +141,7 @@
       .add-to-cart {
         padding: calc(8 / $fdf) * $rem calc(12 / $fdf) * $rem;
         color: #2c2c2c;
-        border: 3px solid #9cdd22;
+        border: 3px solid $maincolor;
         border-radius: 5px;
         margin-right: calc(24 / $fdf) * $rem;
         width: calc(160 / $fdf) * $rem;
@@ -151,23 +151,23 @@
         font-weight: 700;
         cursor: pointer;
         &:hover {
-          background-color: #9cdd22;
+          background-color: $maincolor;
           color: #ffffff;
         }
       }
       .buy-now {
-        background-color: #9cdd22;
+        background-color: $maincolor;
         color: #ffffff;
         font-weight: 700;
         border-radius: 5px;
         padding: calc(8 / $fdf) * $rem calc(12 / $fdf) * $rem;
         width: calc(160 / $fdf) * $rem;
         text-align: center;
-        border: 3px solid #9cdd22;
+        border: 3px solid $maincolor;
         cursor: pointer;
         &:hover {
           background-color: #ffffff;
-          color: #9cdd22;
+          color: $maincolor;
         }
       }
     }

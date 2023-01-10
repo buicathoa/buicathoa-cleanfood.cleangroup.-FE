@@ -19,18 +19,21 @@ import { UserActions } from '../../reducer/userReducer';
 
 import { getrandomcolor } from '../../utils/helper';
 
-import ModalConfirm from '../../components/ModalConfirm';
-import ModalAddress from '../../components/ModalAddress';
-import ModalVoucher from '../../components/ModalVoucher';
+import ModalConfirm from '../../components/Modal/ModalConfirm';
+import ModalAddress from '../../components/Modal/ModalAddress';
+import ModalVoucher from '../../components/Modal/ModalVoucher';
 import AddressItem from '../../components/AddressItem';
+import ModalPayment from '../../components/Modal/ModalPayment';
+import moment from 'moment';
+import { orderActions } from '../../reducer/orderReducer';
+import { GeneralMenuActions } from '../../reducer/generalMenuReducer';
 const Cart: React.FC = () => {
     const router = useRouter()
     const dispatch = useAppDispatch()
-    const listPaymentMethods = [{ name: 'Momo', image: 'images/momo.png' }, { name: 'COD', image: 'images/cod.png' }]
     const listCart: listCartsInterface = useAppSelector((state) => state.cart.listCart)
     const user = useAppSelector((state) => state.user.user)
     const listDeliveryAddress = useAppSelector((state) => state.user.listDeliveryAddress)
-    
+    console.log('listCart', listCart)
     const [value, setValue] = useState(0)
     const [currentStep, setCurrentStep] = useState(0);
     const [isOpenConfirmModal, setIsOpenConfirmModal] = useState(false)
@@ -38,7 +41,8 @@ const Cart: React.FC = () => {
     const [isOpenVoucherModal, setIsOpenVoucherModal] = useState(false)
     const [isUseCoin, setIsUseCoin] = useState(false)
     const [cartSelected, setCartSelected] = useState<CartItemInterface>({})
-    const [paymentSelected, setPaymentSelected] = useState('Momo')
+    const [isOpenPaymentModal, setIsOpenPaymentModal] = useState(false)
+    const [paymentSelected, setPaymentSelected] = useState<{ name: string, value: string }>({ name: 'Momo - 0909370002 (Bùi Cát Hòa)', value: 'momo' })
 
     const { Step } = Steps;
 
@@ -47,13 +51,73 @@ const Cart: React.FC = () => {
         setCurrentStep(currentStep + 1)
     }
 
-    const handleMoveToNextPage = () => {
-        setCurrentStep(currentStep + 1)
+    const doSomeAsyncStuff = async () => {
+        const deliveryDefault = listDeliveryAddress?.find(item => item.default_address === true)!
+        return new Promise((resolve, reject) => {
+            try {
+                for(let i = 0; i < listCart?.total_quantity!; i++){
+                    if ((listCart?.list_carts!)[i]?.product_info?.product_type === 'combo') {
+                        const start_day = moment(new Date()).add(3, "days").format("YYYY-MM-DD");
+                        const end_day = listCart?.list_carts![i].mealplans === '1 tuần'
+                            ? moment(new Date()).add(10, "days").format("YYYY-MM-DD")
+                            : moment(new Date()).add(17, "days").format("YYYY-MM-DD")
+                        const delivery_start_time = moment(deliveryDefault?.delivery_time[0]).format(
+                            "HH:mm:ss"
+                        )
+                        const delivery_end_time = moment(deliveryDefault?.delivery_time[1]).format(
+                            "HH:mm:ss"
+                        )
+                        const payloadDaysRegister = {
+                            start_date: start_day,
+                            end_date: end_day,
+                            delivery_start_time: delivery_start_time,
+                            delivery_end_time: delivery_end_time,
+                            province_id: deliveryDefault?.province_id,
+                            district_id: deliveryDefault?.district_id,
+                            ward_id: deliveryDefault?.ward_id,
+                            address_detail: deliveryDefault?.address_detail,
+                            phone_number: deliveryDefault?.phone_number,
+                            full_name: deliveryDefault?.full_name,
+                            product: listCart?.list_carts![i]?.product_info?.title,
+                            calories: listCart?.list_carts![i]?.daily_calories,
+                            session: listCart?.list_carts![i]?.session,
+                            mealplans: listCart?.list_carts![i]?.mealplans
+                        }
+                        createDaysRegister(payloadDaysRegister)
+                    }
+                }
+                resolve({})
+            }catch(err){
+                reject(err)
+            }
+        })
+    }
+
+    const handleOrder = () => {
+        doSomeAsyncStuff().then(() => {
+            const line_items = listCart?.list_carts?.map((item) => {
+                return {
+                    quantity: item?.quantity, total_price: item?.total_price, calories: item?.daily_calories,
+                    product_image: item?.product_info?.image, product_title: item?.product_info?.title,
+                    mealplans: item?.mealplans, session: item?.session,
+                    cart_id: item?.cart_id
+                }
+            })
+            handlePurchase({
+                line_items: line_items,
+                delivery_start_date: moment(new Date()).add(3, "days").format("YYYY-MM-DD"),
+                pay_method: paymentSelected?.value
+            }).then(() => {
+                setCurrentStep(currentStep + 1)
+            })
+        })
     }
 
     const handleBackToPreviousPage = () => {
         if (currentStep === 1 || currentStep === 2) {
             setCurrentStep(currentStep - 1)
+        } else {
+            router.push('/dat-hang')
         }
     }
 
@@ -83,11 +147,25 @@ const Cart: React.FC = () => {
         });
     };
 
+    const handlePurchase = (param: any): Promise<ResponseFormatItem> => {
+        return new Promise((resolve, reject) => {
+            dispatch(orderActions.handlePurchase({ param, resolve, reject }));
+        });
+    };
+
+    const createDaysRegister = (param: any): Promise<ResponseFormatItem> => {
+        return new Promise((resolve, reject) => {
+            dispatch(GeneralMenuActions.createDaysRegister({ param, resolve, reject }));
+        });
+    };
+
+    console.log('listDeliveryAddress', listDeliveryAddress)
+
     useEffect(() => {
         if (!Cookies.get('cleanfood')) {
             router.push('/tai-khoan/dang-nhap')
         } else {
-            if(currentStep === 0){
+            if (currentStep === 0) {
                 fetchAllCart({})
             }
             getAllDeliveryAddress({})
@@ -95,8 +173,13 @@ const Cart: React.FC = () => {
     }, [])
 
     const handleUpdateQuantity = (number: number, item: any) => {
-        const params = { cart_id: item?.cart_id, inc_quantity: number }
-        updateCartByUser(params)
+        if (item.quantity === 1 && number === -1) {
+            setCartSelected(item)
+            setIsOpenConfirmModal(true)
+        } else {
+            const params = { cart_id: item?.cart_id, inc_quantity: number }
+            updateCartByUser(params)
+        }
     }
 
     const handleUpdateQuantityInput = (event: number) => {
@@ -128,17 +211,7 @@ const Cart: React.FC = () => {
         setIsOpenConfirmModal(false)
         setCartSelected({})
     }
-    // ======================================== Giỏ Hàng ====================================//
-
-    // ======================================== Payment ====================================//
-
-    const onChangePaymentMethods = (e: RadioChangeEvent) => {
-        setPaymentSelected(e.target.value)
-    }
-
-    // ======================================== Payment ====================================//
     return (
-        // ======================================== Giỏ Hàng ====================================//
         <div className="cart-wrapper">
             <div className="cart-container">
                 <div className="cart-header">
@@ -150,93 +223,53 @@ const Cart: React.FC = () => {
                         }
                         />
                         <Step title={'Contact'} description={
-                            currentStep > 1 && currentStep < 4
+                            currentStep > 1 && currentStep < 3
                                 ? 'Hoàn thành'
                                 : currentStep === 0
                                     ? 'Đang chờ'
                                     : currentStep === 1 && 'Đang tiến hành'
                         }
                         />
-                        <Step title={'Payment'} description={
-                            currentStep > 2 && currentStep < 4
+                        <Step title={'Xác nhận'} description={
+                            currentStep > 2 && currentStep < 3
                                 ? 'Hoàn thành'
                                 : currentStep >= 0 && currentStep <= 1
                                     ? 'Đang chờ'
                                     : currentStep === 2 && 'Đang tiến hành'
                         }
                         />
-                        <Step
-                            title={"Confirm"}
-                            description={
-                                currentStep === 3
-                                    ? 'Đang tiến hành'
-                                    : currentStep < 3
-                                        ? 'Đang chờ'
-                                        : currentStep > 3 && currentStep <= 4
-                                            ? 'Hoàn thành'
-                                            : ''
-                            }
-                        />
                     </Steps>
                 </div>
                 {currentStep === 0 && <>
                     <div className="cart-content">
-                        {listCart?.total_quantity! > 0 && listCart?.list_carts?.map((item, index) => {
-                            return (
-                                <div className="cart-item" key={item?._id}>
-                                    <div className="cart-item-info">
-                                        <img src={item?.product_info?.image} alt="" />
-                                        <div className="cart-item-content">
-                                            <div className="cart-item-content-info">
-                                                <div className="cart-item-title">{item?.product_info?.title}</div>
-                                                <div className="cart-item-desc">{item?.product_info?.description}</div>
+                        <div className="cart-list">
+                            {listCart?.total_quantity! > 0 && listCart?.list_carts?.map((item) => {
+                                return (
+                                    <div className="cart-item" key={item?._id}>
+                                        <div className="cart-item-info">
+                                            <img src={item?.product_info?.image} alt="" />
+                                            <div className="cart-item-content">
+                                                <div className="cart-item-content-info">
+                                                    <div className="cart-item-title">{item?.product_info?.title}</div>
+                                                    <div className="cart-item-desc">{item?.product_info?.sub_title}</div>
+                                                </div>
+                                                <div className="cart-item-price">{item?.price?.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</div>
                                             </div>
-                                            <div className="cart-item-price">{item?.price?.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</div>
+                                        </div>
+                                        <div className="cart-item-actions">
+                                            <div className="update-quantity">
+                                                <PlusOutlined onClick={() => handleUpdateQuantity(1, item)} />
+                                                <InputNumber type="number" value={item?.quantity} onChange={(event) => handleUpdateQuantityInput(event!)} onBlur={() => handleBlurUpdateQuantity(item)} />
+                                                <MinusOutlined onClick={() => handleUpdateQuantity(-1, item)} />
+                                            </div>
+                                            <div className="remove-item">
+                                                <DeleteOutlined onClick={() => handleDeleteCartItem(item)} />
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="cart-item-actions">
-                                        <div className="update-quantity">
-                                            <PlusOutlined onClick={() => handleUpdateQuantity(1, item)} />
-                                            <InputNumber type="number" value={item?.quantity} onChange={(event) => handleUpdateQuantityInput(event!)} onBlur={() => handleBlurUpdateQuantity(item)} />
-                                            <MinusOutlined onClick={() => handleUpdateQuantity(-1, item)} />
-                                        </div>
-                                        <div className="remove-item">
-                                            <DeleteOutlined onClick={() => handleDeleteCartItem(item)} />
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        })}
-                    </div>
-                </>
-                    // ======================================== Giỏ Hàng ====================================//
-                }
-
-                {currentStep === 1 && (
-                    // ======================================== Contact ====================================//
-                    <div className="cart-content">
-                        <AddressItem setIsOpenAddressModal={setIsOpenAddressModal} listDeliveryAddress={listDeliveryAddress}/>
-                        {/* <div className="contact-info">
-                            <div className="contact-info-title">
-                                <div className="title">
-                                    <EnvironmentOutlined />
-                                    <span>Địa chỉ nhận hàng</span>
-                                </div>
-                                <div className="contact-default">
-                                    <Tag color="#f50">Mặc định</Tag>
-                                    <Tag color="#108ee9" onClick={() => setIsOpenAddressModal(true)}>Thay đổi</Tag>
-                                </div>
-                            </div>
-                            <div className="contact-info-content">
-                                <div className="user-info">
-                                    <div className="user-name">{`${user?.firstname} ${user?.lastname}`}</div>
-                                    <div className="user-phone">0909370002</div>
-                                </div>
-                                <div className="user-address">
-                                    107/16 Hà Đặc, phường Trung Mỹ Tây, quận 12, tpHcm
-                                </div>
-                            </div>
-                        </div> */}
+                                )
+                            })}
+                        </div>
                         <div className="contact-decor"></div>
                         <div className="cart-voucher">
                             <div className="voucher-left"><GiftOutlined /> <span className="voucher-title">FreshMeal Vouchers</span></div>
@@ -246,7 +279,7 @@ const Cart: React.FC = () => {
                                     <Tag color={getrandomcolor()}>Hihi</Tag>
                                 </div>
                                 <div className="voucher-more">
-                                    <RightOutlined onClick={() => setIsOpenVoucherModal(true)} />
+                                    <Tag color="#108ee9" onClick={() => setIsOpenVoucherModal(true)} >Thay đổi</Tag>
                                 </div>
                             </div>
                         </div>
@@ -256,61 +289,78 @@ const Cart: React.FC = () => {
                                 <div className="coin-cart-title">
                                     <DollarOutlined /> Dùng xu
                                 </div>
-                                <Switch checkedChildren="Dùng" unCheckedChildren="Không" className="form-switch" checked={isUseCoin} onChange={() => setIsUseCoin(!isUseCoin)} />
+                                <Switch className="form-switch" checked={isUseCoin} onChange={() => setIsUseCoin(!isUseCoin)} />
                             </div>
                             {isUseCoin && <div className="coin-cart-typing">
-                                <InputNumber className="form-input" placeholder='Số lượng xu'/>
+                                <InputNumber className="form-input" placeholder='Số lượng xu' />
                             </div>}
                         </div>
                         <div className="contact-decor"></div>
-                        <div className="payment-wrapper">
-                            <div className="payment-content">
-                                <div className="payment-title">Phương thức thanh toán</div>
-                                <div className="payment-method-selection">
-                                    <Radio.Group value={paymentSelected} onChange={onChangePaymentMethods} className="custom-radio-group">
-                                        {listPaymentMethods.map((item, index) => {
-                                            return (
-                                                <div className="payment-method-item" key={index}>
-                                                    <Radio value={item.name} className="custom-radio">{item.name}</Radio>
-                                                    <img src={item.image} alt="" />
-                                                </div>
-                                            )
-                                        })}
-                                    </Radio.Group>
-                                </div>
+                        <div className="cart-calc-price">
+                            <div className="cart-calc-price-item">
+                                <span className="title">Tổng giá: </span>
+                                <div className="price">60.00</div>
                             </div>
-                            <div className="payment-detail">
-                                {paymentSelected === 'Momo' ?
-                                    <div className="momo-wrapper">
-                                        <div className="momo-content">
-                                            <div className="momo-title">Vui lòng scan mã dưới đây để thanh toán</div>
-                                            <div className="momo-description">Đơn sẽ được xác nhận tối đa sau 10 phút</div>
-                                            <div className="momo-steps">
-                                                <div className="step-item">B1. Vào ứng dụng Momo trên điện thoại</div>
-                                                <div className="step-item">B2. Vào mục quét mã</div>
-                                                <div className="step-item">B3. Scan mã QR này, và tiến hành chuyển số tiền tương ứng</div>
-                                            </div>
-                                        </div>
-                                        <img src="images/payment-momo.jpg" alt="" />
-                                    </div> :
-                                    <div className="cod wrapper">
-                                        <div className="cod-detail">Vui lòng thanh toán đúng ngày giờ dùm tao</div>
-                                    </div>
-                                }
+                            <div className="cart-calc-price-item">
+                                <span className="title">Phí ship: </span>
+                                <div className="price">Thanh toán khi giao hàng (Xem bảng dưới)</div>
                             </div>
                         </div>
                     </div>
+                </>
+                }
 
-
-
-                    // ======================================== Contact ====================================//
+                {currentStep === 1 && (
+                    <div className="cart-content">
+                        <AddressItem setIsOpenAddressModal={setIsOpenAddressModal} listDeliveryAddress={listDeliveryAddress} />
+                        <div className="contact-decor"></div>
+                        <div className="payment-wrapper">
+                            <div className="payment-title">Phương thức thanh toán</div>
+                            <div className="payment-content-wrapper">
+                                <div className="payment-content">{paymentSelected.name}</div>
+                                <Tag color="#108ee9" onClick={() => setIsOpenPaymentModal(true)}>Thay đổi</Tag>
+                            </div>
+                        </div>
+                        <div className="contact-decor"></div>
+                        <div className="cart-calc-price">
+                            <div className="cart-calc-price-item">
+                                <span className="title">Tổng giá: </span>
+                                <div className="price">60.00</div>
+                            </div>
+                            <div className="cart-calc-price-item">
+                                <span className="title">Phí ship: </span>
+                                <div className="price">Thanh toán khi giao hàng (Xem bảng dưới)</div>
+                            </div>
+                        </div>
+                    </div>
                 )}
 
-                <div className="cart-checkout">
-                    {(currentStep === 1 || currentStep === 2 || currentStep === 3) && <Button className="checkout-button left" onClick={() => handleBackToPreviousPage()}>Trở lại</Button>}
+                {currentStep === 2 && (
+                    <div className="confirm-order-wrapper">
+                        <div className="delivery-image">
+                            <img src="images/deliver-image.jpg" alt="" />
+                        </div>
+                        <div className="confirm-order-content">
+                            <span className="title">Đơn hàng của bạn đang chờ xác nhận</span>
+                            <span className="desc"><span className="detail-desc"> Cảm ơn bạn đã đặt hàng, bạn có thể kiểm tra đơn hàng tại </span><span className="link">Đơn hàng của tôi</span></span>
+                            <span className="est-time">Tiến trình mất khoảng 5 phút</span>
+                        </div>
+                        <div className="confirm-order-button">
+                            <div className="track-order-button">
+                                <span className="track-order">Tra cứu đơn hàng</span>
+                            </div>
+                            <div className="order-st-else-button">
+                                <span className="order-st-else">Đặt tiếp</span>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                <div className={`cart-checkout ${currentStep === 2 ? 'none' : ''}`} style={{ justifyContent: currentStep === 2 ? 'center' : 'space-between' }}>
+                    {(currentStep === 0 || currentStep === 1) && <Button className="checkout-button left" onClick={() => handleBackToPreviousPage()}>{currentStep === 0 ? 'Tiếp tục mua' : 'Trở lại'}</Button>}
                     <div className="total-price"><span className="total-price-title">Tổng tiền: </span>{listCart?.total_price?.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</div>
                     {currentStep === 0 && <Button className="checkout-button right" onClick={() => handleMoveToCheckoutPage()}>Check Out</Button>}
-                    {(currentStep === 1 || currentStep === 2) && <Button className="checkout-button right" onClick={() => handleMoveToNextPage()}>Tiếp theo</Button>}
+                    {currentStep === 1 && <Button className="checkout-button right" onClick={() => handleOrder()}>Thanh toán</Button>}
                 </div>
 
             </div>
@@ -324,6 +374,7 @@ const Cart: React.FC = () => {
                 confirmTitle="Bạn có chắc chắn muốn xóa sản phẩm này?"
                 confirmContent="Sau khi xóa sản phẩm, dữ liệu sẽ không thể hoàn tác"
             />
+            <ModalPayment visible={isOpenPaymentModal} setVisible={setIsOpenPaymentModal} paymentSelected={paymentSelected} setPaymentSelected={setPaymentSelected} />
             <ModalVoucher visible={isOpenVoucherModal} setVisible={setIsOpenVoucherModal} />
         </div>
     )

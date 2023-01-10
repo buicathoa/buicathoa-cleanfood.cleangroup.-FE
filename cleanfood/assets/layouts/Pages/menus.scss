@@ -30,14 +30,14 @@
         font-weight: 300;
         font-size: calc(30 / $fdf) * $rem;
         text-align: center;
-        color: #9cdd22;
+        color: $maincolor;
         margin-top: 0;
       }
       .time-active {
         font-weight: 700;
         font-size: calc(30 / $fdf) * $rem;
         text-align: center;
-        color: #9cdd22;
+        color: $maincolor;
       }
       .button-order {
         padding: calc(8 / $fdf) * $rem calc(12 / $fdf) * $rem;
@@ -85,7 +85,7 @@
           width: calc(80 / $fdf) * $rem;
           height: calc(80 / $fdf) * $rem;
           border-radius: 50%;
-          background-color: #9cdd22;
+          background-color: $maincolor;
           margin: 0 auto;
         }
         .logo-attr {
@@ -104,7 +104,7 @@
         }
         .title {
           font-weight: 700;
-          color: #9cdd22;
+          color: $maincolor;
           font-size: calc(20 / $fdf) * $rem;
           margin-bottom: calc(12 / $fdf) * $rem;
         }
@@ -140,7 +140,7 @@
           bottom: -10px;
           width: calc(100 / $fdf) * $rem;
           height: calc(5 / $fdf) * $rem;
-          background-color: #9cdd22;
+          background-color: $maincolor;
           transform: translate(-50%, -50%);
           left: 50%;
         }

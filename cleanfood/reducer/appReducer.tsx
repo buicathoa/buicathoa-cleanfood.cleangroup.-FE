@@ -15,8 +15,5 @@ const App = createSlice({
 
 export const AppActions = App.actions;
 
-export const isLoading = (state) => state.App.isLoading;
-// export const addToCart = (state) => state.Auth.addToCart;
-
 const AppReducer = App.reducer;
 export default AppReducer;

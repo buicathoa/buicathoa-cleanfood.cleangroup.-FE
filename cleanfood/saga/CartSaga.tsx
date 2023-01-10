@@ -2,7 +2,6 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { apiRequest } from "../utils/apiRequest";
 import { apiUrl } from "../constants";
-import { fetchAllGeneralMenu, GeneralMenuActions } from "../reducer/generalMenuReducer";
 import { type Saga } from 'redux-saga';
 import { ResponseFormatItem } from "../interface";
 import { CartActions } from "../reducer/cartReducer";

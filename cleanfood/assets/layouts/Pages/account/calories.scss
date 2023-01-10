@@ -34,14 +34,14 @@
           margin-right: calc(17 / $fdf) * $rem;
         }
         &:hover {
-          background-color: #9cdd22;
+          background-color: $maincolor;
           color: #ffffff;
-          border: 1px solid #9cdd22;
+          border: 1px solid $maincolor;
         }
         &.ant-radio-button-wrapper-checked {
-          background-color: #9cdd22;
+          background-color: $maincolor;
           color: #ffffff;
-          border: 1px solid #9cdd22;
+          border: 1px solid $maincolor;
         }
       }
     }
@@ -98,14 +98,14 @@
           border-radius: 10px;
           font-size: calc(16 / $fdf) * $rem;
           &::before {
-            background-color: #9cdd22;
+            background-color: $maincolor;
           }
         }
         .ant-radio-button-wrapper-checked {
-          background-color: #9cdd22;
+          background-color: $maincolor;
           font-weight: 700;
           color: #ffffff;
-          border: 1px solid #9cdd22;
+          border: 1px solid $maincolor;
         }
       }
     }
@@ -143,7 +143,7 @@
         width: 200px;
         height: 50px;
         border-radius: 10px;
-        background-color: #9cdd22;
+        background-color: $maincolor;
         color: #ffffff;
         font-weight: 600;
         font-size: calc(18 / $fdf) * $rem;
@@ -164,7 +164,7 @@
           font-size: calc(18 / $fdf) * $rem;
           color: #cacaca;
           &:hover{
-            background-color: #9cdd22;
+            background-color: $maincolor;
             color: #ffffff;
           }
         }
