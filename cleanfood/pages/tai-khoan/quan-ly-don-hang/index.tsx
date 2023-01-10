@@ -86,7 +86,7 @@ const OrderManage = () => {
 
     const renderEventContent = (eventInfo: any) => {
         return (
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: 'center' }}>
+            <div className="order-info-wrapper">
                 <div className="order-info">
                     <div className="product-info">
                         <span className="product-info-title">{eventInfo.event.title}</span>
@@ -111,7 +111,7 @@ const OrderManage = () => {
                                 </div>
                             </div>
                             <div className="product-info-detail-item">
-                                <span className="title">Địa chỉ: </span><span className="content">{eventInfo.event.extendedProps.ship_place}</span>
+                                <span className="title">Địa chỉ: </span><span className="content address">{eventInfo.event.extendedProps.ship_place}</span>
                             </div>
                         </div>
                     </div>
@@ -136,7 +136,7 @@ const OrderManage = () => {
                             left: "prev,next",
                             right: "title"
                         }}
-                        initialView="listWeek"
+                        // initialView="listWeek"
                         editable={true}
                         selectable={true}
                         displayEventTime={true}
