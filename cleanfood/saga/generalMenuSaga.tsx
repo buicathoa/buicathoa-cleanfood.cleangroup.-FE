@@ -6,6 +6,7 @@ import { GeneralMenuActions } from "../reducer/generalMenuReducer";
 import { ResponseFormatItem } from "../interface";
 import { AnyAction } from "@reduxjs/toolkit";
 import { openSuccess } from "../components/NotificationStatus";
+import { UserActions } from "../reducer/userReducer";
 
 function* fetchAllGeneralMenus(action:AnyAction):Generator {
     const { param, resolve, reject } = action.payload
@@ -78,6 +79,54 @@ function* updateDaysRegister(action:AnyAction):Generator {
     }
 }
 
+function* cancelDayRegister(action:AnyAction):Generator {
+    const { param, resolve, reject } = action.payload
+    try{
+        const response = yield apiRequest(apiUrl.generalMenus.cancelDayRegister, param, 'general')
+        yield put(UserActions.cancelDayRegisterSuccess({}))
+        openSuccess('Hủy đơn hàng thành công!')
+        if (resolve) yield resolve(response)
+    }
+    catch(err) {
+        if (reject) yield reject(err)
+    }
+}
+
+function* recoverDayRegister(action:AnyAction):Generator {
+    const { param, resolve, reject } = action.payload
+    try{
+        const response = yield apiRequest(apiUrl.generalMenus.recoverDayRegister, param, 'general')
+        openSuccess('Khôi phục đơn hàng thành công!')
+        if (resolve) yield resolve(response)
+    }
+    catch(err) {
+        if (reject) yield reject(err)
+    }
+}
+
+function* getAllOrderDaysCancel(action:AnyAction):Generator {
+    const { param, resolve, reject } = action.payload
+    try{
+        const response = yield apiRequest(apiUrl.generalMenus.getAllOrderDaysCancel, param, 'general')
+        if (resolve) yield resolve(response)
+    }
+    catch(err) {
+        if (reject) yield reject(err)
+    }
+}
+
+function* createSupplement(action:AnyAction):Generator {
+    const { param, resolve, reject } = action.payload
+    try{
+        const response = yield apiRequest(apiUrl.generalMenus.createSupplement, param, 'general')
+        yield put(UserActions.createSupDaySuccess({}))
+        if (resolve) yield resolve(response)
+    }
+    catch(err) {
+        if (reject) yield reject(err)
+    }
+}
+
 export function* FollowFetchGeneralMenu():Generator {
     yield takeLatest(GeneralMenuActions.fetchAllGeneralMenu({}).type, fetchAllGeneralMenus)
     yield takeLatest(GeneralMenuActions.createGeneralMenus({}).type, createGeneralMenus)
@@ -85,4 +134,8 @@ export function* FollowFetchGeneralMenu():Generator {
     yield takeEvery(GeneralMenuActions.getAllDaysRegister({}).type, getAllDaysRegister)
     yield takeEvery(GeneralMenuActions.getOneDayRegister({}).type, getOneDayRegister)
     yield takeEvery(GeneralMenuActions.updateDaysRegister({}).type, updateDaysRegister)
+    yield takeEvery(GeneralMenuActions.cancelDayRegister({}).type, cancelDayRegister)
+    yield takeEvery(GeneralMenuActions.recoverDayRegister({}).type, recoverDayRegister)
+    yield takeEvery(GeneralMenuActions.getAllOrderDaysCancel({}).type, getAllOrderDaysCancel)
+    yield takeEvery(GeneralMenuActions.createSupplement({}).type, createSupplement)
 }

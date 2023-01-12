@@ -9,7 +9,7 @@
       }
     }
     .list-address {
-      padding: calc(8 / $fdf) * $rem;
+      padding: calc(16 / $fdf) * $rem;
       display: flex;
       flex-direction: column;
       height: 100%;
@@ -27,7 +27,7 @@
           }
         }
         .address-detail {
-          width: 65%;
+          width: 80%;
           padding-right: calc(8 / $fdf) * $rem;
           .user-info {
             display: flex;
@@ -89,7 +89,7 @@
           }
         }
         .actions-button {
-          width: 25%;
+          width: 10%;
           display: flex;
           font-size: calc(14 / $fdf) * $rem;
           .update-address {

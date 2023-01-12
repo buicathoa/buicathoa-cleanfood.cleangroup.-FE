@@ -1,5 +1,6 @@
 //Event Interface
 
+import { min } from "lodash"
 import { Moment } from "moment"
 
 //General Component Interface
@@ -61,6 +62,11 @@ export interface ModalInterface {
     paymentSelected?: { name: string, value: string },
 }
 
+export interface ModalAddressInterface extends ModalInterface {
+    addressSelected?: DeliveryItemInterface,
+    setAddressSelected: React.Dispatch<React.SetStateAction<DeliveryItemInterface>>
+}
+
 export interface ModalTrackingOrderInterface extends ModalInterface {
     trackingDaySelected: string
 }
@@ -69,18 +75,30 @@ export interface ModalPaymentInterface extends ModalInterface {
     setPaymentSelected: React.Dispatch<React.SetStateAction<{ name: string, value: string }>>
 }
 export interface ModalInterfaceConfirm extends ModalInterface {
-    onConfirmModal: () => void,
+    onConfirmModal: (value: string) => void,
     onConfirmCancelModal: () => void,
+    modalType?: string
 }
 
 export interface AddressItemComponentInterface {
-    isOpenAddressModal?: boolean,
     setIsOpenAddressModal: React.Dispatch<React.SetStateAction<boolean>>,
-    listDeliveryAddress?: DeliveryItemInterface[]
+    addressSelected?: DeliveryItemInterface
 }
 ////////////////////////////////////////////////////////
 
 //Response From api
+export interface OrderCancelInterface {
+    _id?: string,
+    product?: string,
+    calories?: string,
+    session?: string,
+    order_day_id?: string,
+    user_id?: string,
+    createdAt?: Date,
+    updatedAt?: Date,
+    mealplans?: string
+    __v?: number
+}
 export interface OrderTrackingInterface {
     address_detail?: string,
     calories?: string,
@@ -144,16 +162,16 @@ export interface listCartsInterface {
 }
 
 export interface DeliveryItemInterface {
-    address_detail: string,
-    default_address: boolean,
-    delivery_time: Array<Moment>,
-    district_id: string,
-    province_id: string,
-    ward_id: string,
-    full_address: string,
-    full_name: string,
-    phone_number: string,
-    user: string,
+    address_detail?: string,
+    default_address?: boolean,
+    delivery_time?: Array<Moment>,
+    district_id?: string,
+    province_id?: string,
+    ward_id?: string,
+    full_address?: string,
+    full_name?: string,
+    phone_number?: string,
+    user?: string,
     createdAt?: Date,
     updatedAt?: Date,
     __v?: number,

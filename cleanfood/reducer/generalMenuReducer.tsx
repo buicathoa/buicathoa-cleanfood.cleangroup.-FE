@@ -19,7 +19,11 @@ const generalMenu = createSlice({
         },
         getOneDayRegister: (state, actions) => {},
         updateDaysRegister: (state, actions) => {},
-        updateDaysRegisterSuccess: (state, actions) => {}
+        updateDaysRegisterSuccess: (state, actions) => {},
+        cancelDayRegister: (state, actions) => {},
+        recoverDayRegister: (state, actions) => {},
+        getAllOrderDaysCancel: (state, actions) => {},
+        createSupplement: (state, actions) => {}
     })
 })
 

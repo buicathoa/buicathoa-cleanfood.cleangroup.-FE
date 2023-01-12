@@ -6,7 +6,11 @@ export const apiUrl = {
         createDaysRegister: 'general-menu/day-register/create',
         getDaysRegister: 'general-menu/day-register/get-all',
         getOneDayRegister: 'general-menu/day-register/get-by-id',
-        updateDaysRegister: 'general-menu/day-register/update'
+        updateDaysRegister: 'general-menu/day-register/update',
+        cancelDayRegister: 'general-menu/day-register/cancel',
+        recoverDayRegister: 'general-menu/day-register/recover',
+        getAllOrderDaysCancel: 'general-menu/day-register/order-cancel/get-all',
+        createSupplement: 'general-menu/day-register/order-cancel/create-supplement'
     },
     product: {
         getAll: 'product/get-all',

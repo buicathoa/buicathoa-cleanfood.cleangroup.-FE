@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
-import { Button, Checkbox, Col, Empty, Form, Input, Modal, Row, Select, TimePicker } from 'antd'
+import { Button, Checkbox, Col, Empty, Form, Input, Modal, Radio, RadioChangeEvent, Row, Select, TimePicker } from 'antd'
 import {
-    PushpinFilled
+    EditOutlined, DeleteOutlined, PushpinFilled
 } from "@ant-design/icons";
 import moment from 'moment'
 import _ from 'lodash'
 
-import { DeliveryItemInterface, DeliveryPayloadApi, DistrictInterface, ModalInterface, ProvinceInterface, ResponseFormatItem, WardInterface } from '../../interface';
+import { DeliveryItemInterface, DeliveryPayloadApi, DistrictInterface, ModalAddressInterface, ModalInterface, ProvinceInterface, ResponseFormatItem, WardInterface } from '../../interface';
 
 import { useAppDispatch, useAppSelector } from '../../reducer/hook';
 import { LocationActions } from '../../reducer/LocationReducer';
@@ -16,7 +16,7 @@ import { UserActions } from '../../reducer/userReducer';
 import { removeAccentsToLower } from '../../utils/string';
 import { deliveryItem } from '../../constants';
 
-const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
+const ModalAddress = ({ visible, setVisible, addressSelected, setAddressSelected }: ModalAddressInterface) => {
     const { Option } = Select
     const [form] = Form.useForm()
     const dispatch = useAppDispatch()
@@ -29,7 +29,7 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
     const [isEditAddress, setIsEditAddress] = useState(false)
     const [formValues, setformValues] = useState<DeliveryItemInterface>(deliveryItem)
     const [isUpdateAddressDefault, setIsUpdateAddressDefault] = useState(false)
-    const [deliveryTime, setDeliveryTime] = useState<string>('')
+    const [deliverySelectedModal, setDeliverySelectedModal] = useState<string>('')
 
     const validateMessages = {
         required: 'required'
@@ -171,6 +171,12 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
         fetchListWard(payload)
     }
 
+    const handleSelectAddress = (event: RadioChangeEvent): void => {
+        const deliverySelected = listDeliveryAddress.find(item => item._id === event.target.value)
+        setAddressSelected(deliverySelected)
+    }
+
+
     return (
         <Modal className="modal-address" getContainer={false} title={(visible && !isOpenAddressDetail) ? 'Địa chỉ của tôi' : (isEditAddress ? 'Chỉnh sửa địa chỉ' : 'Thêm mới địa chỉ')} open={visible}
             onCancel={() => setVisible(false)}
@@ -183,7 +189,7 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
                 </Button>,
                 isOpenAddressDetail && <Button form="basic" key="submit" htmlType="submit">
                     Lưu
-                </Button>
+                </Button>,
             ]}>
             {isOpenAddressDetail ?
                 <Form
@@ -250,7 +256,7 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
                                             virtual={false}
                                             showSearch
                                             optionFilterProp="children"
-                                            filterOption={(input, option:any) =>
+                                            filterOption={(input, option: any) =>
                                                 removeAccentsToLower(option.children).indexOf(removeAccentsToLower(input)) >= 0
                                             }
                                             filterSort={(optionA, optionB) =>
@@ -259,7 +265,7 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
                                             getPopupContainer={(triggerNode) => triggerNode.parentNode}
                                             onChange={handleSelectProvince}
                                         >
-                                            {listCity?.map((item:ProvinceInterface, index) => {
+                                            {listCity?.map((item: ProvinceInterface, index) => {
                                                 return (
                                                     <Option value={item?.province_id} key={index}>
                                                         {item?.province_name}
@@ -282,7 +288,7 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
                                             virtual={false}
                                             showSearch
                                             optionFilterProp="children"
-                                            filterOption={(input, option:any) =>
+                                            filterOption={(input, option: any) =>
                                                 removeAccentsToLower(option.children).indexOf(removeAccentsToLower(input)) >= 0
                                             }
                                             filterSort={(optionA, optionB) =>
@@ -291,7 +297,7 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
                                             getPopupContainer={(triggerNode) => triggerNode.parentNode}
                                             onChange={handleSelectDistrict}
                                         >
-                                            {listDistrict?.map((item:DistrictInterface, index) => {
+                                            {listDistrict?.map((item: DistrictInterface, index) => {
                                                 return (
                                                     <Option value={item?.district_id} key={index}>
                                                         {item?.district_name}
@@ -314,7 +320,7 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
                                             virtual={false}
                                             showSearch
                                             optionFilterProp="children"
-                                            filterOption={(input, option:any) =>
+                                            filterOption={(input, option: any) =>
                                                 removeAccentsToLower(option.children).indexOf(removeAccentsToLower(input)) >= 0
                                             }
                                             filterSort={(optionA, optionB) =>
@@ -323,7 +329,7 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
                                             getPopupContainer={(triggerNode) => triggerNode.parentNode}
                                             onChange={handleSelectDistrict}
                                         >
-                                            {listWard?.map((item:WardInterface, index) => {
+                                            {listWard?.map((item: WardInterface, index) => {
                                                 return (
                                                     <Option value={item?.ward_id} key={index}>
                                                         {item?.ward_name}
@@ -352,28 +358,34 @@ const ModalAddress = ({ visible, setVisible }: ModalInterface) => {
                     </div>
                 </Form> :
                 <div className="list-address">
-                    {!_.isEmpty(listDeliveryAddress) ? listDeliveryAddress?.map((item, index) => {
-                        return (
-                            <div className="address-item" key={index}>
-                                <div className="address-pin">
-                                    {item?.default_address && <PushpinFilled />}
-                                </div>
-                                <div className="address-detail">
-                                    <div className="user-info">
-                                        <div className="user-name">{item?.full_name}</div>
-                                        <div className="user-phone">(+84) {item?.phone_number}</div>                                        
+                    <Radio.Group onChange={handleSelectAddress} value={addressSelected?._id}>
+                        {!_.isEmpty(listDeliveryAddress) ? listDeliveryAddress?.map((item, index) => {
+                            return (
+
+                                <div className="address-item" key={index}>
+                                    <div className="address-pin">
+                                        {item?.default_address && <PushpinFilled />}
                                     </div>
-                                    <div className="full-address">{item?.full_address}</div>
-                                    <div className="delivery-time">Thời gian giao: <span>{`${moment(item.delivery_time[0]).format('HH:mm')} - ${moment(item.delivery_time[1]).format('HH:mm')}`}</span></div>
-                                    {item?.default_address ? <Button className="is-default" disabled>Mặc định</Button> : <div className="make-default" onClick={() => handleSetDefaultAddress(item)}>Đặt làm mặc định</div>}
+                                    <div className="address-detail">
+                                        <Radio value={item?._id}>
+                                            <div className="user-info">
+                                                <div className="user-name">{item?.full_name}</div>
+                                                <div className="user-phone">(+84) {item?.phone_number}</div>
+                                            </div>
+                                        </Radio>
+                                        <div className="full-address">{item?.full_address}</div>
+                                        <div className="delivery-time">Thời gian giao: <span>{`${moment(item.delivery_time[0]).format('HH:mm')} - ${moment(item.delivery_time[1]).format('HH:mm')}`}</span></div>
+                                        {item?.default_address ? <Button className="is-default" disabled>Mặc định</Button> : <Button className="make-default" onClick={() => handleSetDefaultAddress(item)}>Đặt làm mặc định</Button>}
+                                    </div>
+                                    <div className="actions-button">
+                                        <div className="update-address" onClick={() => handleEditAddress(item)}><EditOutlined /></div>
+                                        <div className="delete-address"><DeleteOutlined /></div>
+                                    </div>
                                 </div>
-                                <div className="actions-button">
-                                    <div className="update-address" onClick={() => handleEditAddress(item)}>Cập nhật</div>
-                                    <div className="delete-address">Xóa</div>
-                                </div>
-                            </div>
-                        )
-                    }) : <Empty className="empty-data" />}
+
+                            )
+                        }) : <Empty className="empty-data" />}
+                    </Radio.Group>
                     <div className="create-new-delivery" onClick={() => handleAddNewAddress()}>
                         <span>Thêm mới địa chỉ</span>
                     </div>

@@ -32,6 +32,13 @@ const User = createSlice({
         },
         updateDefaultDeliveryAddress: (state, actions) => { },
         updateDefaultDeliveryAddressSuccess: (state, actions) => {
+        },
+        cancelDayRegisterSuccess: (state, actions) => {
+            state.user = {...state.user, order_day_cancel: state.user.order_day_cancel + 1}
+        },
+
+        createSupDaySuccess: (state, actions) => {
+            state.user = {...state.user, order_day_cancel: state.user.order_day_cancel - 1}
         }
     })
 })

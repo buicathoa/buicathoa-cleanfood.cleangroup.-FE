@@ -491,14 +491,14 @@ html {
 
 //specific pages
 @import "./assets/layouts/Pages/menus.scss";
-@import "./assets/layouts/Pages/order.scss";
-@import "./assets/layouts/Pages/cart.scss";
+@import "./assets/layouts/Pages/dat-hang.scss";
+@import "./assets/layouts/Pages/gio-hang.scss";
 //Auth
-@import "./assets/layouts/Pages/account/auth.scss";
-@import "./assets/layouts/Pages/account/account.scss";
-@import "./assets/layouts/Pages/account/calories.scss";
-@import "./assets/layouts/Pages/account/profile.scss";
-@import "./assets/layouts/Pages/account/order-manage.scss";
+@import "./assets/layouts/Pages/tai-khoan/auth.scss";
+@import "./assets/layouts/Pages/tai-khoan/tai-khoan.scss";
+@import "./assets/layouts/Pages/tai-khoan/calories.scss";
+@import "./assets/layouts/Pages/tai-khoan/profile.scss";
+@import "./assets/layouts/Pages/tai-khoan/quan-ly-don-hang.scss";
 
 //components
 @import "./assets/layouts/Components/ProductItem.scss";

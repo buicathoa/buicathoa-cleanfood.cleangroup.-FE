@@ -10,7 +10,7 @@ import {
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 
-import { CartItemInterface, listCartsInterface, ResponseFormatItem } from '../../interface';
+import { CartItemInterface, DeliveryItemInterface, listCartsInterface, ResponseFormatItem, ResponseFormatListInterface } from '../../interface';
 
 import { useAppDispatch, useAppSelector } from '../../reducer/hook';
 import { CartActions } from '../../reducer/cartReducer';
@@ -27,13 +27,14 @@ import ModalPayment from '../../components/Modal/ModalPayment';
 import moment from 'moment';
 import { orderActions } from '../../reducer/orderReducer';
 import { GeneralMenuActions } from '../../reducer/generalMenuReducer';
+import Item from 'antd/lib/list/Item';
 const Cart: React.FC = () => {
     const router = useRouter()
     const dispatch = useAppDispatch()
     const listCart: listCartsInterface = useAppSelector((state) => state.cart.listCart)
     const user = useAppSelector((state) => state.user.user)
     const listDeliveryAddress = useAppSelector((state) => state.user.listDeliveryAddress)
-    console.log('listCart', listCart)
+    const [addressSelected, setAddressSelected] = useState<DeliveryItemInterface>({})
     const [value, setValue] = useState(0)
     const [currentStep, setCurrentStep] = useState(0);
     const [isOpenConfirmModal, setIsOpenConfirmModal] = useState(false)
@@ -55,7 +56,7 @@ const Cart: React.FC = () => {
         const deliveryDefault = listDeliveryAddress?.find(item => item.default_address === true)!
         return new Promise((resolve, reject) => {
             try {
-                for(let i = 0; i < listCart?.total_quantity!; i++){
+                for (let i = 0; i < listCart?.total_quantity!; i++) {
                     if ((listCart?.list_carts!)[i]?.product_info?.product_type === 'combo') {
                         const start_day = moment(new Date()).add(3, "days").format("YYYY-MM-DD");
                         const end_day = listCart?.list_carts![i].mealplans === '1 tuần'
@@ -67,17 +68,18 @@ const Cart: React.FC = () => {
                         const delivery_end_time = moment(deliveryDefault?.delivery_time[1]).format(
                             "HH:mm:ss"
                         )
+
                         const payloadDaysRegister = {
                             start_date: start_day,
                             end_date: end_day,
                             delivery_start_time: delivery_start_time,
                             delivery_end_time: delivery_end_time,
-                            province_id: deliveryDefault?.province_id,
-                            district_id: deliveryDefault?.district_id,
-                            ward_id: deliveryDefault?.ward_id,
-                            address_detail: deliveryDefault?.address_detail,
-                            phone_number: deliveryDefault?.phone_number,
-                            full_name: deliveryDefault?.full_name,
+                            province_id: addressSelected?.province_id,
+                            district_id: addressSelected?.district_id,
+                            ward_id: addressSelected?.ward_id,
+                            address_detail: addressSelected?.address_detail,
+                            phone_number: addressSelected?.phone_number,
+                            full_name: addressSelected?.full_name,
                             product: listCart?.list_carts![i]?.product_info?.title,
                             calories: listCart?.list_carts![i]?.daily_calories,
                             session: listCart?.list_carts![i]?.session,
@@ -87,7 +89,7 @@ const Cart: React.FC = () => {
                     }
                 }
                 resolve({})
-            }catch(err){
+            } catch (err) {
                 reject(err)
             }
         })
@@ -141,7 +143,7 @@ const Cart: React.FC = () => {
         });
     };
 
-    const getAllDeliveryAddress = (param: any): Promise<ResponseFormatItem> => {
+    const getAllDeliveryAddress = (param: any): Promise<ResponseFormatListInterface> => {
         return new Promise((resolve, reject) => {
             dispatch(UserActions.getAllDeliveryAddress({ param, resolve, reject }));
         });
@@ -168,7 +170,10 @@ const Cart: React.FC = () => {
             if (currentStep === 0) {
                 fetchAllCart({})
             }
-            getAllDeliveryAddress({})
+            getAllDeliveryAddress({}).then((res) => {
+                const default_address = res?.data?.find(item => item?.default_address === true)
+                setAddressSelected(default_address)
+            })
         }
     }, [])
 
@@ -312,7 +317,7 @@ const Cart: React.FC = () => {
 
                 {currentStep === 1 && (
                     <div className="cart-content">
-                        <AddressItem setIsOpenAddressModal={setIsOpenAddressModal} listDeliveryAddress={listDeliveryAddress} />
+                        <AddressItem setIsOpenAddressModal={setIsOpenAddressModal} addressSelected={addressSelected}/>
                         <div className="contact-decor"></div>
                         <div className="payment-wrapper">
                             <div className="payment-title">Phương thức thanh toán</div>
@@ -364,8 +369,12 @@ const Cart: React.FC = () => {
                 </div>
 
             </div>
-            <ModalAddress visible={isOpenAddressModal} setVisible={setIsOpenAddressModal} />
+            <ModalAddress
+                visible={isOpenAddressModal} setVisible={setIsOpenAddressModal}
+                addressSelected={addressSelected} setAddressSelected={setAddressSelected}
+            />
             <ModalConfirm
+                modalType={'general'}
                 visible={isOpenConfirmModal}
                 setVisible={setIsOpenConfirmModal}
                 onConfirmModal={handleModalDelete}

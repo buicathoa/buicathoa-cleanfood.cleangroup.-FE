@@ -32,6 +32,17 @@
         }
         .ant-modal-body{
             padding:  calc(18 / $fdf) * $rem 0;
+            .reason-wrapper{
+                padding: calc(16 / $fdf) * $rem;
+                .ant-radio-group{
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-around;
+                    .ant-radio{
+                        margin-right: calc(4 / $fdf) * $rem;
+                    }
+                }
+            }
         }
         .ant-modal-footer {
             padding-top: unset !important;

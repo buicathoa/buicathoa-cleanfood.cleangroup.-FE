@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 
-import { Button, Col, Form, Input, Row, Select } from 'antd'
+import { Button, Col, Form, Input, Row, Select, TimePicker } from 'antd'
 
 import { GeneralMenuActions } from '../../reducer/generalMenuReducer'
 import { useAppDispatch, useAppSelector } from '../../reducer/hook'
@@ -11,10 +11,16 @@ import { LocationActions } from '../../reducer/LocationReducer'
 import { DistrictInterface, EditOrderTrackingInterface, OrderTrackingInterface, ProvinceInterface, ResponseFormatItem, ResponseFormatListInterface, ResponseFormatObjectItemInterface, WardInterface } from '../../interface'
 
 import { removeAccentsToLower } from '../../utils/string'
+import ModalConfirm from '../Modal/ModalConfirm'
+import moment from 'moment'
+import { renderStatusTracking } from '../../utils/helper'
 
 const EditOrderTracking = ({ trackingDaySelected, setIsEditTrackingOrder }: EditOrderTrackingInterface) => {
     const dispatch = useAppDispatch()
     const [formValues, setformValues] = useState<OrderTrackingInterface>({})
+    const [isOpenCancelOrderRegister, setIsOpenCancelOrderRegister] = useState(false)
+    const [isOpenRecoverOrderRegister, setIsOpenRecoverOrderRegister] = useState(false)
+    const [dateSelected, setDateSelected] = useState('')
 
     const validateMessages = {
         required: 'required'
@@ -59,6 +65,18 @@ const EditOrderTracking = ({ trackingDaySelected, setIsEditTrackingOrder }: Edit
         });
     };
 
+    const cancelDayRegister = (param: any): Promise<ResponseFormatItem> => {
+        return new Promise((resolve, reject) => {
+            dispatch(GeneralMenuActions.cancelDayRegister({ param, resolve, reject }));
+        });
+    };
+
+    const recoverDayRegister = (param: any): Promise<ResponseFormatItem> => {
+        return new Promise((resolve, reject) => {
+            dispatch(GeneralMenuActions.recoverDayRegister({ param, resolve, reject }));
+        });
+    };
+
 
     const [form] = Form.useForm()
     const { Option } = Select
@@ -70,7 +88,9 @@ const EditOrderTracking = ({ trackingDaySelected, setIsEditTrackingOrder }: Edit
     useEffect(() => {
         const payload = { order_tracking_id: trackingDaySelected }
         getOneDayRegister(payload).then(res => {
-            setformValues(res?.data)
+            const dateSelected = moment(res?.data).format('DD-MM-YYYY')
+            setDateSelected(dateSelected)
+            setformValues({ ...res?.data, start: moment(res?.data?.start), end: moment(res?.data?.end) })
         })
     }, [])
 
@@ -114,13 +134,43 @@ const EditOrderTracking = ({ trackingDaySelected, setIsEditTrackingOrder }: Edit
         setIsEditTrackingOrder(false)
     }
 
+    const handleCancelDay = () => {
+        setIsOpenCancelOrderRegister(true)
+    }
+
+    const handleRecoverDay = () => {
+        setIsOpenRecoverOrderRegister(true)
+    }
+
+    const handleConfirmModal = (reason: string) => {
+        if(isOpenCancelOrderRegister) {
+            const payload = {
+                product: formValues?.product, calories: formValues?.calories, mealplans: formValues?.mealplans,
+                session: formValues?.session, reason: reason, order_day_id: trackingDaySelected
+            }
+            cancelDayRegister(payload).then(() => {
+                setIsEditTrackingOrder(false)
+            })
+        } else if(isOpenRecoverOrderRegister){
+            const payload = {order_day_id: trackingDaySelected}
+            recoverDayRegister(payload).then(() => {
+                setIsEditTrackingOrder(false)
+            })
+        }
+    }
+
+    const handleModalCancel = () => {
+
+    }
+
     return (
         <div className="edit-tracking-order-content">
-            <div className="edit-tracking-order-content-header">
-                <h3>Chỉnh sửa</h3>
-            </div>
             <div className="tracking-delivery-image">
                 <img src="../images/tracking-delivery.png" alt="" />
+            </div>
+            <div className="edit-tracking-order-content-header">
+                <h3>Chỉnh sửa</h3>
+                <span className="order-status" style={{ color: formValues?.order_status === 'reject' ? 'red' : 'green' }}>{renderStatusTracking(formValues?.order_status!)}</span>
             </div>
             <Form
                 name="modal_edit_tracking_order"
@@ -160,6 +210,24 @@ const EditOrderTracking = ({ trackingDaySelected, setIsEditTrackingOrder }: Edit
                         >
 
                             <Input className="form-input" placeholder="Thời hạn gói" disabled />
+                        </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                        <Form.Item
+                            label="Bắt đầu giao"
+                            name="start"
+                            rules={validateSchema.oldpassword}
+                        >
+                            <TimePicker format="HH:mm:ss" className="form-date" />
+                        </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                        <Form.Item
+                            label="Kết thúc giao"
+                            name="end"
+                            rules={validateSchema.oldpassword}
+                        >
+                            <TimePicker format="HH:mm:ss" className="form-date" />
                         </Form.Item>
                     </Col>
                     <Col span={12}>
@@ -293,16 +361,30 @@ const EditOrderTracking = ({ trackingDaySelected, setIsEditTrackingOrder }: Edit
                 </Row>
             </Form>
             <div className="footer-button">
-                <Button className="cancel-order">
+                {formValues?.order_status === 'pending' && <Button className="cancel-order" onClick={() => handleCancelDay()}>
                     Hủy ngày này
-                </Button>,
-                <Button key="Cancel" className="cancel"  onClick={() => handleBackToTrackingOrder()}>
+                </Button>}
+                {formValues?.order_status === 'reject' && <Button className="recovery-order" onClick={() => handleRecoverDay()}>
+                    Khôi phục ngày đặt
+                </Button>}
+                <Button key="Cancel" className="cancel" onClick={() => handleBackToTrackingOrder()}>
                     Hủy
-                </Button>,
+                </Button>
                 <Button className="submit" form="modal_edit_tracking_order" key="submit" htmlType="submit">
                     OK
                 </Button>
             </div>
+            <ModalConfirm
+                modalType={isOpenCancelOrderRegister ? "cancel_order" : 'recover_order'}
+                visible={isOpenCancelOrderRegister ? isOpenCancelOrderRegister : isOpenRecoverOrderRegister}
+                setVisible={isOpenCancelOrderRegister ? setIsOpenCancelOrderRegister : setIsOpenRecoverOrderRegister}
+                onConfirmModal={handleConfirmModal}
+                onConfirmCancelModal={handleModalCancel}
+                title="Xác nhận"
+                confirmTitle={isOpenCancelOrderRegister ? `Bạn có chắc chắn muốn hủy đơn ngày ${dateSelected} ?`
+                    : `Bạn có chắc chắn khôi phục đơn ngày ${dateSelected} ?`}
+                confirmContent="Sau khi xóa sản phẩm, dữ liệu sẽ không thể hoàn tác"
+            />
         </div>
     )
 }

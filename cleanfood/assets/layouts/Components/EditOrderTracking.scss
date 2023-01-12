@@ -5,18 +5,20 @@
     .edit-tracking-order-content-header{
         display: flex;
         justify-content: center;
-        .back{
-            display: block;
-            color: #2c2c2c;
-            font-weight: 700;
-            font-size: calc(14 / $fdf) * $rem;
-        }
+        flex-direction: column;
+        align-items: center;
         h3{
             color: $maincolor;
             font-weight: 700;
             text-transform: uppercase;
             font-size: calc(20 / $fdf) * $rem;
-            margin-bottom: calc(16 / $fdf) * $rem ;
+            margin-bottom: calc(8 / $fdf) * $rem ;
+        }
+        span{
+            font-size: calc(14 / $fdf) * $rem;
+            font-style: italic;
+            display: block;
+            margin-bottom: calc(8 / $fdf) * $rem 
         }
     }
     .tracking-delivery-image{
@@ -67,6 +69,10 @@
         justify-content: flex-end;
         button{
             width: calc(80 / $fdf) * $rem;
+            margin-right: calc(8 / $fdf) * $rem;
+            &:last-child{
+                margin-right: 0;
+            }
             &.submit{
                 background-color: $maincolor;
                 border: 1px solid $maincolor;
@@ -76,6 +82,11 @@
                 background-color: #eb542e;
                 color: #ffffff;
                 width: calc(120 / $fdf) * $rem;
+            }
+            &.recovery-order{
+                background-color: #22ee44;
+                color: #ffffff;
+                width: calc(180 / $fdf) * $rem;
             }
         }
     }

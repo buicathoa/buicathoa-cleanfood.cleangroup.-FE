@@ -6,20 +6,20 @@ import { useSelector } from 'react-redux'
 import { deliveryItem } from '../../constants'
 import { AddressItemComponentInterface, DeliveryItemInterface } from '../../interface'
 
-const AddressItem = ({ setIsOpenAddressModal, listDeliveryAddress }: AddressItemComponentInterface) => {
+const AddressItem = ({ setIsOpenAddressModal, addressSelected }: AddressItemComponentInterface) => {
 
     const [defaultAddress, setDefaultAddress] = useState<DeliveryItemInterface>(deliveryItem)
     const [deliveryTime, setDeliveryTime] = useState<string>('')
-    useEffect(() => {
-        if (listDeliveryAddress && listDeliveryAddress?.length > 0) {
-            const address: DeliveryItemInterface = listDeliveryAddress?.find(item => item.default_address === true)!
-            const deliveryTimeString = address?.delivery_time?.map((item) => {
-                return moment(item).format('HH:mm')
-            }).join(' - ')
-            setDeliveryTime(deliveryTimeString)
-            setDefaultAddress(address)
-        }
-    }, [listDeliveryAddress])
+    // useEffect(() => {
+    //     if (listDeliveryAddress && listDeliveryAddress?.length > 0) {
+    //         const address: DeliveryItemInterface = listDeliveryAddress?.find(item => item.default_address === true)!
+    //         const deliveryTimeString = address?.delivery_time?.map((item) => {
+    //             return moment(item).format('HH:mm')
+    //         }).join(' - ')
+    //         setDeliveryTime(deliveryTimeString)
+    //         setDefaultAddress(address)
+    //     }
+    // }, [listDeliveryAddress])
 
     return (
         <div className="contact-info">
@@ -36,14 +36,14 @@ const AddressItem = ({ setIsOpenAddressModal, listDeliveryAddress }: AddressItem
             <div className="contact-info-content">
                 <div className="user-info">
                     <div className="user-basic-info">
-                        <div className="user-name">Tên: <span>{defaultAddress?.full_name}</span></div>
-                        <div className="user-phone">Sđt: <span>{defaultAddress?.phone_number}</span></div>
+                        <div className="user-name">Tên: <span>{addressSelected?.full_name}</span></div>
+                        <div className="user-phone">Sđt: <span>{addressSelected?.phone_number}</span></div>
                     </div>
                     <div className="delivery-time">
-                        Khoảng thời gian giao: <span>{deliveryTime}</span>
+                        Khoảng thời gian giao: <span>{moment(addressSelected?.delivery_time![0]).format('HH:mm')} - {moment(addressSelected?.delivery_time![1]).format('HH:mm')}</span>
                     </div>
                     <div className="user-address">
-                        Địa chỉ: <span>{defaultAddress?.full_address}</span>
+                        Địa chỉ: <span>{addressSelected?.full_address}</span>
                     </div>
                 </div>
             </div>
