@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
-import moment, { Moment } from 'moment';
+import moment, { duration, Moment } from 'moment';
 
 import { Button, Card, DatePicker, DatePickerProps, Form } from 'antd';
 import FullCalendar from "@fullcalendar/react";
@@ -80,7 +80,7 @@ const OrderManage = () => {
                 setListOrder(list_order)
             })
             getAllOrderDaysCancel({}).then(res => {
-                if(res?.data!?.length > 0) {
+                if (res?.data!?.length > 0) {
                     setOrderCancelSelected(res?.data![0])
                     setListOrderCancel(res?.data!)
                 }
@@ -133,10 +133,10 @@ const OrderManage = () => {
     const handleChangeDateSup: DatePickerProps['onChange'] = (event) => {
         const date_select = moment(event).format('DD-MM-YYYY')
         const three_date_after = moment().add(3, 'days').format('DD-MM-YYYY')
-        if(date_select < moment().format('DD-MM-YYYY')){
+        if (date_select < moment().format('DD-MM-YYYY')) {
             openError('Vui lòng chọn ngày đặt sau ngày hiện tại ')
-        }else {
-            if((three_date_after === date_select) || (three_date_after < date_select)){
+        } else {
+            if ((three_date_after === date_select) || (three_date_after < date_select)) {
                 setDateSup(event!)
             } else {
                 openError('Vui lòng chọn ngày đặt cách 3 ngày từ ngày hôm nay')
@@ -155,6 +155,7 @@ const OrderManage = () => {
             delivery_start_time: addressSelected?.delivery_time![0],
             delivery_end_time: addressSelected?.delivery_time![1],
             order_status: 'pending',
+            order_id: orderCancelSelected?.order_id,
             address_info: addressSelected,
             product: orderCancelSelected?.product,
             calories: orderCancelSelected?.calories,
@@ -162,9 +163,11 @@ const OrderManage = () => {
             mealplans: orderCancelSelected?.mealplans,
             order_cancel_id: orderCancelSelected?._id
         }
-        createSupplement(payload).then(() => {{
-            setIsOpenSupplement(false)
-        }})
+        createSupplement(payload).then(() => {
+            {
+                setIsOpenSupplement(false)
+            }
+        })
     }
 
     const renderEventContent = (eventInfo: any) => {
@@ -200,7 +203,14 @@ const OrderManage = () => {
                     </div>
                 </div>
                 <div className="order-follow-status">
-                    <span className="content" style={{ color: eventInfo.event.extendedProps.order_status === 'reject' ? 'red' : 'green' }}>{renderStatusTracking(eventInfo.event.extendedProps.order_status)}</span>
+                    <span className="content" style={{
+                        color: eventInfo.event.extendedProps.order_status === 'reject'
+                            ? 'red'
+                            : eventInfo.event.extendedProps.order_status === 'wait_confirmed'
+                                ? 'blue'
+                                : eventInfo.event.extendedProps.order_status === 'deliveried'
+                                    ? 'green' : 'rgb(23 202 146)'
+                    }}>{renderStatusTracking(eventInfo.event.extendedProps.order_status)}</span>
                 </div>
             </div>
         );
@@ -208,8 +218,8 @@ const OrderManage = () => {
 
     const renderContentSup = () => {
         const listCancelDay = daysRegister?.filter((item: OrderTrackingInterface) => item.order_status === 'reject').length
-        if(user.order_day_cancel === 0){
-            return <div>Bạn đã hủy <span className="number">{listCancelDay} ngày</span> và đã bù đủ</div>
+        if (user.order_day_cancel === 0) {
+            return <div>Bạn đã hủy <span className="number">{listCancelDay} ngày</span> và đã <span className="number">bù đủ</span></div>
         } else {
             return <div>Bạn đã hủy <span className="number">{listCancelDay}</span> và đã bù <span className="number">{listCancelDay - user.order_day_cancel}</span> ngày</div>
         }
@@ -274,7 +284,7 @@ const OrderManage = () => {
                         <div className="date-delivery">
                             <DatePicker
                                 className="form-date"
-                                placeholder= 'Ngày giao'
+                                placeholder='Ngày giao'
                                 format="DD-MM-YYYY"
                                 onChange={handleChangeDateSup}
                             />

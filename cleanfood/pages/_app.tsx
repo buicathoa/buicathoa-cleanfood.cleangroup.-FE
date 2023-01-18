@@ -20,15 +20,16 @@ import Footer from "../components/Footer";
 import Calories from "./tai-khoan/calories";
 import Cart from "./gio-hang";
 import Loading from "../components/Loading";
+import HistoryOrder from "./tai-khoan/lich-su-don-hang";
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [isAuthPage, setIsAuthPage] = useState({ boolean: false, route: '' })
-  
- 
-  
+
+
+
   useEffect(() => {
     router.events.on("routeChangeStart", (url) => {
       setLoading(true);
@@ -44,7 +45,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     if (typeof window !== "undefined") {
       if (window.location.pathname === '/tai-khoan/dang-nhap' || window.location.pathname === '/tai-khoan/dang-ky' || window.location.pathname === '/tai-khoan/xac-thuc'
-        || window.location.pathname === '/tai-khoan/quen-mat-khau' || window.location.pathname === '/tai-khoan/calories' || window.location.pathname === '/gio-hang') {
+        || window.location.pathname === '/tai-khoan/quen-mat-khau' || window.location.pathname === '/tai-khoan/calories' || window.location.pathname === '/gio-hang'
+        // window.location.pathname === '/tai-khoan/lich-su-don-hang'
+        ) {
         setIsAuthPage({ boolean: true, route: window.location.pathname })
       } else {
         setIsAuthPage({ boolean: false, route: window.location.pathname })
@@ -52,7 +55,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
   }, [router])
 
-  
+
 
   return (
     <>
@@ -71,7 +74,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               <div className={`page-container ${loading ? 'slide' : 'normal'}`}>
                 <Header />
                 <Loading />
-                <Component {...pageProps}/>
+                <Component {...pageProps} />
                 <Footer />
                 <FooterTab />
               </div>
@@ -85,6 +88,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 {isAuthPage.route === '/tai-khoan/quen-mat-khau' && <ForgetPassword />}
                 {isAuthPage.route === '/tai-khoan/calories' && <Calories />}
                 {isAuthPage.route === '/gio-hang' && <Cart />}
+                {/* {isAuthPage.route === '/tai-khoan/lich-su-don-hang' && <HistoryOrder />} */}
                 {/* {isAuthPage.route === '/tai-khoan' && <Account/>} */}
               </div>
             </div>}

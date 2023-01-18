@@ -146,7 +146,8 @@ const EditOrderTracking = ({ trackingDaySelected, setIsEditTrackingOrder }: Edit
         if(isOpenCancelOrderRegister) {
             const payload = {
                 product: formValues?.product, calories: formValues?.calories, mealplans: formValues?.mealplans,
-                session: formValues?.session, reason: reason, order_day_id: trackingDaySelected
+                session: formValues?.session, reason: reason, order_day_id: trackingDaySelected,
+                order_id: formValues?.order_id
             }
             cancelDayRegister(payload).then(() => {
                 setIsEditTrackingOrder(false)

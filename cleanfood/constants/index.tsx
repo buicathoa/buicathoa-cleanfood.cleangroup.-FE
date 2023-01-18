@@ -46,7 +46,8 @@ export const apiUrl = {
         getWardByDistrict: 'location/ward/get-by-id'
     },
     order: {
-        purchase: 'order/purchase'
+        purchase: 'order/purchase',
+        getHistory: 'order/get-history'
     }
 }
 

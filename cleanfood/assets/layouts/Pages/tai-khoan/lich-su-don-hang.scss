@@ -1,0 +1,108 @@
+.history-order-wrapper {
+  font-family: "Roboto";
+  .history-order-title {
+    color: $maincolor;
+    text-transform: uppercase;
+    font-size: calc(22 / $fdf) * $rem;
+    font-weight: 700;
+    text-align: center;
+    padding: calc(16 / $fdf) * $rem 0;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    .anticon {
+      padding-left: calc(16 / $fdf) * $rem;
+    }
+  }
+  .history-order-category {
+    display: flex;
+    margin-bottom: calc(4 / $fdf) * $rem;
+    background-color: #ffffff;
+    padding-top: calc(8 / $fdf) * $rem;
+    .history-order-category-item {
+      color: #2c2c2c;
+      font-size: calc(14 / $fdf) * $rem;
+      width: 25%;
+      text-align: center;
+      padding-bottom: calc(8 / $fdf) * $rem;
+      border-bottom: 2px solid #c7c2c2;
+      cursor: pointer;
+      &.active {
+        color: $redcolor;
+        font-weight: 700;
+        border-bottom: 2px solid $redcolor;
+      }
+      &:hover {
+        color: $redcolor;
+        font-weight: 700;
+        border-bottom: 2px solid $redcolor;
+      }
+    }
+  }
+  .history-order-list {
+    padding: calc(8 / $fdf) * $rem;
+    max-height: calc(900 / $fdf) * $rem;
+    overflow-y: auto;
+    background-image: #e2dfdf;
+    .history-order-item {
+      padding: calc(16 / $fdf) * $rem;
+      display: flex;
+      background-color: #ffffff;
+      margin-bottom: calc(8 / $fdf) * $rem;
+      .history-order-item-content-left {
+        padding-right: calc(16 / $fdf) * $rem;
+        img {
+          width: calc(80 / $fdf) * $rem;
+          height: calc(80 / $fdf) * $rem;
+          border-radius: 10px;
+          object-fit: cover;
+        }
+      }
+      .history-order-item-content-main {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        .history-order-item-content-main-info {
+          width: 100%;
+          padding-right: calc(16 / $fdf) * $rem;
+          display: flex;
+          flex-direction: column;
+          .title {
+            color: $redcolor;
+            font-size: calc(18 / $fdf) * $rem;
+            font-weight: 700;
+            white-space: nowrap;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          .list-statistics {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: calc(16 / $fdf) * $rem 0;
+            padding-bottom: calc(4 / $fdf) * $rem;
+            .statistics {
+              padding-bottom: calc(4 / $fdf) * $rem;
+              .number {
+                color: $redcolor;
+                font-weight: 700;
+              }
+            }
+          }
+          .delivery-info {
+            display: flex;
+            justify-content: space-between;
+          }
+        }
+      }
+    }
+    .lazy-loading{
+        display: none;
+        &.active{
+            display: block;
+        }
+    }
+  }
+}

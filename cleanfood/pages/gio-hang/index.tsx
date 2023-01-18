@@ -51,67 +51,53 @@ const Cart: React.FC = () => {
     const handleMoveToCheckoutPage = () => {
         setCurrentStep(currentStep + 1)
     }
-
-    const doSomeAsyncStuff = async () => {
-        const deliveryDefault = listDeliveryAddress?.find(item => item.default_address === true)!
-        return new Promise((resolve, reject) => {
-            try {
-                for (let i = 0; i < listCart?.total_quantity!; i++) {
-                    if ((listCart?.list_carts!)[i]?.product_info?.product_type === 'combo') {
-                        const start_day = moment(new Date()).add(3, "days").format("YYYY-MM-DD");
-                        const end_day = listCart?.list_carts![i].mealplans === '1 tuần'
-                            ? moment(new Date()).add(10, "days").format("YYYY-MM-DD")
-                            : moment(new Date()).add(17, "days").format("YYYY-MM-DD")
-                        const delivery_start_time = moment(deliveryDefault?.delivery_time[0]).format(
-                            "HH:mm:ss"
-                        )
-                        const delivery_end_time = moment(deliveryDefault?.delivery_time[1]).format(
-                            "HH:mm:ss"
-                        )
-
-                        const payloadDaysRegister = {
-                            start_date: start_day,
-                            end_date: end_day,
-                            delivery_start_time: delivery_start_time,
-                            delivery_end_time: delivery_end_time,
-                            province_id: addressSelected?.province_id,
-                            district_id: addressSelected?.district_id,
-                            ward_id: addressSelected?.ward_id,
-                            address_detail: addressSelected?.address_detail,
-                            phone_number: addressSelected?.phone_number,
-                            full_name: addressSelected?.full_name,
-                            product: listCart?.list_carts![i]?.product_info?.title,
-                            calories: listCart?.list_carts![i]?.daily_calories,
-                            session: listCart?.list_carts![i]?.session,
-                            mealplans: listCart?.list_carts![i]?.mealplans
-                        }
-                        createDaysRegister(payloadDaysRegister)
-                    }
-                }
-                resolve({})
-            } catch (err) {
-                reject(err)
+    const handleOrder = () => {
+        const line_items = listCart?.list_carts?.map((item) => {
+            return {
+                quantity: item?.quantity, total_price: item?.total_price, calories: item?.daily_calories,
+                product_image: item?.product_info?.image, product_title: item?.product_info?.title,
+                cart_id: item?.cart_id
             }
         })
-    }
+        handlePurchase({
+            line_items: line_items,
+            delivery_date: moment(new Date()).add(3, "days").format("YYYY-MM-DD"),
+            pay_method: paymentSelected?.value
+        }).then((res: any) => {
+            for (let i = 0; i < listCart?.total_quantity!; i++) {
+                if ((listCart?.list_carts!)[i]?.product_info?.product_type === 'combo') {
+                    const start_day = moment(new Date()).add(3, "days").format("YYYY-MM-DD");
+                    const end_day = listCart?.list_carts![i].mealplans === '1 tuần'
+                        ? moment(new Date()).add(10, "days").format("YYYY-MM-DD")
+                        : moment(new Date()).add(17, "days").format("YYYY-MM-DD")
+                    const delivery_start_time = moment(addressSelected?.delivery_time![0]).format(
+                        "HH:mm:ss"
+                    )
+                    const delivery_end_time = moment(addressSelected?.delivery_time![1]).format(
+                        "HH:mm:ss"
+                    )
 
-    const handleOrder = () => {
-        doSomeAsyncStuff().then(() => {
-            const line_items = listCart?.list_carts?.map((item) => {
-                return {
-                    quantity: item?.quantity, total_price: item?.total_price, calories: item?.daily_calories,
-                    product_image: item?.product_info?.image, product_title: item?.product_info?.title,
-                    mealplans: item?.mealplans, session: item?.session,
-                    cart_id: item?.cart_id
+                    const payloadDaysRegister = {
+                        start_date: start_day,
+                        end_date: end_day,
+                        delivery_start_time: delivery_start_time,
+                        delivery_end_time: delivery_end_time,
+                        order_id: (res?.data!)[i]?._id,
+                        province_id: addressSelected?.province_id,
+                        district_id: addressSelected?.district_id,
+                        ward_id: addressSelected?.ward_id,
+                        address_detail: addressSelected?.address_detail,
+                        phone_number: addressSelected?.phone_number,
+                        full_name: addressSelected?.full_name,
+                        product: listCart?.list_carts![i]?.product_info?.title,
+                        calories: listCart?.list_carts![i]?.daily_calories,
+                        session: listCart?.list_carts![i]?.session,
+                        mealplans: listCart?.list_carts![i]?.mealplans
+                    }
+                    createDaysRegister(payloadDaysRegister)
                 }
-            })
-            handlePurchase({
-                line_items: line_items,
-                delivery_start_date: moment(new Date()).add(3, "days").format("YYYY-MM-DD"),
-                pay_method: paymentSelected?.value
-            }).then(() => {
-                setCurrentStep(currentStep + 1)
-            })
+            }
+            setCurrentStep(currentStep + 1)
         })
     }
 

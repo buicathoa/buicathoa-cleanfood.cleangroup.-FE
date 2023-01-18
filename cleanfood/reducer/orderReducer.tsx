@@ -6,6 +6,7 @@ const order = createSlice({
     },
     reducers: ({
         handlePurchase: (state, actions) => {},
+        getHistory: (state, actions) => {}
     })
 })
 

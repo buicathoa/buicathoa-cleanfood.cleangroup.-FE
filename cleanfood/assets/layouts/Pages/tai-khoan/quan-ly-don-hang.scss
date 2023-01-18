@@ -21,7 +21,7 @@
       padding-right: 16px;
       .number {
         font-size: calc(20 / $fdf) * $rem;
-        color: #e46d4f;
+        color: $redcolor;
         font-weight: 700;
         // display: block;
         padding: 4px;
@@ -38,7 +38,7 @@
       .here {
         cursor: pointer;
         font-size: calc(16 / $fdf) * $rem;
-        color: #e46d4f;
+        color: $redcolor;
         font-weight: 700;
         display: block;
         padding: 0 4px;
