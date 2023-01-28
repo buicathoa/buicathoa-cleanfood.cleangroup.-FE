@@ -25,30 +25,17 @@ const Cart = createSlice({
             let listCart = []
             let totalPrice = 0
             let totalQuantity = 0
-            if (actions?.payload?.quantity) {
-                debugger
-                listCart = [
-                    ...(state?.listCart as any)?.list_carts.map((item: any) => {
-                        if (item.cart_id === actions?.payload?.cart_id) {
-                            item = { ...item, quantity: actions?.payload?.quantity, total_price: actions?.payload?.quantity * item.price }
-                            return item
-                        } else {
-                            return item
-                        }
-                    })
-                ]
-            } else {
-                listCart = [
-                    ...(state?.listCart as any)?.list_carts.map((item: any) => {
-                        if (item.cart_id === actions?.payload?.cart_id) {
-                            item = { ...item, quantity: item.quantity + actions?.payload?.inc_quantity, total_price: (item.quantity + actions?.payload?.inc_quantity) * item.price }
-                            return item
-                        } else {
-                            return item
-                        }
-                    })
-                ]
-            }
+            listCart = [
+                ...(state?.listCart as any)?.list_carts.map((item: any) => {
+                    if (item._id === actions?.payload?._id) {
+                        item = { ...item, ...actions.payload , total_price: actions?.payload?.quantity * item.price }
+                        return item
+                    } else {
+                        return item
+                    }
+                })
+            ]
+            // debugger
             totalPrice = listCart
                 ?.map((item) => {
                     return item?.total_price
@@ -62,7 +49,10 @@ const Cart = createSlice({
             state.listCart = { list_carts: listCart, total_price: totalPrice || 0, total_quantity: totalQuantity || 0 }
         },
         deleteCartItem: (state, actions) => {
-            const listCart = [...state.listCart.list_carts!].filter(item => item.cart_id !== actions?.payload?.param?.cart_id)
+
+        },
+        deleteCartItemSuccess: (state, actions) => {
+            const listCart = [...state.listCart.list_carts!].filter(item => item._id !== actions?.payload?.cart_id)
             const totalPrice = listCart
                 ?.map((item) => {
                     return item?.total_price
@@ -73,7 +63,7 @@ const Cart = createSlice({
                     return item.quantity
                 })
                 ?.reduce((prev, curr) => prev! + curr!, 0)
-            state.listCart = { list_carts: listCart, total_price: totalPrice || 0, total_quantity: totalQuantity || 0 }
+            state.listCart = { list_carts: listCart, total_price: totalPrice, total_quantity: totalQuantity}
         }
     })
 })

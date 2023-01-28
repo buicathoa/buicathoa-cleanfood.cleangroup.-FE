@@ -216,6 +216,30 @@
           }
         }
       }
+      .cart-delivery-date {
+        padding: calc(8 / $fdf) * $rem;
+        background-color: #ffffff;
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-between;
+        height: calc(56 / $fdf) * $rem;
+        align-items: center;
+        .title{
+          color: $maincolor;
+            font-size: calc(14 / $fdf) * $rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-right: calc(8 / $fdf) * $rem;
+        }
+        .delivery-date-content{
+          .date-delivery{
+            margin-right: calc(16 / $fdf) * $rem;
+            color: $redcolor;
+            font-size: calc(18 / $fdf) * $rem;
+            font-weight: 700;
+          }
+        }
+      }
       .cart-calc-price {
         margin-bottom: calc(8 / $fdf) * $rem;
         padding: calc(8 / $fdf) * $rem;
@@ -388,14 +412,14 @@
           justify-content: center;
           margin-top: calc(18 / $fdf) * $rem;
           span {
-            font-size: calc(18 / $fdf) * $rem ;
+            font-size: calc(18 / $fdf) * $rem;
             display: block;
             color: rgba(122, 117, 117, 0.45);
             font-weight: 700;
             cursor: pointer;
-            &:hover{
+            &:hover {
               transform: rotate(360deg);
-                transition: transform 0.5s ease;
+              transition: transform 0.5s ease;
             }
           }
         }
@@ -420,7 +444,7 @@
       left: 0;
       right: 0;
       border-top: 1px solid rgba(167, 163, 163, 0.45);
-      &.none{
+      &.none {
         display: none;
       }
       .total-price {

@@ -17,6 +17,7 @@
     "@redux-saga/core": "^1.2.1",
     "@reduxjs/toolkit": "^1.8.5",
     "antd": "^4.23.4",
+    "antd-mobile": "^5.28.0",
     "axios": "^1.0.0",
     "connected-next-router": "^4.2.0",
     "eslint-config-prettier": "^8.5.0",

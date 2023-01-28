@@ -32,7 +32,7 @@ export interface ProductItemInterface {
     updatedAt?: Date,
     __v?: number,
     _id?: string,
-    product_type: string
+    product_type?: string
 }
 
 export interface listProduct {

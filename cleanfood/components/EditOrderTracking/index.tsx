@@ -164,6 +164,8 @@ const EditOrderTracking = ({ trackingDaySelected, setIsEditTrackingOrder }: Edit
 
     }
 
+    console.log('formValues?.order_status', formValues?.order_status)
+
     return (
         <div className="edit-tracking-order-content">
             <div className="tracking-delivery-image">

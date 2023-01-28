@@ -24,10 +24,10 @@ body {
 
 .ant-notification-notice-content {
   .ant-notification-notice-message {
-      // display: flex;
-      // width: calc(500 / $fdf) * $rem;
-      font-size:  calc(18 / $fdf) * $rem;
-      line-height: calc(24 / $fdf) * $rem;
+    // display: flex;
+    // width: calc(500 / $fdf) * $rem;
+    font-size: calc(18 / $fdf) * $rem;
+    line-height: calc(24 / $fdf) * $rem;
   }
 }
 
@@ -43,7 +43,7 @@ body {
 .ant-carousel .slick-prev:hover {
   left: 10px !important;
   z-index: 2;
-  color: #2C2C2C !important;
+  color: #2c2c2c !important;
   font-size: 18px !important;
   background-color: #ffffff !important;
   width: 30px !important;
@@ -52,7 +52,7 @@ body {
   margin-top: -30px !important;
   border: 1px solid $maincolor;
   box-shadow: 0 1px 5px 0 rgb(0 0 0 / 35%);
-  svg{
+  svg {
     transform: translate(-4%, 25%) !important;
   }
 }
@@ -61,7 +61,7 @@ body {
 .ant-carousel .slick-next:hover {
   right: 10px !important;
   z-index: 2;
-  color: #2C2C2C !important;
+  color: #2c2c2c !important;
   font-size: 18px !important;
   background: #ffffff !important;
   width: 30px !important;
@@ -70,11 +70,10 @@ body {
   margin-top: -30px !important;
   border: 1px solid $maincolor;
   box-shadow: 0 1px 5px 0 rgb(0 0 0 / 35%);
-  svg{
+  svg {
     transform: translate(-4%, 25%) !important;
   }
 }
-
 
 .form-input {
   width: 100%;
@@ -122,10 +121,10 @@ body {
   .ant-input-number-input-wrap {
     height: 100%;
   }
-  .ant-input-number-handler-wrap{
+  .ant-input-number-handler-wrap {
     display: none;
   }
-  &.ant-input-number{
+  &.ant-input-number {
     padding: 0 calc(8 / $fdf) * $rem;
   }
 }
@@ -334,18 +333,18 @@ body {
   .page-container {
     margin: 0 auto;
     max-width: calc(720 / $fdf) * $rem;
-    &.auth-page{
+    &.auth-page {
       min-height: 100vh;
     }
     &.slide {
       // opacity: 0;
       transform: translateX(-200%);
-      transition: all  0.3s;
+      transition: all 0.3s;
     }
     &.normal {
       // opacity: 1;
       transform: translateX(0%);
-      transition: all  0.3s;
+      transition: all 0.3s;
     }
   }
 }
@@ -363,10 +362,10 @@ body {
   outline: none;
 }
 
-[class^='icon-'],
-[class*=' icon-'] {
-  [class^='path'],
-  [class*=' path'] {
+[class^="icon-"],
+[class*=" icon-"] {
+  [class^="path"],
+  [class*=" path"] {
     font-family: unset !important;
   }
 }
@@ -389,21 +388,21 @@ body {
     line-height: calc(30 / $fdf) * $rem;
     color: #fff;
   }
-  .ant-modal-close-x{
+  .ant-modal-close-x {
     color: #ffffff;
   }
 }
-.ant-modal-content{
-  .ant-modal-close{
+.ant-modal-content {
+  .ant-modal-close {
     top: calc(10 / $fdf) * $rem;
     right: calc(12 / $fdf) * $rem;
     color: #ffffff;
-    .ant-modal-close-x{
-        width: calc(22 / $fdf) * $rem;
-        height: calc(22 / $fdf) * $rem;
-        line-height: calc(22 / $fdf) * $rem;
+    .ant-modal-close-x {
+      width: calc(22 / $fdf) * $rem;
+      height: calc(22 / $fdf) * $rem;
+      line-height: calc(22 / $fdf) * $rem;
     }
-}
+  }
 }
 .ant-modal-body {
   padding: 0;
@@ -463,25 +462,51 @@ body {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey; 
+  box-shadow: inset 0 0 5px grey;
   border-radius: 10px;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: $maincolor; 
+  background: $maincolor;
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #9dee05; 
+  background: #9dee05;
+}
+
+.ant-modal-wrap {
+  margin: 0 auto;
+  max-width: calc(720 / $fdf) * $rem;
+  height: 100%;
+  .ant-modal {
+    height: 100% !important;
+    max-width: unset !important;
+    padding-bottom: unset !important;
+    top: 0 !important;
+    margin: unset !important;
+    width: 100% !important;
+    .ant-modal-content {
+      height: 100% !important;
+      .ant-modal-body {
+        height: 80vh;
+        overflow-y: scroll;
+      }
+      .ant-modal-footer {
+        position: absolute !important;
+        bottom: 0 !important;
+        right: 0 !important;
+      }
+    }
+  }
 }
 
 html {
   // font-size: calc($fdf/1440 * 100) * $vw;
 }
-@import '~antd/dist/antd.css';
+@import "~antd/dist/antd.css";
 
 @import "./assets/layouts/header.scss";
 @import "./assets/layouts/footertab.scss";
@@ -514,4 +539,3 @@ html {
 @import "./assets/layouts/Components/EditOrderTracking.scss";
 
 @import "./assets/layouts/ProductDetail.scss";
-

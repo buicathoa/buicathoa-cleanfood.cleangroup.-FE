@@ -3,7 +3,10 @@ import React from "react";
 import { ProductItemInterface } from "../../interface";
 
 interface ProductItemComponentInterface extends ProductItemInterface {
-  renderType: String
+  renderType: string,
+  image: string,
+  sub_title: string,
+  title: string
 }
 
 export const ProductItem = (props: ProductItemComponentInterface) => {

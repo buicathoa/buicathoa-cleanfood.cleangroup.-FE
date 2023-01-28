@@ -1,5 +1,5 @@
 
-import { call, put, takeLatest } from "redux-saga/effects";
+import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 import { apiRequest } from "../utils/apiRequest";
 import { apiUrl } from "../constants";
 import { type Saga } from 'redux-saga';
@@ -11,7 +11,7 @@ import { AnyAction } from "@reduxjs/toolkit";
 export function* FollowFetchCart():Generator {
     yield takeLatest(CartActions.fetchAllCart({}).type, fetchAllCart)
     yield takeLatest(CartActions.addToCart({}).type, addToCart)
-    yield takeLatest(CartActions.updateCartByUser({}).type, updateCartByUser)
+    yield takeEvery(CartActions.updateCartByUser({}).type, updateCartByUser)
     yield takeLatest(CartActions.deleteCartItem({}).type, deleteCartItem)
 }
 
@@ -45,8 +45,8 @@ function* updateCartByUser(action:AnyAction):Generator {
     const { param, resolve, reject } = action.payload
     try{
         const response = yield apiRequest(apiUrl.cart.update, param, 'general')
+        yield put(CartActions.updateCartByUserSuccess((response as ResponseFormatItem).data))
         yield put(AppActions.openLoading(false))
-        yield put(CartActions.updateCartByUserSuccess((param as ResponseFormatItem)))
         if (resolve) yield resolve(response)
     }
     catch(err) {
@@ -60,7 +60,7 @@ function* deleteCartItem(action:AnyAction):Generator {
     try{
         const response = yield apiRequest(apiUrl.cart.delete, param, 'general')
         yield put(AppActions.openLoading(false))
-        yield put(CartActions.updateCartByUserSuccess((response as ResponseFormatItem)))
+        yield put(CartActions.deleteCartItemSuccess((param as ResponseFormatItem)))
         if (resolve) yield resolve(response)
     }
     catch(err) {

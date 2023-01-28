@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react'
-import { Button, InputNumber, Radio, RadioChangeEvent, Row, Select, Steps, Switch, Tag } from 'antd';
+import { Button, DatePicker, InputNumber, Modal, Radio, RadioChangeEvent, Row, Select, Steps, Switch, Tag } from 'antd';
 import {
     MinusOutlined, PlusOutlined, DeleteOutlined, UserOutlined,
     GiftOutlined,
@@ -28,6 +29,7 @@ import moment from 'moment';
 import { orderActions } from '../../reducer/orderReducer';
 import { GeneralMenuActions } from '../../reducer/generalMenuReducer';
 import Item from 'antd/lib/list/Item';
+import useInterval from '../../utils/useInterval';
 const Cart: React.FC = () => {
     const router = useRouter()
     const dispatch = useAppDispatch()
@@ -43,7 +45,10 @@ const Cart: React.FC = () => {
     const [isUseCoin, setIsUseCoin] = useState(false)
     const [cartSelected, setCartSelected] = useState<CartItemInterface>({})
     const [isOpenPaymentModal, setIsOpenPaymentModal] = useState(false)
+    const [isOpenDeliveryDate, setIsOpenDeliveryDate] = useState(false)
+
     const [paymentSelected, setPaymentSelected] = useState<{ name: string, value: string }>({ name: 'Momo - 0909370002 (Bùi Cát Hòa)', value: 'momo' })
+    const [breakPoint, setBreakPoint] = useState(false)
 
     const { Step } = Steps;
 
@@ -55,8 +60,8 @@ const Cart: React.FC = () => {
         const line_items = listCart?.list_carts?.map((item) => {
             return {
                 quantity: item?.quantity, total_price: item?.total_price, calories: item?.daily_calories,
-                product_image: item?.product_info?.image, product_title: item?.product_info?.title,
-                cart_id: item?.cart_id
+                session: item?.session, mealplans: item?.mealplans, product_image: item?.product_info?.image, product_title: item?.product_info?.title,
+                cart_id: item?._id
             }
         })
         handlePurchase({
@@ -147,7 +152,7 @@ const Cart: React.FC = () => {
         });
     };
 
-    console.log('listDeliveryAddress', listDeliveryAddress)
+    console.log('listCart', listCart)
 
     useEffect(() => {
         if (!Cookies.get('cleanfood')) {
@@ -163,25 +168,46 @@ const Cart: React.FC = () => {
         }
     }, [])
 
+    // const breakPoint = useInterval(1)
+
+    // useEffect(() => {
+    //     if(breakPoint && value !== 0){
+    //         const params = { cart_id: cartSelected?._id, quantity: value }
+    //         updateCartByUser(params).then(() => {
+    //             setValue(0)
+    //             setCartSelected({})
+    //         })
+    //     }
+    // }, [breakPoint, value])
+
     const handleUpdateQuantity = (number: number, item: any) => {
         if (item.quantity === 1 && number === -1) {
             setCartSelected(item)
             setIsOpenConfirmModal(true)
         } else {
-            const params = { cart_id: item?.cart_id, inc_quantity: number }
+            dispatch(AppActions.openLoading(true))
+            const params = { cart_id: item?._id, inc_quantity: number }
             updateCartByUser(params)
         }
     }
 
-    const handleUpdateQuantityInput = (event: number) => {
-        setValue(event)
+
+    const handleUpdateQuantityInput = (event: number, item) => {
+        let seconds = 1;
+        setTimeout(() => {
+            // debugger
+            seconds = seconds - 1
+            if (seconds === 0) {
+                // setValue(event)
+                // setCartSelected(item)
+                const params = { cart_id: item?._id, quantity: event }
+                updateCartByUser(params)
+            }
+        }, 1000)
     }
 
     const handleBlurUpdateQuantity = (item: CartItemInterface) => {
-        const params = { cart_id: item?.cart_id, quantity: value }
-        updateCartByUser(params).then(() => {
-            setValue(0)
-        })
+
     }
 
     const handleDeleteCartItem = (item: CartItemInterface) => {
@@ -191,7 +217,7 @@ const Cart: React.FC = () => {
 
     const handleModalDelete = () => {
         dispatch(AppActions.openLoading(true))
-        const payload = { cart_id: cartSelected?.cart_id }
+        const payload = { cart_id: cartSelected?._id }
         deleteCartItem(payload).then(() => {
             setIsOpenConfirmModal(false)
             setCartSelected({})
@@ -250,7 +276,9 @@ const Cart: React.FC = () => {
                                         <div className="cart-item-actions">
                                             <div className="update-quantity">
                                                 <PlusOutlined onClick={() => handleUpdateQuantity(1, item)} />
-                                                <InputNumber type="number" value={item?.quantity} onChange={(event) => handleUpdateQuantityInput(event!)} onBlur={() => handleBlurUpdateQuantity(item)} />
+                                                <InputNumber type="number" value={item?.quantity} onChange={(event) => handleUpdateQuantityInput(event!, item)}
+                                                //  onBlur={() => handleBlurUpdateQuantity(item)} 
+                                                />
                                                 <MinusOutlined onClick={() => handleUpdateQuantity(-1, item)} />
                                             </div>
                                             <div className="remove-item">
@@ -287,10 +315,18 @@ const Cart: React.FC = () => {
                             </div>}
                         </div>
                         <div className="contact-decor"></div>
+                        <div className="cart-delivery-date">
+                            <span className="title">Ngày nhận: </span>
+                            <div className="delivery-date-content">
+                                <span className="date-delivery">{moment(new Date()).add(3, "days").format("DD-MM-YYYY")}</span>
+                                <span className="date-delivery-edit"><Tag color="#e46d4f" onClick={() => setIsOpenDeliveryDate(true)}>Thay đổi</Tag></span>
+                            </div>
+                        </div>
+                        <div className="contact-decor"></div>
                         <div className="cart-calc-price">
                             <div className="cart-calc-price-item">
                                 <span className="title">Tổng giá: </span>
-                                <div className="price">60.00</div>
+                                <div className="price">{listCart?.total_price?.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</div>
                             </div>
                             <div className="cart-calc-price-item">
                                 <span className="title">Phí ship: </span>
@@ -303,7 +339,7 @@ const Cart: React.FC = () => {
 
                 {currentStep === 1 && (
                     <div className="cart-content">
-                        <AddressItem setIsOpenAddressModal={setIsOpenAddressModal} addressSelected={addressSelected}/>
+                        <AddressItem setIsOpenAddressModal={setIsOpenAddressModal} addressSelected={addressSelected} />
                         <div className="contact-decor"></div>
                         <div className="payment-wrapper">
                             <div className="payment-title">Phương thức thanh toán</div>
@@ -355,6 +391,9 @@ const Cart: React.FC = () => {
                 </div>
 
             </div>
+            <Modal title="Basic Modal" open={isOpenDeliveryDate} onCancel={() => setIsOpenDeliveryDate(false)}>
+                <DatePicker />
+            </Modal>
             <ModalAddress
                 visible={isOpenAddressModal} setVisible={setIsOpenAddressModal}
                 addressSelected={addressSelected} setAddressSelected={setAddressSelected}
