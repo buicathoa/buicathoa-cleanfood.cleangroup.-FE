@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { Button, Checkbox, Col, Input, Modal, Row } from 'antd'
+import { Button, Checkbox, Col, Drawer, Input, Modal, Row } from 'antd'
 import React from 'react'
 import { ModalInterface } from '../../interface'
 
@@ -14,20 +14,16 @@ const ModalVoucher = ({ visible, setVisible }: ModalInterface) => {
     }
 
     return (
-        <Modal
-            className="modal-voucher-container"
-            title={'Chọn Fresh Meals Voucher'}
-            visible={visible}
-            onOk={() => onConfirmOk()}
-            onCancel={() => onConfirmCancel()}
-            footer={[
-                <Button key="Cancel" onClick={() => onConfirmCancel()}>
-                    Hủy
-                </Button>,
-                <Button className="modal-confirm-delete-btn" key="Delete" onClick={() => onConfirmOk()}>
-                    Xóa
-                </Button>
-            ]}
+        <Drawer
+        title="Basic Drawer"
+        placement={"bottom"}
+        closable={false}
+        onClose={() => setVisible(false)}
+        open={visible}
+        size="large"
+        className={visible ? 'active' : 'deactive'}
+
+        // size="large"
         >
             <div className="modal-voucher-content">
                 <div className="voucher-manual">
@@ -76,7 +72,7 @@ const ModalVoucher = ({ visible, setVisible }: ModalInterface) => {
                     </Checkbox.Group>
                 </div>
             </div>
-        </Modal>
+            </Drawer>
     )
 }
 

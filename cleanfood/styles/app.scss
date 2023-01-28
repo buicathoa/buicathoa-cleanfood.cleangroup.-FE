@@ -477,29 +477,95 @@ body {
   background: #9dee05;
 }
 
-.ant-modal-wrap {
-  margin: 0 auto;
-  max-width: calc(720 / $fdf) * $rem;
-  height: 100%;
-  .ant-modal {
-    height: 100% !important;
-    max-width: unset !important;
-    padding-bottom: unset !important;
-    top: 0 !important;
-    margin: unset !important;
-    width: 100% !important;
-    .ant-modal-content {
-      height: 100% !important;
-      .ant-modal-body {
-        height: 80vh;
-        overflow-y: scroll;
-      }
-      .ant-modal-footer {
-        position: absolute !important;
-        bottom: 0 !important;
-        right: 0 !important;
-      }
+// .ant-modal-wrap {
+//   margin: 0 auto;
+//   max-width: calc(720 / $fdf) * $rem;
+//   height: 100%;
+//   .ant-modal {
+//     height: 100% !important;
+//     max-width: unset !important;
+//     padding-bottom: unset !important;
+//     top: 0 !important;
+//     margin: unset !important;
+//     width: 100% !important;
+//     .ant-modal-content {
+//       height: 100% !important;
+//       .ant-modal-body {
+//         height: 80vh;
+//         overflow-y: scroll;
+//       }
+//       .ant-modal-footer {
+//         position: absolute !important;
+//         bottom: 0 !important;
+//         right: 0 !important;
+//       }
+//     }
+//   }
+// }
+
+@keyframes active1 {
+  from {
+    transform: translate(-50%, 100%); left: 50%;
+  }
+  to {
+    transform: translate(-50%, 0%); left: 50%
+  }
+}
+
+@keyframes deactive {
+  from {
+    transform: translate(-50%, 0%); left: 50%
+  }
+  to {
+    transform: translate(-50%, 100%); left: 50%
+  }
+}
+
+.ant-drawer {
+  &.active {
+    .ant-drawer-content-wrapper {
+      animation: active1 0.3s infinite;
+      animation-iteration-count: 1;
+      left: 50% !important;
+      right: 0px !important;
+      max-height: 500px !important;
+      max-width: calc(720 / $fdf) * $rem;
+      transform: translate(-50%, 0%);
     }
+  }
+  &.deactive {
+    .ant-drawer-content-wrapper{
+
+      animation: deactive 0.3s infinite;
+        animation-iteration-count: 1;
+        left: 50% !important;
+        right: 0px !important;
+        max-height: 500px !important;
+        max-width: calc(720 / $fdf) * $rem;
+        transform: translate(-50%, 100%);
+    }
+  }
+  .ant-drawer-content-wrapper {
+    transition: unset !important;
+    &.ant-drawer-content-wrapper-hidden {
+      // left: 50%;
+      // transform: translate(-50%, 100%);
+      // transform: translate(-50%, 100%);
+      display: unset !important;
+      // transition: all .5s linear;
+    }
+  }
+}
+
+@media only screen and (max-width: 735px) {
+  .ant-drawer-content-wrapper {
+    width: calc(100vw - 16px);
+  }
+}
+
+@media only screen and (min-width: 736px) {
+  .ant-drawer-content-wrapper {
+    width: calc(720px - 16px);
   }
 }
 

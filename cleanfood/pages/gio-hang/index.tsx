@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react'
-import { Button, DatePicker, InputNumber, Modal, Radio, RadioChangeEvent, Row, Select, Steps, Switch, Tag } from 'antd';
+import { Button, InputNumber, Modal, Radio, RadioChangeEvent, Row, Select, Steps, Switch, Tag } from 'antd';
+import { DatePicker} from 'antd-mobile';
 import {
     MinusOutlined, PlusOutlined, DeleteOutlined, UserOutlined,
     GiftOutlined,
@@ -391,9 +392,17 @@ const Cart: React.FC = () => {
                 </div>
 
             </div>
-            <Modal title="Basic Modal" open={isOpenDeliveryDate} onCancel={() => setIsOpenDeliveryDate(false)}>
-                <DatePicker />
-            </Modal>
+            {/* <DatePicker
+        title='时间选择'
+        visible={isOpenDeliveryDate}
+        onClose={() => {
+          setIsOpenDeliveryDate(false)
+        }}
+        // max={now}
+        // onConfirm={val => {
+        //   Toast.show(val.toDateString())
+        // }}
+      /> */}
             <ModalAddress
                 visible={isOpenAddressModal} setVisible={setIsOpenAddressModal}
                 addressSelected={addressSelected} setAddressSelected={setAddressSelected}

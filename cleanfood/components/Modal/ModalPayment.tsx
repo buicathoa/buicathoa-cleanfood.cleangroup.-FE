@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { Button, Checkbox, Col, Input, Modal, Radio, RadioChangeEvent, Row } from 'antd'
+import { Button, Checkbox, Col, Drawer, Input, Modal, Radio, RadioChangeEvent, Row } from 'antd'
 import React from 'react'
 import { ModalInterface, ModalPaymentInterface } from '../../interface'
 
@@ -20,20 +20,27 @@ const ModalPayment = ({ visible, setVisible, paymentSelected, setPaymentSelected
     }
 
     return (
-        <Modal
-            className="modal-payment-container"
-            title={'Payment'}
-            visible={visible}
-            onOk={() => onConfirmOk()}
-            onCancel={() => onConfirmCancel()}
-            footer={[
-                <Button key="Cancel" onClick={() => onConfirmCancel()}>
-                    Hủy
-                </Button>,
-                <Button className="modal-confirm-delete-btn" key="Delete" onClick={() => onConfirmOk()}>
-                    Xóa
-                </Button>
-            ]}
+        <Drawer
+        title="Basic Drawer"
+        placement={"bottom"}
+        closable={false}
+        onClose={() => setVisible(false)}
+        open={visible}
+        size="large"
+        className={visible ? 'active' : 'deactive'}
+            // className="modal-payment-container"
+            // title={'Payment'}
+            // visible={visible}
+            // onOk={() => onConfirmOk()}
+            // onCancel={() => onConfirmCancel()}
+            // footer={[
+            //     <Button key="Cancel" onClick={() => onConfirmCancel()}>
+            //         Hủy
+            //     </Button>,
+            //     <Button className="modal-confirm-delete-btn" key="Delete" onClick={() => onConfirmOk()}>
+            //         Xóa
+            //     </Button>
+            // ]}
         >
             <div className="payment-content">
                 <div className="payment-title">Phương thức thanh toán</div>
@@ -49,7 +56,7 @@ const ModalPayment = ({ visible, setVisible, paymentSelected, setPaymentSelected
                     </Radio.Group>
                 </div>
             </div>
-        </Modal>
+        </Drawer>
     )
 }
 
