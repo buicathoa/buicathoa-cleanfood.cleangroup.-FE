@@ -97,7 +97,7 @@ export interface OrderCancelInterface {
     createdAt?: Date,
     updatedAt?: Date,
     mealplans?: string,
-    order_id?: string,
+    order_code?: string,
     __v?: number
 }
 export interface OrderTrackingInterface {
@@ -120,7 +120,7 @@ export interface OrderTrackingInterface {
     ward_id?: string,
     __v?: number
     _id?: string,
-    order_id?: string
+    order_code?: string
 }
 export interface ResponseFormatItem {
     code?: number,

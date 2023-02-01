@@ -2,7 +2,9 @@
 import { Button, Checkbox, Col, Drawer, Input, Modal, Row } from 'antd'
 import React from 'react'
 import { ModalInterface } from '../../interface'
-
+import {
+    CloseOutlined
+} from "@ant-design/icons";
 const ModalVoucher = ({ visible, setVisible }: ModalInterface) => {
 
     const onConfirmOk = () => {
@@ -15,17 +17,15 @@ const ModalVoucher = ({ visible, setVisible }: ModalInterface) => {
 
     return (
         <Drawer
-        title="Basic Drawer"
-        placement={"bottom"}
-        closable={false}
-        onClose={() => setVisible(false)}
-        open={visible}
-        size="large"
-        className={visible ? 'active' : 'deactive'}
-
-        // size="large"
+            title={<div className="drawer-title"><span>Danh sách voucher</span><CloseOutlined onClick={() => setVisible(false)}/></div>}
+            placement={"bottom"}
+            closable={false}
+            onClose={() => setVisible(false)}
+            open={visible}
+            size="large"
+            className={visible ? 'active' : 'deactive'}
         >
-            <div className="modal-voucher-content">
+            <div className="modal-voucher-content body-inner">
                 <div className="voucher-manual">
                     <label className="title">Mã Voucher</label>
                     <Input placeholder='Mã Fresh Meals Voucher' className="form-input" />
@@ -72,7 +72,11 @@ const ModalVoucher = ({ visible, setVisible }: ModalInterface) => {
                     </Checkbox.Group>
                 </div>
             </div>
-            </Drawer>
+            <div className="drawer-button">
+                <Button className="save">Lưu</Button>
+                <Button className="cancel">Thoát</Button>
+            </div>
+        </Drawer>
     )
 }
 

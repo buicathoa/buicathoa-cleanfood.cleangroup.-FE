@@ -19,16 +19,16 @@ export const renderStatusTracking = (content: string) => {
   let contentConvert;
   switch (content) {
     case 'wait_confirmed':
-      contentConvert = 'Chờ xác nhận';
+      contentConvert = '#Chờ xác nhận';
       break;
     case 'pending':
-      contentConvert = 'Chờ nhận hàng';
+      contentConvert = '#Chờ nhận hàng';
       break;
     case 'reject':
-      contentConvert = 'Đã hủy';
+      contentConvert = '#Đã hủy';
       break;
     case 'deliveried':
-      contentConvert = 'Đã giao';
+      contentConvert = '#Đã giao';
       break;
   }
   return contentConvert

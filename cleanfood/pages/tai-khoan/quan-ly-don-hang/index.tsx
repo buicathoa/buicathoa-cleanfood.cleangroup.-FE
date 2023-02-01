@@ -22,6 +22,7 @@ import { openError } from '../../../components/NotificationStatus';
 import { DeliveryItemInterface, OrderCancelInterface, OrderTrackingInterface, OrderTrackingInterfaceConvert, ResponseFormatItem, ResponseFormatListInterface } from '../../../interface';
 
 import { renderStatusTracking } from '../../../utils/helper';
+import DrawerEditOrderTracking from '../../../components/Modal/DrawerEditOrderTracking';
 const orderCancelInit = {
     _id: '',
     product: '',
@@ -74,6 +75,8 @@ const OrderManage = () => {
                             order_status: item?.order_status,
                             full_name: item?.full_name,
                             phone_number: item?.phone_number,
+                            shipping_code: item?.shipping_code,
+                            order_code: item?.order_code
                         }
                     }
                 })
@@ -155,7 +158,7 @@ const OrderManage = () => {
             delivery_start_time: addressSelected?.delivery_time![0],
             delivery_end_time: addressSelected?.delivery_time![1],
             order_status: 'pending',
-            order_id: orderCancelSelected?.order_id,
+            order_code: orderCancelSelected?.order_code,
             address_info: addressSelected,
             product: orderCancelSelected?.product,
             calories: orderCancelSelected?.calories,
@@ -172,11 +175,27 @@ const OrderManage = () => {
 
     const renderEventContent = (eventInfo: any) => {
         return (
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: 'center' }}>
+            <div>
                 <div className="order-info">
                     <div className="product-info">
-                        <span className="product-info-title">{eventInfo.event.title}</span>
+                        <div className="product-info-header">
+                            <div className="product-info-header-left">
+                                <span>{eventInfo.event.title}</span>
+                                <div className="code-info">#{eventInfo.event.extendedProps.shipping_code}</div>
+                            </div>
+                            <div className="order-follow-status">
+                                <span className="content" style={{
+                                    color: eventInfo.event.extendedProps.order_status === 'reject'
+                                        ? 'red'
+                                        : eventInfo.event.extendedProps.order_status === 'wait_confirmed'
+                                            ? 'blue'
+                                            : eventInfo.event.extendedProps.order_status === 'deliveried'
+                                                ? 'green' : 'rgb(23 202 146)'
+                                }}>{renderStatusTracking(eventInfo.event.extendedProps.order_status)}</span>
+                            </div>
+                        </div>
                         <div className="product-info-detail">
+                            <div className="order-code"><span className="order-code-title">Mã đơn hàng: </span><span>#{eventInfo.event.extendedProps.order_code}</span></div>
                             <div className="product-flex-info">
                                 <div className="product-info-detail-item">
                                     <span className="title">Calories: </span><span className="content">{eventInfo.event.extendedProps.calories}</span>
@@ -202,7 +221,7 @@ const OrderManage = () => {
                         </div>
                     </div>
                 </div>
-                <div className="order-follow-status">
+                {/* <div className="order-follow-status">
                     <span className="content" style={{
                         color: eventInfo.event.extendedProps.order_status === 'reject'
                             ? 'red'
@@ -211,7 +230,7 @@ const OrderManage = () => {
                                 : eventInfo.event.extendedProps.order_status === 'deliveried'
                                     ? 'green' : 'rgb(23 202 146)'
                     }}>{renderStatusTracking(eventInfo.event.extendedProps.order_status)}</span>
-                </div>
+                </div> */}
             </div>
         );
     }
@@ -228,39 +247,34 @@ const OrderManage = () => {
     return (
         <div className="order-manage-wrapper">
             {!isOpenSupplement ?
-                !isEditTrackingOrder ?
-                    <div className="full-calendar">
-                        <div className="full-calendar-image">
-                            <img src='../images/estimate_delivery.jpg' />
-                        </div>
-                        <div className="cancel-order-number">
-                            {renderContentSup()}
-                            {/* Bạn đã hủy <span className="number">{user?.order_day_cancel}</span> ngày */}
-                        </div>
-                        {user.order_day_cancel > 0 && <div className="click-here">
-                            Bấm vào <span className="here" onClick={() => handleOpenOrderSupplement()}> đây </span> để chọn ngày bù
-                        </div>}
-                        <FullCalendar
-                            plugins={[interactionPlugin, dayGridPlugin, listPlugin]}
-                            headerToolbar={{
-                                left: "prev,next",
-                                right: "title"
-                            }}
-                            initialView="listWeek"
-                            editable={true}
-                            selectable={true}
-                            displayEventTime={true}
-                            selectMirror={true}
-                            dayMaxEvents={true}
-                            events={listOrder}
-                            eventContent={renderEventContent}
-                            eventClick={handleEventClick}
-                        />
-                    </div> :
-                    <EditOrderTracking
-                        trackingDaySelected={trackingDaySelected}
-                        setIsEditTrackingOrder={setIsEditTrackingOrder}
+                <div className="full-calendar">
+                    <div className="full-calendar-image">
+                        <img src='../images/estimate_delivery.jpg' />
+                    </div>
+                    <div className="cancel-order-number">
+                        {renderContentSup()}
+                        {/* Bạn đã hủy <span className="number">{user?.order_day_cancel}</span> ngày */}
+                    </div>
+                    {user.order_day_cancel > 0 && <div className="click-here">
+                        Bấm vào <span className="here" onClick={() => handleOpenOrderSupplement()}> đây </span> để chọn ngày bù
+                    </div>}
+                    <FullCalendar
+                        plugins={[interactionPlugin, dayGridPlugin, listPlugin]}
+                        headerToolbar={{
+                            left: "prev,next",
+                            right: "title"
+                        }}
+                        initialView="listWeek"
+                        editable={true}
+                        selectable={true}
+                        displayEventTime={true}
+                        selectMirror={true}
+                        dayMaxEvents={true}
+                        events={listOrder}
+                        eventContent={renderEventContent}
+                        eventClick={handleEventClick}
                     />
+                </div>
                 : <div className="supplement-wrapper">
                     <div className="supplement-image">
                         <img src='../images/estimate_delivery.jpg' />
@@ -302,6 +316,11 @@ const OrderManage = () => {
                 setVisible={setIsOpenAddressModal}
                 addressSelected={addressSelected}
                 setAddressSelected={setAddressSelected}
+            />
+            <DrawerEditOrderTracking
+                visible={isEditTrackingOrder}
+                setVisible={setIsEditTrackingOrder}
+                trackingDaySelected={trackingDaySelected}
             />
         </div>
     )

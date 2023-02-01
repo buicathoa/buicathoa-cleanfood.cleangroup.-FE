@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react'
-import { Button, InputNumber, Modal, Radio, RadioChangeEvent, Row, Select, Steps, Switch, Tag } from 'antd';
-import { DatePicker} from 'antd-mobile';
+import { Button, InputNumber, DatePicker, Modal, Radio, RadioChangeEvent, Row, Select, Steps, Switch, Tag } from 'antd';
 import {
     MinusOutlined, PlusOutlined, DeleteOutlined, UserOutlined,
     GiftOutlined,
@@ -82,13 +81,13 @@ const Cart: React.FC = () => {
                     const delivery_end_time = moment(addressSelected?.delivery_time![1]).format(
                         "HH:mm:ss"
                     )
-
+                        debugger
                     const payloadDaysRegister = {
                         start_date: start_day,
                         end_date: end_day,
                         delivery_start_time: delivery_start_time,
                         delivery_end_time: delivery_end_time,
-                        order_id: (res?.data!)[i]?._id,
+                        order_code: (res?.data!)[i]?.order_code,
                         province_id: addressSelected?.province_id,
                         district_id: addressSelected?.district_id,
                         ward_id: addressSelected?.ward_id,
@@ -319,8 +318,9 @@ const Cart: React.FC = () => {
                         <div className="cart-delivery-date">
                             <span className="title">Ngày nhận: </span>
                             <div className="delivery-date-content">
-                                <span className="date-delivery">{moment(new Date()).add(3, "days").format("DD-MM-YYYY")}</span>
-                                <span className="date-delivery-edit"><Tag color="#e46d4f" onClick={() => setIsOpenDeliveryDate(true)}>Thay đổi</Tag></span>
+                                <DatePicker size='large' defaultValue={moment(new Date()).add(3, "days")} format="DD-MM-YYYY"/>
+                                {/* <span className="date-delivery">{moment(new Date()).add(3, "days").format("DD-MM-YYYY")}</span>
+                                <span className="date-delivery-edit"><Tag color="#e46d4f" onClick={() => setIsOpenDeliveryDate(true)}>Thay đổi</Tag></span> */}
                             </div>
                         </div>
                         <div className="contact-decor"></div>
@@ -392,17 +392,6 @@ const Cart: React.FC = () => {
                 </div>
 
             </div>
-            {/* <DatePicker
-        title='时间选择'
-        visible={isOpenDeliveryDate}
-        onClose={() => {
-          setIsOpenDeliveryDate(false)
-        }}
-        // max={now}
-        // onConfirm={val => {
-        //   Toast.show(val.toDateString())
-        // }}
-      /> */}
             <ModalAddress
                 visible={isOpenAddressModal} setVisible={setIsOpenAddressModal}
                 addressSelected={addressSelected} setAddressSelected={setAddressSelected}

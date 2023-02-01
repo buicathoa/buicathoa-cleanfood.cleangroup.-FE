@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
-import { Button, Checkbox, Col, Empty, Form, Input, Modal, Radio, RadioChangeEvent, Row, Select, TimePicker } from 'antd'
+import { Button, Checkbox, Col, Drawer, Empty, Form, Input, Modal, Radio, RadioChangeEvent, Row, Select, TimePicker } from 'antd'
 import {
-    EditOutlined, DeleteOutlined, PushpinFilled
+    EditOutlined, DeleteOutlined, PushpinFilled, CloseOutlined
 } from "@ant-design/icons";
 import moment from 'moment'
 import _ from 'lodash'
@@ -176,32 +176,34 @@ const ModalAddress = ({ visible, setVisible, addressSelected, setAddressSelected
         setAddressSelected(deliverySelected)
     }
 
+    const handleCancelEdit = () => {
+        setIsEditAddress(false)
+       setIsOpenAddressDetail(false)
+    }
+
 
     return (
-        <Modal className="modal-address" getContainer={false} title={(visible && !isOpenAddressDetail) ? 'Địa chỉ của tôi' : (isEditAddress ? 'Chỉnh sửa địa chỉ' : 'Thêm mới địa chỉ')} open={visible}
-            onCancel={() => setVisible(false)}
-            footer={[
-                <Button key="exit" onClick={() => handleCloseModal()}>
-                    Thoát
-                </Button>,
-                isOpenAddressDetail && <Button key="back" onClick={() => handleBackToPreviousForm()}>
-                    Trở lại
-                </Button>,
-                isOpenAddressDetail && <Button form="basic" key="submit" htmlType="submit">
-                    Lưu
-                </Button>,
-            ]}>
+        <Drawer
+            title={<div className="drawer-title"><span>Danh sách địa chỉ</span><CloseOutlined onClick={() => setVisible(false)} /></div>}
+            placement={"bottom"}
+            closable={false}
+            onClose={() => setVisible(false)}
+            open={visible}
+            size="large"
+            className={visible ? 'active' : 'deactive'}
+        >
             {isOpenAddressDetail ?
                 <Form
-                    name="basic"
+                    name="address_form"
                     initialValues={formValues}
                     validateMessages={validateMessages}
                     layout="vertical"
                     autoComplete="off"
                     onFinish={onSubmitForm}
                     form={form}
+                    className="drawer-form body-inner"
                 >
-                    <div className="contact-info">
+                    <div className="contact-info-drawer">
                         <div className="contact-info-item">
                             <div className="contact-info-title">
                                 Thông tin cơ bản
@@ -357,7 +359,7 @@ const ModalAddress = ({ visible, setVisible, addressSelected, setAddressSelected
                         </div>
                     </div>
                 </Form> :
-                <div className="list-address">
+                <div className="body-inner list-address">
                     <Radio.Group onChange={handleSelectAddress} value={addressSelected?._id}>
                         {!_.isEmpty(listDeliveryAddress) ? listDeliveryAddress?.map((item, index) => {
                             return (
@@ -391,7 +393,12 @@ const ModalAddress = ({ visible, setVisible, addressSelected, setAddressSelected
                     </div>
                 </div>
             }
-        </Modal>
+            <div className="drawer-button">
+                {isOpenAddressDetail && <Button className="save" form="address_form" key="submit" htmlType="submit">Lưu</Button>}
+                <Button className="cancel" onClick={() => setVisible(false)}>Thoát</Button>
+                <Button className="back" onClick={() => handleCancelEdit()}>Trở lại</Button>
+            </div>
+        </Drawer>
     )
 }
 

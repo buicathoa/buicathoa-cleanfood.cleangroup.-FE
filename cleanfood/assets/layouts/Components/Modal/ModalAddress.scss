@@ -1,195 +1,173 @@
-.modal-address {
-  font-family: "Roboto";
-  .ant-modal-body {
-    height: calc(300 / $fdf) * $rem;
-    overflow: auto;
-    .ant-modal-close-x {
-      span {
-        color: #ffffff;
+.list-address {
+  padding: calc(4 / $fdf) * $rem;
+  display: flex;
+  flex-direction: column;
+  height: 90%;
+  overflow-y: scroll;
+  .address-item {
+    display: flex;
+    align-items: center;
+    padding: calc(12 / $fdf) * $rem;
+    border-bottom: 1px solid rgb(228 217 217 / 54%);
+    .address-pin {
+      width: 10%;
+      padding-right: calc(8 / $fdf) * $rem;
+      .anticon {
+        color: $maincolor;
+        font-size: calc(20 / $fdf) * $rem;
       }
     }
-    .list-address {
-      padding: calc(16 / $fdf) * $rem;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      .address-item {
+    .address-detail {
+      width: 80%;
+      padding-right: calc(8 / $fdf) * $rem;
+      .user-info {
         display: flex;
         align-items: center;
-        padding: calc(12 / $fdf) * $rem;
-        border-bottom: 1px solid rgb(228 217 217 / 54%);
-        .address-pin {
-          width: 10%;
+        .user-name {
           padding-right: calc(8 / $fdf) * $rem;
-          .anticon {
-            color: $maincolor;
-            font-size: calc(20 / $fdf) * $rem;
-          }
-        }
-        .address-detail {
-          width: 80%;
-          padding-right: calc(8 / $fdf) * $rem;
-          .user-info {
-            display: flex;
-            align-items: center;
-            .user-name {
-              padding-right: calc(8 / $fdf) * $rem;
-              color: #2c2c2c;
-              font-weight: 400;
-              font-size: calc(14 / $fdf) * $rem;
-              border-right: 1px solid rgba(0, 0, 0, 0.54);
-              span {
-                font-weight: 600;
-              }
-            }
-            .user-phone {
-              padding-left: calc(8 / $fdf) * $rem;
-              color: #2c2c2c;
-              font-weight: 400;
-              font-size: calc(14 / $fdf) * $rem;
-              span {
-                font-weight: 600;
-              }
-            }
-          }
-          .full-address {
-            color: rgba(0, 0, 0, 0.54);
-            font-size: calc(16 / $fdf) * $rem;
-            margin-bottom: calc(4 / $fdf) * $rem;
-          }
-          .delivery-time {
-            color: #2c2c2c;
-            font-weight: 400;
-            font-size: calc(14 / $fdf) * $rem;
-            margin-top: calc(8 / $fdf) * $rem;
-            span {
-              font-weight: 600;
-            }
-          }
-          .is-default {
-            padding: calc(4 / $fdf) * $rem;
-            border: 1px solid rgb(243, 101, 49);
-            color: rgb(243, 101, 49);
-            width: calc(80 / $fdf) * $rem;
-            text-align: center;
-            font-weight: 700;
-            // cursor: pointer;
-          }
-          .make-default {
-            padding: calc(4 / $fdf) * $rem;
-            border: 1px solid $maincolor;
-            color: $maincolor;
-            width: calc(140 / $fdf) * $rem;
-            text-align: center;
-            font-weight: 700;
-            cursor: pointer;
-            &:hover {
-              background-color: #f5f5f5;
-            }
-          }
-        }
-        .actions-button {
-          width: 10%;
-          display: flex;
+          color: #2c2c2c;
+          font-weight: 400;
           font-size: calc(14 / $fdf) * $rem;
-          .update-address {
-            color: $maincolor;
-            margin-right: calc(16 / $fdf) * $rem;
-            cursor: pointer;
-            // background-color: rgb(243, 101, 49);
-            border: 1px solid $maincolor;
-            border-radius: 5px;
-            padding: 4px;
-            &:hover {
-              transform: rotate(360deg);
-              transition: transform 0.5s ease;
-            }
+          border-right: 1px solid rgba(0, 0, 0, 0.54);
+          span {
+            font-weight: 600;
           }
-          .delete-address {
-            color: rgb(243, 101, 49);
-            // background-color: rgb(61, 159, 252);
-            cursor: pointer;
-            border: 1px solid rgb(243, 101, 49);
-            border-radius: 5px;
-            padding: 4px;
-            &:hover {
-              transform: rotate(360deg);
-              transition: transform 0.5s ease;
-            }
+        }
+        .user-phone {
+          padding-left: calc(8 / $fdf) * $rem;
+          color: #2c2c2c;
+          font-weight: 400;
+          font-size: calc(14 / $fdf) * $rem;
+          span {
+            font-weight: 600;
           }
         }
       }
-      .create-new-delivery {
-        display: flex;
-        justify-content: flex-end;
-        margin-right: calc(42 / $fdf) * $rem;
-        cursor: pointer;
+      .full-address {
+        color: rgba(0, 0, 0, 0.54);
+        font-size: calc(16 / $fdf) * $rem;
+        margin-bottom: calc(4 / $fdf) * $rem;
+      }
+      .delivery-time {
+        color: #2c2c2c;
+        font-weight: 400;
+        font-size: calc(14 / $fdf) * $rem;
+        margin-top: calc(8 / $fdf) * $rem;
         span {
-          width: calc(140 / $fdf) * $rem;
-          text-align: center;
-          padding: calc(8 / $fdf) * $rem;
-          border: 1px solid $maincolor;
-          background-color: $maincolor;
-          color: #ffffff;
-          margin: calc(8 / $fdf) * $rem 0;
+          font-weight: 600;
+        }
+      }
+      .is-default {
+        padding: calc(4 / $fdf) * $rem;
+        border: 1px solid rgb(243, 101, 49);
+        color: rgb(243, 101, 49);
+        width: calc(80 / $fdf) * $rem;
+        text-align: center;
+        font-weight: 700;
+        // cursor: pointer;
+      }
+      .make-default {
+        padding: calc(4 / $fdf) * $rem;
+        border: 1px solid $maincolor;
+        color: $maincolor;
+        width: calc(140 / $fdf) * $rem;
+        text-align: center;
+        font-weight: 700;
+        cursor: pointer;
+        &:hover {
+          background-color: #f5f5f5;
         }
       }
     }
-    .contact-info {
-      padding: calc(12 / $fdf) * $rem;
-      .contact-info-title {
-        font-size: calc(18 / $fdf) * $rem;
-        font-weight: 600;
-        color: #2c2c2c;
-        margin-left: 8px;
-        margin-bottom: 4px;
-      }
-      .ant-row {
-        flex-direction: row-reverse !important;
-        justify-content: flex-end;
-        .checkbox {
-          .ant-form-item-row {
-            align-items: center;
-            flex-direction: row;
-            .ant-form-item-label {
-              padding-bottom: 0 !important;
-              margin-left: 8px;
-              flex: unset !important;
-              label {
-                font-size: calc(18 / $fdf) * $rem;
-                font-weight: 400;
-                color: #2c2c2c;
-              }
-            }
-            .ant-form-item-control {
-              width: unset !important;
-              margin-left: 8px;
-              display: block;
-              flex-grow: unset;
-            }
-          }
+    .actions-button {
+      width: 10%;
+      display: flex;
+      font-size: calc(14 / $fdf) * $rem;
+      .update-address {
+        color: $maincolor;
+        margin-right: calc(16 / $fdf) * $rem;
+        cursor: pointer;
+        // background-color: rgb(243, 101, 49);
+        border: 1px solid $maincolor;
+        border-radius: 5px;
+        padding: 4px;
+        &:hover {
+          transform: rotate(360deg);
+          transition: transform 0.5s ease;
         }
-        &.multiple {
-          flex-direction: row !important;
-          justify-content: unset !important;
-          .ant-col {
-            &:nth-child(1) {
-              padding-right: 8px;
-            }
-          }
+      }
+      .delete-address {
+        color: rgb(243, 101, 49);
+        // background-color: rgb(61, 159, 252);
+        cursor: pointer;
+        border: 1px solid rgb(243, 101, 49);
+        border-radius: 5px;
+        padding: 4px;
+        &:hover {
+          transform: rotate(360deg);
+          transition: transform 0.5s ease;
         }
       }
     }
   }
-  .ant-modal-footer {
-    button {
-      &:hover {
-        span {
-          transform: rotate(360deg);
-          transition: transform 0.5s ease;
+  .create-new-delivery {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: calc(42 / $fdf) * $rem;
+    cursor: pointer;
+    span {
+      width: calc(140 / $fdf) * $rem;
+      text-align: center;
+      padding: calc(8 / $fdf) * $rem;
+      border: 1px solid $maincolor;
+      background-color: $maincolor;
+      color: #ffffff;
+      margin: calc(8 / $fdf) * $rem 0;
+    }
+  }
+}
+.drawer-form{
+  .contact-info-drawer {
+    padding: calc(12 / $fdf) * $rem;
+    .contact-info-title {
+      font-size: calc(18 / $fdf) * $rem;
+      font-weight: 600;
+      color: #2c2c2c;
+      margin-left: 8px;
+      margin-bottom: 4px;
+    }
+    .ant-row {
+      flex-direction: row-reverse !important;
+      justify-content: flex-end;
+      .checkbox {
+        .ant-form-item-row {
+          align-items: center;
+          flex-direction: row;
+          .ant-form-item-label {
+            padding-bottom: 0 !important;
+            margin-left: 8px;
+            flex: unset !important;
+            label {
+              font-size: calc(18 / $fdf) * $rem;
+              font-weight: 400;
+              color: #2c2c2c;
+            }
+          }
+          .ant-form-item-control {
+            width: unset !important;
+            margin-left: 8px;
+            display: block;
+            flex-grow: unset;
+          }
         }
-        &:nth-child(2) {
-          color: #ffffff;
+      }
+      &.multiple {
+        flex-direction: row !important;
+        justify-content: unset !important;
+        .ant-col {
+          &:nth-child(1) {
+            padding-right: 8px;
+          }
         }
       }
     }
